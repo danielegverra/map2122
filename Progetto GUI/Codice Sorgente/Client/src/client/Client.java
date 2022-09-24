@@ -114,12 +114,12 @@ public class Client extends Thread {
 				answer = (String) in.readObject();
 
 				if(answer.contains("@ERROR")) {
-					m.setErrorMsg(answer);
+					m.setErrorMsg((String) in.readObject());
 					m.setCheck(false);
 					m.setWaitManager(false);
 					System.out.println("Si è verificato un errore: ");
-					System.out.println(in.readObject());
-					System.out.println("Riprova: ");
+					//System.out.println(in.readObject());
+					//System.out.println("Riprova: ");
 					m.resetFile();
 				} else {
 
@@ -213,12 +213,16 @@ public class Client extends Thread {
 	
 				String s = (String)in.readObject();
 				System.out.println("Prediction:" + s);
-				pm.setWaitManager(false);
-				pm.showButton();
+				
 				pm.setPrediction(s);
+				pm.showButton();
 
-				System.out.println("Vuoi ripetere la predizione?");
-				System.out.println("Scrivi Y in caso positivo, altrimenti scrivi qualsiasi altra cosa.");
+				//System.out.println("Vuoi ripetere la predizione?");
+				//System.out.println("Scrivi Y in caso positivo, altrimenti scrivi qualsiasi altra cosa.");
+
+				//Aspetto il Manager che scelga tra ripetere o meno il predict
+				pm.setWaitClient(true);
+				pm.setWaitManager(false);
 				while(pm.getWaitClient()) {
 					sleep(200);
 				}
@@ -226,8 +230,8 @@ public class Client extends Thread {
 				pm.setWaitClient(true);
 
 			} while (c.toLowerCase().equals("y"));
-			System.out.println("Vuoi ripetere una nuova esecuzione con un nuovo oggetto KNN?");
-			System.out.println("Scrivi Y in caso positivo, altrimenti scrivi qualsiasi altra cosa.");
+			//System.out.println("Vuoi ripetere una nuova esecuzione con un nuovo oggetto KNN?");
+			//System.out.println("Scrivi Y in caso positivo, altrimenti scrivi qualsiasi altra cosa.");
 			menu = pm.getIsDifferentKnn();
 		} while (menu.toLowerCase().equals("y"));
 
