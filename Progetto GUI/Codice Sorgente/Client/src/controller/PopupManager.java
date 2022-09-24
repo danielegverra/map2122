@@ -156,7 +156,19 @@ public class PopupManager {
     }
 
     @FXML
-    void useSameKnn(ActionEvent event) {
+    void useSameKnn(ActionEvent event) throws InterruptedException{
+        
+        //Setto la variabile che comunica al Client di ripetere la predizione
+        isSameKnn = "y";
+
+        //Aspetto che il Client comunichi al Manager il msg giusto
+        waitManager = true;
+        waitClient = false;
+        while(waitManager) {
+            Thread.currentThread().sleep(100);
+        }
+
+        //Reset delle label per prendere la predizione
         sameKnnButton.setLayoutX(435);
         sameKnnButton.setLayoutY(171);
         differentKnnButton.setLayoutX(435);
@@ -165,11 +177,11 @@ public class PopupManager {
         provaButton.setLayoutY(94);
         provaButton.setLayoutX(288);
         textField.setOpacity(1);
+        tipoAttributo.setText(msg);
         tipoAttributo.setOpacity(1);
         labelPredizione.setOpacity(0);
         labelPredizioneEffettiva.setOpacity(0);
-        isSameKnn = "y";
-        setWaitClient(false);
+
     }
 
     @FXML
