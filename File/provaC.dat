@@ -1,0 +1,20 @@
+@schema 2
+@desc X discrete
+@desc Y continuous
+@target class
+@data 15
+A,2,1
+A,2,1
+A,1,1
+A,2,1
+A,5,1.5
+A,5,1.5
+A,6,1.5
+B,6,10
+A,6,1.5
+A,6,1.5
+B,10,10
+B,5,10
+B,12,10
+B,14,10
+A,1,1
