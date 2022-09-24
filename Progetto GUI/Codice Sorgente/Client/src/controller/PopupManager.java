@@ -113,14 +113,21 @@ public class PopupManager {
     void nextValue(KeyEvent event) throws InterruptedException {
         if(event.getCode() == KeyCode.ENTER) {
             tmp = textField.getText().trim();
-            waitManager = true;
-            waitClient = false;
             textField.clear();
             System.out.println(tmp);
-            while (waitManager) {
-                Thread.currentThread().sleep(100);
-            }
-            changeMsg();
+
+            //se tmp non è vuota la mando al Client
+            if (tmp.compareTo("") != 0) {
+
+                //Attendo che Client prenda tmp e restiuisca il messaggio
+                waitManager = true;
+                waitClient = false;
+                while (waitManager) {
+                    Thread.currentThread().sleep(100);
+                }
+                changeMsg();
+            } 
+            //se tmp è vuota non faccio nulla
         }
 
     }
