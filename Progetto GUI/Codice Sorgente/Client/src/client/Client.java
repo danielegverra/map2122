@@ -22,9 +22,7 @@ import javafx.stage.Stage;
  */
 public class Client extends Thread {
 
-	private int decision = 0;
 	private Manager m;
-	private boolean wait;
 	
 	/**
 	 * Oggetto della classe Socket che stabilisce la connessione con il Server.
@@ -91,12 +89,10 @@ public class Client extends Thread {
 	private void talking() throws IOException, ClassNotFoundException, InterruptedException {
 
 		int decision = 0;
-		String menu = "";
-
 		String answer = "";
 
-		do {
-			do{
+		while (true) {
+			do {
 				String tableName = "";
 
 				System.out.println("Carica KNN da file : [1]");
@@ -105,15 +101,15 @@ public class Client extends Thread {
 				System.out.println("\nInserire nome della tabella o file (senza l'estensione): ");
 
 				//decision = m.stampa1(event1);
-				while(m.getDecision() == 0 || m.getFile().equals("NULL")) {
-					sleep(1000);
+				while (m.getDecision() == 0 || m.getFile().equals("NULL")) {
+					sleep(100);
 				}
 
 				decision = m.getDecision();
 				out.writeObject(decision);
 				answer = (String) in.readObject();
 
-				if(answer.contains("@ERROR")) {
+				if (answer.contains("@ERROR")) {
 					m.setErrorMsg((String) in.readObject());
 					m.setCheck(false);
 					m.setWaitManager(false);
@@ -154,8 +150,8 @@ public class Client extends Thread {
 			}
 			m.setWaitClient(true);
 			PopupManager pm = m.getPopupManager().getController();
+
 			// predict
-			String c;
 			do {
 				out.writeObject(4);
 				boolean flag = true; //reading example
@@ -228,18 +224,23 @@ public class Client extends Thread {
 				//Aspetto che il Manager scelga di ripetere o meno il predict 
 				pm.setWaitClient(true);
 				pm.setWaitManager(false);
-				while(pm.getWaitClient()) {
+				while (pm.getWaitClient()) {
 					sleep(100);
 				}
-				c = pm.getIsSameKnn();
+				
 
-			} while (c.toLowerCase().equals("y"));
+			} while (pm.isSameKnn());
 			//System.out.println("Vuoi ripetere una nuova esecuzione con un nuovo oggetto KNN?");
 			//System.out.println("Scrivi Y in caso positivo, altrimenti scrivi qualsiasi altra cosa.");
-			menu = pm.getIsDifferentKnn();
-		} while (menu.toLowerCase().equals("y"));
+			
+		}
 
-		out.writeObject(0);
+		/*
+		 * QUESTA PARTE DEL CODICE NON VENIVA RAGGIUNTA MAI CON LA GUI
+		 * QUINDI COSA FARE???
+		 */
+
+		//out.writeObject(0);
 
 	}
 
