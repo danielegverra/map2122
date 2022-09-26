@@ -160,12 +160,13 @@ public class Client extends Thread {
 					if (!answer.contains("@ENDEXAMPLE")) {
 						// sto leggendo l'esempio
 						String msg = (String) (in.readObject());
-						
+						System.out.println(msg);
+						pm.setMsg(msg);
+
 						pm.setWaitClient(true);
 						pm.setWaitManager(false);
 						if (answer.equals("@READSTRING")) {
-							System.out.println(msg);
-							pm.setMsg(msg);
+							
 							//out.writeObject(Keyboard.readString());
 
 							//Attendo che Manager mi dia l'attributo discreto
@@ -178,16 +179,24 @@ public class Client extends Thread {
 						} else {
 							double x = 0.0;
 							do {
-								System.out.println(msg);
-								pm.setMsg(msg);
 
 								//Attendo che Manager mi dia l'attributo continuo
 								while(pm.getWaitClient()) {
 									sleep(100);
 								}
-								x = Double.valueOf(pm.getTmp());
+								//Provo ad assegnare il testo a x, se invece il testo è errato
+								//l'eccezione mi resetterà waitClient a true e rientrerà nel ciclo
+								try {
+									x = Double.valueOf(pm.getTmp());
+								} catch (NumberFormatException ex) {
+									/*
+									 *  QUI BISOGNA LANCIARE IL POPUP DI ERRORE NEL CASO DI NUMERO INSERITO NON VALIDO
+									 */
+									pm.setWaitClient(true);
+									pm.setWaitManager(false);
+								}
 								//pm.setWaitClient(true);
-							} while (new Double(x).equals(Double.NaN));
+							} while (pm.getWaitClient());
 							out.writeObject(x);
 						}
 
@@ -207,8 +216,13 @@ public class Client extends Thread {
 
 						sleep(100);
 					}
-					k = Integer.valueOf(pm.getTmp());
-					
+					try { 
+						k = Integer.valueOf(pm.getTmp());
+					} catch (NumberFormatException ex) {
+						/*
+						 * QUI BISOGNA LANCIARE IL POPUP DI ERRORE NEL CASO DI NUMERO INSERITO NON VALIDO
+						 */
+					}
 
 				} while (k < 1);
 				out.writeObject(k);
