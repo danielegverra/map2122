@@ -45,8 +45,7 @@ public class PopupManager {
     private String prediction;
     private Boolean waitManager = true;
     private Boolean waitClient = true;
-    private String isSameKnn;
-    private String isDifferentKnn;
+    private boolean sameKnn;
 
     //GET E SET
 
@@ -88,22 +87,17 @@ public class PopupManager {
         provaButton.setOpacity(0);
     }
     
-    public String getIsSameKnn() {
-        return isSameKnn;
+    public boolean isSameKnn() {
+        return sameKnn;
     }
-
-    public String getIsDifferentKnn() {
-        return isDifferentKnn;
-    }
-
 
     //METODI
     
 
     public void changeMsg() throws InterruptedException {
-        while(waitManager) {
+
+        while (waitManager) {
             Thread.currentThread().sleep(300);
-            
         }
         tipoAttributo.setText(msg);
     }
@@ -111,7 +105,9 @@ public class PopupManager {
     
     @FXML
     void nextValue(KeyEvent event) throws InterruptedException {
-        if(event.getCode() == KeyCode.ENTER) {
+
+        if (event.getCode() == KeyCode.ENTER) {
+
             tmp = textField.getText().trim();
             textField.clear();
             System.out.println(tmp);
@@ -129,17 +125,18 @@ public class PopupManager {
             } 
             //se tmp è vuota non faccio nulla
         }
-
     }
 
     @FXML
     void close(ActionEvent event) {
+
         ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
         return;
     }
 
     @FXML
     void changeText(ActionEvent event) throws InterruptedException {
+
         labelPredizione.setOpacity(1);
         System.out.println(prediction);
         labelPredizioneEffettiva.setText(prediction);
@@ -152,8 +149,8 @@ public class PopupManager {
     }
 
     
-
     public void showButton() {
+
         provaButton.setOpacity(1);
         provaButton.setLayoutX(77);
         provaButton.setLayoutY(120);
@@ -166,7 +163,7 @@ public class PopupManager {
     void useSameKnn(ActionEvent event) throws InterruptedException{
         
         //Setto la variabile che comunica al Client di ripetere la predizione
-        isSameKnn = "y";
+        sameKnn = true;
 
         //Aspetto che il Client comunichi al Manager il msg giusto
         waitManager = true;
@@ -194,8 +191,7 @@ public class PopupManager {
     @FXML
     void useOtherKnn(ActionEvent event) {
         this.close(event);
-        isSameKnn = "n";
-        isDifferentKnn = "y";
+        sameKnn = false;
         setWaitClient(false);
     }
 

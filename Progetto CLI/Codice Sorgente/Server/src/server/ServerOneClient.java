@@ -157,7 +157,7 @@ class ServerOneClient extends Thread {
             }
 
         } catch (IOException exc) {
-            System.out.println("\nErrore nella comunicazione con il Client.");
+            System.out.println("\nComunicazione con il Client interrotta.");
         } catch (ClassNotFoundException exc) {
             System.out.println("\nErrore nel casting dei dati.");
         }
