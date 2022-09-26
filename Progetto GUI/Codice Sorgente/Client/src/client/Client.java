@@ -117,7 +117,7 @@ public class Client extends Thread {
 					m.setErrorMsg((String) in.readObject());
 					m.setCheck(false);
 					m.setWaitManager(false);
-					System.out.println("Si è verificato un errore: ");
+					//System.out.println("Si è verificato un errore: ");
 					//System.out.println(in.readObject());
 					//System.out.println("Riprova: ");
 					m.resetFile();
@@ -164,28 +164,33 @@ public class Client extends Thread {
 					if (!answer.contains("@ENDEXAMPLE")) {
 						// sto leggendo l'esempio
 						String msg = (String) (in.readObject());
+						
+						pm.setWaitClient(true);
 						pm.setWaitManager(false);
 						if (answer.equals("@READSTRING")) {
 							System.out.println(msg);
 							pm.setMsg(msg);
 							//out.writeObject(Keyboard.readString());
+
+							//Attendo che Manager mi dia l'attributo discreto
 							while(pm.getWaitClient()) {
 								sleep(100);
 							}
+							
 							out.writeObject(pm.getTmp());
-							pm.setWaitClient(true);
+							//pm.setWaitClient(true);
 						} else {
 							double x = 0.0;
 							do {
 								System.out.println(msg);
-
 								pm.setMsg(msg);
 
+								//Attendo che Manager mi dia l'attributo continuo
 								while(pm.getWaitClient()) {
 									sleep(100);
 								}
 								x = Double.valueOf(pm.getTmp());
-								pm.setWaitClient(true);
+								//pm.setWaitClient(true);
 							} while (new Double(x).equals(Double.NaN));
 							out.writeObject(x);
 						}
@@ -200,6 +205,7 @@ public class Client extends Thread {
 				do {
 					System.out.print(answer);
 					pm.setMsg(answer);
+					pm.setWaitClient(true);
 					pm.setWaitManager(false);
 					while(pm.getWaitClient()) {
 
@@ -213,21 +219,19 @@ public class Client extends Thread {
 	
 				String s = (String)in.readObject();
 				System.out.println("Prediction:" + s);
-				
-				pm.setPrediction(s);
 				pm.showButton();
+				pm.setPrediction(s);
 
 				//System.out.println("Vuoi ripetere la predizione?");
 				//System.out.println("Scrivi Y in caso positivo, altrimenti scrivi qualsiasi altra cosa.");
-
-				//Aspetto il Manager che scelga tra ripetere o meno il predict
+				
+				//Aspetto che il Manager scelga di ripetere o meno il predict 
 				pm.setWaitClient(true);
 				pm.setWaitManager(false);
 				while(pm.getWaitClient()) {
-					sleep(200);
+					sleep(100);
 				}
 				c = pm.getIsSameKnn();
-				pm.setWaitClient(true);
 
 			} while (c.toLowerCase().equals("y"));
 			//System.out.println("Vuoi ripetere una nuova esecuzione con un nuovo oggetto KNN?");
@@ -239,6 +243,7 @@ public class Client extends Thread {
 
 	}
 
+	//DOVE VIENE CHIAMATO??????
 	void openPopup() throws IOException {
 		Stage stage;
 		Parent root;
