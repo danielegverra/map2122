@@ -1,5 +1,6 @@
 package server;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -92,6 +93,10 @@ class ServerOneClient extends Thread {
                     try {
                         knn = KNN.carica("../../../File/" + tableName + ".dmp");
                         answer = "@CORRECT";
+                    } catch (FileNotFoundException exc) {
+                        System.err.println(exc.getMessage());
+                        err = "File binario non trovato.";
+                        answer = "@ERROR";
                     } catch (IOException | ClassNotFoundException exc) {
                         System.err.println(exc.getMessage());
                         err = exc.getMessage();
@@ -119,7 +124,7 @@ class ServerOneClient extends Thread {
                         answer = "@CORRECT";
                     } catch (DatabaseConnectionException exc) {
                         System.err.println(exc.getMessage());
-                        err = exc.getMessage();
+                        err = "Errore di comunicazione con il DB.";
                         answer = "@ERROR";
                     } catch (TrainingDataException | InsufficientColumnNumberException exc) {
                         System.err.println(exc.getMessage());

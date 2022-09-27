@@ -56,7 +56,7 @@ public class DbAccess {
 		try {
 			conn = DriverManager.getConnection(connectionString, USER_ID, PASSWORD);
 		} catch (SQLException e) {
-			System.out.println("Impossibile connettersi al DB");
+			System.out.println("Impossibile connettersi al DB.");
 			throw new DatabaseConnectionException(e.toString());
 		}
 	}
