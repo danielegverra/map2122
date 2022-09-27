@@ -17,19 +17,19 @@ public class PopupController {
     //FXML
 
     @FXML
-    private Label tipoAttributo;
+    private Label typeAttributLabel;
 
     @FXML
-    private TextField textField;
+    private TextField valueField;
 
     @FXML
-    private Label labelPredizione;
+    private Label captionLabel;
 
     @FXML
-    private JFXButton provaButton;
+    private JFXButton showPredictionButton;
 
     @FXML
-    private Label labelPredizioneEffettiva;
+    private Label predictionLabel;
 
     @FXML
     private JFXButton differentKnnButton;
@@ -57,12 +57,12 @@ public class PopupController {
         this.msg = msg;
     }
 
-    public String getTipoAttributo() {
-        return tipoAttributo.getText();
+    public String getTypeAttributeLabel() {
+        return typeAttributLabel.getText();
     }
 
-    public void setTipoAttributo(String tipoAttributo) {
-        this.tipoAttributo.setText(tipoAttributo);
+    public void setTypeAttributeLabel(String tipoAttributo) {
+        this.typeAttributLabel.setText(tipoAttributo);
     }
 
     
@@ -84,7 +84,7 @@ public class PopupController {
     }    
 
     public void hideButton() {
-        provaButton.setOpacity(0);
+        showPredictionButton.setOpacity(0);
     }
     
     public boolean isSameKnn() {
@@ -99,7 +99,7 @@ public class PopupController {
         while (waitManager) {
             Thread.currentThread().sleep(300);
         }
-        tipoAttributo.setText(msg);
+        typeAttributLabel.setText(msg);
     }
 
     
@@ -108,8 +108,8 @@ public class PopupController {
 
         if (event.getCode() == KeyCode.ENTER) {
 
-            tmp = textField.getText().trim();
-            textField.clear();
+            tmp = valueField.getText().trim();
+            valueField.clear();
             System.out.println(tmp);
 
             //se tmp non è vuota la mando al Client
@@ -137,11 +137,11 @@ public class PopupController {
     @FXML
     void changeText(ActionEvent event) throws InterruptedException {
 
-        labelPredizione.setOpacity(1);
+        captionLabel.setOpacity(1);
         System.out.println(prediction);
-        labelPredizioneEffettiva.setText(prediction);
-        labelPredizioneEffettiva.setOpacity(1);
-        provaButton.setOpacity(0);
+        predictionLabel.setText(prediction);
+        predictionLabel.setOpacity(1);
+        showPredictionButton.setOpacity(0);
         sameKnnButton.setLayoutX(14);
         sameKnnButton.setLayoutY(206);
         differentKnnButton.setLayoutX(198);
@@ -151,11 +151,11 @@ public class PopupController {
     
     public void showButton() {
 
-        provaButton.setOpacity(1);
-        provaButton.setLayoutX(77);
-        provaButton.setLayoutY(120);
-        textField.setOpacity(0);
-        tipoAttributo.setOpacity(0);
+        showPredictionButton.setOpacity(1);
+        showPredictionButton.setLayoutX(77);
+        showPredictionButton.setLayoutY(120);
+        valueField.setOpacity(0);
+        typeAttributLabel.setOpacity(0);
         setWaitClient(true);
     }
 
@@ -177,14 +177,14 @@ public class PopupController {
         sameKnnButton.setLayoutY(171);
         differentKnnButton.setLayoutX(435);
         differentKnnButton.setLayoutY(250);
-        provaButton.setOpacity(0);
-        provaButton.setLayoutY(94);
-        provaButton.setLayoutX(288);
-        textField.setOpacity(1);
-        tipoAttributo.setText(msg);
-        tipoAttributo.setOpacity(1);
-        labelPredizione.setOpacity(0);
-        labelPredizioneEffettiva.setOpacity(0);
+        showPredictionButton.setOpacity(0);
+        showPredictionButton.setLayoutY(94);
+        showPredictionButton.setLayoutX(288);
+        valueField.setOpacity(1);
+        typeAttributLabel.setText(msg);
+        typeAttributLabel.setOpacity(1);
+        captionLabel.setOpacity(0);
+        predictionLabel.setOpacity(0);
 
     }
 

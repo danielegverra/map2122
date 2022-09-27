@@ -3,13 +3,11 @@ package controller;
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -33,10 +31,9 @@ public class MainController {
     private Label errorLabel;
 
 	private FXMLLoader m;
-	public static Stage stage;
 
-	@FXML
-    private Label tipoAttributo;
+	private Stage stage;
+
 
 	@FXML
     private JFXButton binaryButton;
@@ -48,15 +45,9 @@ public class MainController {
     private JFXButton fileButton;;
 
     @FXML
-    private TextField nomeFile;
+    private TextField fileNameField;
 
-    @FXML
-    private Button startButton;
-
-	@FXML
-    private JFXButton popupButton;
-
-
+   
 	//GET E SET
 
 	public FXMLLoader getPopupManager() {
@@ -90,9 +81,6 @@ public class MainController {
 		this.waitClient = waitClient;
 	}
 
-	public void setMsg(String msg) {
-		tipoAttributo.setText(msg);
-	}
 
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
@@ -107,19 +95,19 @@ public class MainController {
 
 
 	@FXML
-	void decisione(ActionEvent event) throws IOException, InterruptedException {
+	void decision(ActionEvent event) throws IOException, InterruptedException {
 		if (event.getSource() == fileButton) {
 			System.out.println("1");
 			decision = 1;
-			getNome();
+			getName();
 		} else if (event.getSource() == binaryButton) {
 			System.out.println("2");
 			decision = 2;
-			getNome();
+			getName();
 		} else if (event.getSource() == dbButton) {
 			System.out.println("3");
 			decision = 3;
-			getNome();
+			getName();
 		}
 		waitManager = true;
 		while (waitManager) {
@@ -131,12 +119,9 @@ public class MainController {
 		
 	}
 
-
-	
-	private void getNome() {
-		file = nomeFile.getText().trim();
-		System.out.println(file);
-		nomeFile.clear();
+	private void getName() {
+		file = fileNameField.getText();
+		fileNameField.clear();
     }
 
 

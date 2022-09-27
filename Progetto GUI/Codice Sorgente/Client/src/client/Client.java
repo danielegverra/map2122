@@ -137,10 +137,7 @@ public class Client extends Thread {
 			} while (!answer.contains("@CORRECT"));
 
 
-			/*
-			 * CAMBIA LO SCENE!!!
-			 * 
-			 */
+			
 			m.setCheck(true);
 			m.setWaitManager(false);
 			System.out.println("KNN caricato nel Server!");

@@ -35,7 +35,7 @@
       </MenuBar>
       <Pane layoutX="11.0" layoutY="27.0" prefHeight="72.0" prefWidth="375.0" AnchorPane.bottomAnchor="301.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="27.0">
          <children>
-            <Label fx:id="titioloLabel" layoutX="13.0" layoutY="18.0" text="ALGORITMO DI MINING KNN" textFill="WHITE">
+            <Label layoutX="13.0" layoutY="18.0" text="ALGORITMO DI MINING KNN" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -49,15 +49,15 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="nomeFile" layoutX="14.0" layoutY="41.0" prefHeight="26.0" prefWidth="175.0" promptText="Digita il nome" />
+            <TextField fx:id="fileNameField" layoutX="14.0" layoutY="41.0" prefHeight="26.0" prefWidth="175.0" promptText="Digita il nome" />
          </children>
       </Pane>
-      <Label fx:id="label1" layoutX="27.0" layoutY="187.0" style="-fx-opacity: 1;" text="Clicca il bottone corrispondente alla sorgente del file:" textFill="WHITE">
+      <Label layoutX="27.0" layoutY="187.0" style="-fx-opacity: 1;" text="Clicca il bottone corrispondente alla sorgente del file:" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <JFXButton fx:id="fileButton" buttonType="RAISED" layoutX="27.0" layoutY="235.0" onAction="#decisione" prefHeight="58.0" prefWidth="127.0" style="-fx-background-color: #FFFFFF;" text="File">
+      <JFXButton fx:id="fileButton" buttonType="RAISED" layoutX="27.0" layoutY="235.0" onAction="#decision" prefHeight="58.0" prefWidth="127.0" style="-fx-background-color: #FFFFFF;" text="File">
          <font>
             <Font size="19.0" />
          </font>
@@ -69,7 +69,7 @@
             </DropShadow>
          </effect>
       </JFXButton>
-      <JFXButton fx:id="dbButton" buttonType="RAISED" layoutX="376.0" layoutY="235.0" onAction="#decisione" prefHeight="58.0" prefWidth="127.0" style="-fx-background-color: #FFFFFF;" text="Database">
+      <JFXButton fx:id="dbButton" buttonType="RAISED" layoutX="376.0" layoutY="235.0" onAction="#decision" prefHeight="58.0" prefWidth="127.0" style="-fx-background-color: #FFFFFF;" text="Database">
          <font>
             <Font size="19.0" />
          </font>
@@ -81,7 +81,7 @@
             </DropShadow>
          </effect>
       </JFXButton>
-      <JFXButton fx:id="binaryButton" buttonType="RAISED" layoutX="201.0" layoutY="235.0" onAction="#decisione" prefHeight="58.0" prefWidth="127.0" style="-fx-background-color: #FFFFFF;" text="File Binario">
+      <JFXButton fx:id="binaryButton" buttonType="RAISED" layoutX="201.0" layoutY="235.0" onAction="#decision" prefHeight="58.0" prefWidth="127.0" style="-fx-background-color: #FFFFFF;" text="File Binario">
          <font>
             <Font size="19.0" />
          </font>

@@ -2,7 +2,6 @@ package controller;
 
 
 import java.io.IOException;
-
 import com.jfoenix.controls.JFXButton;
 
 import client.Client;
@@ -20,12 +19,6 @@ public class StartController {
 	//Attributi
 
     private Client c;
-	private MainController m;
-
-    private Stage stage;
-	private Scene scene;
-	private Parent root;
-	FXMLLoader loader;
 
 	//FXML
     
@@ -39,19 +32,19 @@ public class StartController {
 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/mainPage.fxml"));
-			root = loader.load();
+			Parent root = loader.load();
 			c = new Client("localhost", Integer.valueOf("2025"), loader.getController());
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			scene = new Scene(root);
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			//stage.show();
             c.start();
 		}  catch (IOException | ClassNotFoundException | NumberFormatException e) {
 			System.out.println("Errore di connessione al Server...");
 		
-			FXMLLoader fxml = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
-			stage = new Stage();
-			root = fxml.load();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
+			Stage stage = new Stage();
+			Parent root = loader.load();
 			stage.setScene(new Scene(root));
 			stage.setResizable(false);
 			stage.initModality(Modality.APPLICATION_MODAL);
