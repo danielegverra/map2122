@@ -55,7 +55,7 @@ public class StartController {
 			stage.setScene(new Scene(root));
 			stage.setResizable(false);
 			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setTitle("Errore di connessione al Server");
+			stage.setTitle("KNN: Popup di errore");
 			//stage.initOwner(popupButton.getScene().getWindow());
 			stage.show();
 
