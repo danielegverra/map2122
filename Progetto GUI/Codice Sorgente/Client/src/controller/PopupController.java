@@ -110,7 +110,6 @@ public class PopupController {
 
             tmp = valueField.getText().trim();
             valueField.clear();
-            System.out.println(tmp);
 
             //se tmp non è vuota la mando al Client
             if (tmp.compareTo("") != 0) {
@@ -138,7 +137,6 @@ public class PopupController {
     void changeText(ActionEvent event) throws InterruptedException {
 
         captionLabel.setOpacity(1);
-        System.out.println(prediction);
         predictionLabel.setText(prediction);
         predictionLabel.setOpacity(1);
         showPredictionButton.setOpacity(0);

@@ -38,10 +38,10 @@ public class StartController {
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			//stage.show();
+			System.out.println("--> Connesione al Server riuscita");
             c.start();
 		}  catch (IOException | ClassNotFoundException | NumberFormatException e) {
-			System.out.println("Errore di connessione al Server...");
-		
+			System.out.println("--> Errore di connessione al Server");
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
 			Stage stage = new Stage();
 			Parent root = loader.load();

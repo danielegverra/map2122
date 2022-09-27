@@ -55,7 +55,7 @@ public class Client extends Thread {
 
 		this.m = m;
 		socket = new Socket(address, port);
-		System.out.println(socket + "\n\n");
+		//System.out.println(socket + "\n");
 		out = new ObjectOutputStream(socket.getOutputStream());
 		in = new ObjectInputStream(socket.getInputStream());
 
@@ -95,12 +95,7 @@ public class Client extends Thread {
 			do {
 				String tableName = "";
 
-				System.out.println("Carica KNN da file : [1]");
-				System.out.println("Carica KNN da binary file : [2]");
-				System.out.println("Carica KNN da database : [3] \n");
-				System.out.println("\nInserire nome della tabella o file (senza l'estensione): ");
-
-				//decision = m.stampa1(event1);
+				
 				while (m.getDecision() == 0 || m.getFile().equals("NULL")) {
 					sleep(100);
 				}
@@ -128,7 +123,7 @@ public class Client extends Thread {
 						m.setErrorMsg((String) in.readObject());
 						m.setCheck(false);
 						m.setWaitManager(false);
-						System.out.println("Si è verificato un errore: ");
+						//System.out.println("Si è verificato un errore: ");
 						//System.out.println(in.readObject());
 						//System.out.println("Riprova: ");
 						m.resetFile();
@@ -140,7 +135,7 @@ public class Client extends Thread {
 			
 			m.setCheck(true);
 			m.setWaitManager(false);
-			System.out.println("KNN caricato nel Server!");
+			System.out.println("--> KNN caricato correttamente");
 
 			while(m.getWaitClient()) {
 				sleep(100);
@@ -157,7 +152,7 @@ public class Client extends Thread {
 					if (!answer.contains("@ENDEXAMPLE")) {
 						// sto leggendo l'esempio
 						String msg = (String) (in.readObject());
-						System.out.println(msg);
+						//System.out.println(msg);
 						pm.setMsg(msg);
 
 						pm.setWaitClient(true);
@@ -205,7 +200,7 @@ public class Client extends Thread {
 				answer = (String) (in.readObject());
 				int k = 0;
 				do {
-					System.out.print(answer);
+					//System.out.print(answer);
 					pm.setMsg(answer);
 					pm.setWaitClient(true);
 					pm.setWaitManager(false);
@@ -225,7 +220,7 @@ public class Client extends Thread {
 				out.writeObject(k);
 	
 				String s = (String)in.readObject();
-				System.out.println("Prediction:" + s);
+				System.out.println("--> Preidizione ottenuta: " + s);
 				pm.showButton();
 				pm.setPrediction(s);
 
@@ -265,8 +260,6 @@ public class Client extends Thread {
 		stage.setScene(new Scene(root));
 		stage.setResizable(false);
 		stage.initModality(Modality.APPLICATION_MODAL);
-		//Node popupButton;
-		//stage.initOwner(popupButton.getScene().getWindow());
 		stage.showAndWait();
 	}
 
