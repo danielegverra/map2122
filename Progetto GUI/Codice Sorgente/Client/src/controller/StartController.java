@@ -12,14 +12,15 @@ import javafx.scene.Node;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class StartPageController {
+public class StartController {
 
 	//Attributi
 
     private Client c;
-	private Manager m;
+	private MainController m;
 
     private Stage stage;
 	private Scene scene;
@@ -47,11 +48,17 @@ public class StartPageController {
             c.start();
 		}  catch (IOException | ClassNotFoundException | NumberFormatException e) {
 			System.out.println("Errore di connessione al Server...");
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/erroreavvio.fxml"));
-			root = loader.load();
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			scene = new Scene(root);
-			stage.setScene(scene);
+		
+			FXMLLoader fxml = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
+			stage = new Stage();
+			root = fxml.load();
+			stage.setScene(new Scene(root));
+			stage.setResizable(false);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setTitle("Errore di connessione al Server");
+			//stage.initOwner(popupButton.getScene().getWindow());
+			stage.show();
+
 		} 
 
 		

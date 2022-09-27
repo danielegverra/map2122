@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="272.0" prefWidth="383.0" style="-fx-background-color: #263238;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PopupManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="272.0" prefWidth="383.0" style="-fx-background-color: #263238;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PopupController">
    <children>
       <Label fx:id="tipoAttributo" layoutX="75.0" layoutY="45.0" prefHeight="77.0" prefWidth="285.0" text="Inserisci valore discreto ,1" textFill="WHITE">
          <font>

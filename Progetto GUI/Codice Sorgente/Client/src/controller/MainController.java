@@ -12,13 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-public class Manager {
+public class MainController {
 
 	//ATTRIBUTI
 	private int decision = 0;
@@ -148,7 +146,7 @@ public class Manager {
 
 		if(check) {
 			stage = new Stage();
-			m = new FXMLLoader(getClass().getResource("../fxml/popup.fxml"));
+			m = new FXMLLoader(getClass().getResource("../fxml/popupPage.fxml"));
 			root = m.load();
 			stage.setScene(new Scene(root));
 			stage.setResizable(false);
@@ -157,15 +155,28 @@ public class Manager {
 			stage.setResizable(false);
 			waitClient = false;
 			//stage.initOwner(popupButton.getScene().getWindow());
-			((PopupManager)m.getController()).changeMsg();
-			((PopupManager)m.getController()).hideButton();
+			((PopupController)m.getController()).changeMsg();
+			((PopupController)m.getController()).hideButton();
 			stage.show();
 		} else {
 			System.out.println(errorMsg);
-			new PopupController().openPopup(errorMsg);
+			openErrorPopup("Attenzione!", errorMsg);
 			
 		}
 	}
+
+	public void openErrorPopup(String title, String subtitle) throws IOException {
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
+        Stage stage = new Stage();
+        Parent root = fxml.load();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setTitle("KNN: Popup di errore");
+        ((ErrorController)fxml.getController()).setTitleLabel(title);
+        ((ErrorController)fxml.getController()).setSubtitleLable(subtitle);
+        stage.show();
+    }
 
 	
 
