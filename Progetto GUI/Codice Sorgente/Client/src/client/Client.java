@@ -6,8 +6,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import controller.Manager;
-import controller.PopupManager;
+import controller.MainController;
+import controller.PopupController;
 
 import javafx.fxml.FXMLLoader;
 
@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  */
 public class Client extends Thread {
 
-	private Manager m;
+	private MainController m;
 	
 	/**
 	 * Oggetto della classe Socket che stabilisce la connessione con il Server.
@@ -51,7 +51,7 @@ public class Client extends Thread {
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	public Client(String address, int port, Manager m) throws IOException, ClassNotFoundException {
+	public Client(String address, int port, MainController m) throws IOException, ClassNotFoundException {
 
 		this.m = m;
 		socket = new Socket(address, port);
@@ -137,10 +137,7 @@ public class Client extends Thread {
 			} while (!answer.contains("@CORRECT"));
 
 
-			/*
-			 * CAMBIA LO SCENE!!!
-			 * 
-			 */
+			
 			m.setCheck(true);
 			m.setWaitManager(false);
 			System.out.println("KNN caricato nel Server!");
@@ -149,7 +146,7 @@ public class Client extends Thread {
 				sleep(100);
 			}
 			m.setWaitClient(true);
-			PopupManager pm = m.getPopupManager().getController();
+			PopupController pm = m.getPopupManager().getController();
 
 			// predict
 			do {

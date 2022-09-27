@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="272.0" prefWidth="383.0" style="-fx-background-color: #263238;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PopupController">
+   <children>
+      <Label fx:id="typeAttributLabel" layoutX="75.0" layoutY="45.0" prefHeight="77.0" prefWidth="285.0" text="Inserisci valore discreto ,1" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="valueField" layoutX="97.0" layoutY="162.0" onKeyPressed="#nextValue" prefHeight="44.0" prefWidth="201.0" promptText="Inserisci un valore">
+         <font>
+            <Font size="19.0" />
+         </font></TextField>
+      <Label fx:id="captionLabel" layoutX="63.0" layoutY="50.0" prefHeight="68.0" prefWidth="268.0" style="-fx-opacity: 0;" text="La predizione è la seguente:" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="predictionLabel" layoutX="87.0" layoutY="110.0" prefHeight="53.0" prefWidth="220.0" style="-fx-opacity: 0; -fx-alignment: center;" text="PREDIZIONE" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="showPredictionButton" buttonType="RAISED" layoutX="94.0" layoutY="288.0" onAction="#changeText" prefHeight="53.0" prefWidth="231.0" style="-fx-background-color: #FFFFFF;" text="Clicca per vedere la predizione">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="differentKnnButton" buttonType="RAISED" layoutX="37.0" layoutY="362.0" onAction="#useOtherKnn" prefHeight="44.0" prefWidth="170.0" style="-fx-background-color: #FFFFFF;" text="Continua con un altro KNN" />
+      <JFXButton fx:id="sameKnnButton" buttonType="RAISED" layoutX="213.0" layoutY="362.0" onAction="#useSameKnn" prefHeight="44.0" prefWidth="170.0" style="-fx-background-color: #FFFFFF;" text="Continua con lo stesso KNN" />
+   </children>
+</Pane>
