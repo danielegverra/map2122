@@ -47,7 +47,6 @@ public class StartPageController {
             c.start();
 		}  catch (IOException | ClassNotFoundException | NumberFormatException e) {
 			System.out.println("Errore di connessione al Server...");
-			System.out.println("Premi un tasto qualsiasi per chiudere il programma...");
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/erroreavvio.fxml"));
 			root = loader.load();
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();

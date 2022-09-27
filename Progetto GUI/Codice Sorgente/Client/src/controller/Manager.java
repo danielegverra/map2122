@@ -133,15 +133,8 @@ public class Manager {
 		
 	}
 
-	@FXML
-    void getNome(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER) {
-			file = nomeFile.getText().trim();
-			System.out.println(file);
-			nomeFile.clear();
-		}
-    }
 
+	
 	private void getNome() {
 		file = nomeFile.getText().trim();
 		System.out.println(file);
