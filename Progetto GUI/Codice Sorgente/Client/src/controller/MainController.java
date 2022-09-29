@@ -97,15 +97,12 @@ public class MainController {
 	@FXML
 	void decision(ActionEvent event) throws IOException, InterruptedException {
 		if (event.getSource() == fileButton) {
-			System.out.println("1");
 			decision = 1;
 			getName();
 		} else if (event.getSource() == binaryButton) {
-			System.out.println("2");
 			decision = 2;
 			getName();
 		} else if (event.getSource() == dbButton) {
-			System.out.println("3");
 			decision = 3;
 			getName();
 		}
@@ -144,7 +141,7 @@ public class MainController {
 			((PopupController)m.getController()).hideButton();
 			stage.show();
 		} else {
-			System.out.println(errorMsg);
+			System.out.println("--> Errore nell'acqusizione della sorgente KNN");
 			openErrorPopup("Attenzione!", errorMsg);
 			
 		}
