@@ -22,7 +22,7 @@ public class MainController {
 	private Boolean check;
 	private Boolean waitManager;
 	private Boolean waitClient = true;
-	private String msg;
+	//private String msg;
 	private String errorMsg;
 
 	//FXML
