@@ -11,7 +11,7 @@
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="subtitleLable" layoutX="18.0" layoutY="59.0" prefHeight="113.0" prefWidth="414.0" style="-fx-alignment: center;" text="Assicurati di aver avviato il Server prima di avviare il Client!" textFill="WHITE">
+      <Label fx:id="subtitleLable" layoutX="18.0" layoutY="59.0" prefHeight="113.0" prefWidth="414.0" style="-fx-alignment: center;" text="Assicurati di aver avviato il Server prima di avviare il Client!" textFill="WHITE" wrapText="true">
          <font>
             <Font size="15.0" />
          </font>
