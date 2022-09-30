@@ -61,7 +61,7 @@ public class KNN implements Serializable {
         Example e = data.readExample(out, in);
         int k = 0;
 
-        out.writeObject("Inserisci valore k >= 1: ");
+        out.writeObject("Inserisci valore intero per k >= 1: ");
         k = (Integer) (in.readObject());
 
         return data.avgClosest(e, k);

@@ -1,15 +1,20 @@
 package controller;
 
+import java.io.IOException;
+
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 
 public class PopupController {
@@ -46,6 +51,7 @@ public class PopupController {
     private Boolean waitManager = true;
     private Boolean waitClient = true;
     private boolean sameKnn;
+    private boolean isError;
 
     //GET E SET
 
@@ -91,6 +97,10 @@ public class PopupController {
         return sameKnn;
     }
 
+    public void setErrorPopup() {
+        isError = true;
+    }
+
     //METODI
     
 
@@ -104,7 +114,7 @@ public class PopupController {
 
     
     @FXML
-    void nextValue(KeyEvent event) throws InterruptedException {
+    void nextValue(KeyEvent event) throws InterruptedException, IOException {
 
         if (event.getCode() == KeyCode.ENTER) {
 
@@ -119,6 +129,10 @@ public class PopupController {
                 waitClient = false;
                 while (waitManager) {
                     Thread.currentThread().sleep(100);
+                }
+                if(isError) {
+                    isError = false;
+                    openErrorPopup("Errore di Immissione:", "Bisogna inserire un valore numerico idoneo.");
                 }
                 changeMsg();
             } 
@@ -191,6 +205,19 @@ public class PopupController {
         this.close(event);
         sameKnn = false;
         setWaitClient(false);
+    }
+
+    public void openErrorPopup(String title, String subtitle) throws IOException {
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
+        Stage stage = new Stage();
+        Parent root = fxml.load();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setTitle("KNN: Popup di errore");
+        ((ErrorController)fxml.getController()).setTitleLabel(title);
+        ((ErrorController)fxml.getController()).setSubtitleLable(subtitle);
+        stage.show();
     }
 
 }

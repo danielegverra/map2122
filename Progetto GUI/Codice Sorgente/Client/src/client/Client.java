@@ -168,9 +168,7 @@ public class Client extends Thread {
 								try {
 									x = Double.valueOf(popup.getTmp());
 								} catch (NumberFormatException ex) {
-									/*
-									 *  QUI BISOGNA LANCIARE IL POPUP DI ERRORE NEL CASO DI NUMERO INSERITO NON VALIDO
-									 */
+									popup.setErrorPopup();
 									popup.setWaitClient(true);
 									popup.setWaitManager(false);
 								}
@@ -198,9 +196,7 @@ public class Client extends Thread {
 					try { 
 						k = Integer.valueOf(popup.getTmp());
 					} catch (NumberFormatException ex) {
-						/*
-						 * QUI BISOGNA LANCIARE IL POPUP DI ERRORE NEL CASO DI NUMERO INSERITO NON VALIDO
-						 */
+						popup.setErrorPopup();
 					}
 
 				} while (k < 1);
