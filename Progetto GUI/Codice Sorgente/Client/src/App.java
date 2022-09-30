@@ -23,7 +23,7 @@ public class App extends Application {
 
     @Override
     public void stop() throws Exception {
-        System.out.println("Closing the app...");
+        System.out.println("--> Chiusura app in corso...");
         Platform.exit();
         System.exit(0);
     }

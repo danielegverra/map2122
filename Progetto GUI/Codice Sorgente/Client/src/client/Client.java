@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  */
 public class Client extends Thread {
 
-	private MainController m;
+	private MainController control;
 	
 	/**
 	 * Oggetto della classe Socket che stabilisce la connessione con il Server.
@@ -53,7 +53,7 @@ public class Client extends Thread {
 	 */
 	public Client(String address, int port, MainController m) throws IOException, ClassNotFoundException {
 
-		this.m = m;
+		this.control = m;
 		socket = new Socket(address, port);
 		//System.out.println(socket + "\n");
 		out = new ObjectOutputStream(socket.getOutputStream());
@@ -96,42 +96,42 @@ public class Client extends Thread {
 				String tableName = "";
 
 				
-				while (m.getDecision() == 0) {
+				while (control.getDecision() == 0) {
 					sleep(100);
 				}
 
-				decision = m.getDecision();
-				m.resetDecision();
+				decision = control.getDecision();
+				control.resetDecision();
 				out.writeObject(decision);
 				answer = (String) in.readObject();
 
 				if (answer.contains("@ERROR")) {
-					m.setErrorMsg((String) in.readObject());
-					m.setCheck(false);
-					m.setWaitManager(false);
+					control.setErrorMsg((String) in.readObject());
+					control.setCheck(false);
+					control.setWaitManager(false);
 				} else {
 
-					tableName = m.getFile();
+					tableName = control.getFile();
 					out.writeObject(tableName);
 					answer = (String) in.readObject();
 					
 					if(answer.contains("@ERROR")) {	
-						m.setErrorMsg((String) in.readObject());
-						m.setCheck(false);
-						m.setWaitManager(false);
+						control.setErrorMsg((String) in.readObject());
+						control.setCheck(false);
+						control.setWaitManager(false);
 					}
 				}
 			} while (!answer.contains("@CORRECT"));
 
-			m.setCheck(true);
-			m.setWaitManager(false);
+			control.setCheck(true);
+			control.setWaitManager(false);
 			System.out.println("--> KNN caricato correttamente");
 
-			while(m.getWaitClient()) {
+			while(control.getWaitClient()) {
 				sleep(100);
 			}
-			m.setWaitClient(true);
-			PopupController pm = m.getPopupManager().getController();
+			control.setWaitClient(true);
+			PopupController popup = control.getPopupManager().getController();
 
 			// predict
 			do {
@@ -143,39 +143,37 @@ public class Client extends Thread {
 						// sto leggendo l'esempio
 						String msg = (String) (in.readObject());
 						
-						pm.setMsg(msg);
+						popup.setMsg(msg);
 
-						pm.setWaitClient(true);
-						pm.setWaitManager(false);
+						popup.setWaitClient(true);
+						popup.setWaitManager(false);
 						if (answer.equals("@READSTRING")) {
 							
 							//Attendo che Manager mi dia l'attributo discreto
-							while(pm.getWaitClient()) {
+							while(popup.getWaitClient()) {
 								sleep(100);
 							}
 							
-							out.writeObject(pm.getTmp());
+							out.writeObject(popup.getTmp());
 						} else {
 							double x = 0.0;
 							do {
 
 								//Attendo che Manager mi dia l'attributo continuo
-								while(pm.getWaitClient()) {
+								while(popup.getWaitClient()) {
 									sleep(100);
 								}
 								//Provo ad assegnare il testo a x, se invece il testo è errato
 								//l'eccezione mi resetterà waitClient a true e rientrerà nel ciclo
 								try {
-									x = Double.valueOf(pm.getTmp());
+									x = Double.valueOf(popup.getTmp());
 								} catch (NumberFormatException ex) {
-									/*
-									 *  QUI BISOGNA LANCIARE IL POPUP DI ERRORE NEL CASO DI NUMERO INSERITO NON VALIDO
-									 */
-									pm.setWaitClient(true);
-									pm.setWaitManager(false);
+									popup.setErrorPopup();
+									popup.setWaitClient(true);
+									popup.setWaitManager(false);
 								}
 								
-							} while (pm.getWaitClient());
+							} while (popup.getWaitClient());
 							out.writeObject(x);
 						}
 
@@ -188,19 +186,17 @@ public class Client extends Thread {
 				int k = 0;
 				do {
 					
-					pm.setMsg(answer);
-					pm.setWaitClient(true);
-					pm.setWaitManager(false);
-					while(pm.getWaitClient()) {
+					popup.setMsg(answer);
+					popup.setWaitClient(true);
+					popup.setWaitManager(false);
+					while(popup.getWaitClient()) {
 
 						sleep(100);
 					}
 					try { 
-						k = Integer.valueOf(pm.getTmp());
+						k = Integer.valueOf(popup.getTmp());
 					} catch (NumberFormatException ex) {
-						/*
-						 * QUI BISOGNA LANCIARE IL POPUP DI ERRORE NEL CASO DI NUMERO INSERITO NON VALIDO
-						 */
+						popup.setErrorPopup();
 					}
 
 				} while (k < 1);
@@ -208,18 +204,17 @@ public class Client extends Thread {
 	
 				String s = (String)in.readObject();
 				System.out.println("--> Preidizione ottenuta: " + s);
-				pm.showButton();
-				pm.setPrediction(s);
+				popup.showButton();
+				popup.setPrediction(s);
 				
 				//Aspetto che il Manager scelga di ripetere o meno il predict 
-				pm.setWaitClient(true);
-				pm.setWaitManager(false);
-				while (pm.getWaitClient()) {
+				popup.setWaitClient(true);
+				popup.setWaitManager(false);
+				while (popup.getWaitClient()) {
 					sleep(100);
 				}
 				
-
-			} while (pm.isSameKnn());
+			} while (popup.isSameKnn());
 			
 		}
 
