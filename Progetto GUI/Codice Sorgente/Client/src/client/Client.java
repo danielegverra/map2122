@@ -96,11 +96,12 @@ public class Client extends Thread {
 				String tableName = "";
 
 				
-				while (m.getDecision() == 0 || m.getFile().equals("NULL")) {
+				while (m.getDecision() == 0) {
 					sleep(100);
 				}
 
 				decision = m.getDecision();
+				m.resetDecision();
 				out.writeObject(decision);
 				answer = (String) in.readObject();
 
@@ -108,14 +109,9 @@ public class Client extends Thread {
 					m.setErrorMsg((String) in.readObject());
 					m.setCheck(false);
 					m.setWaitManager(false);
-					//System.out.println("Si è verificato un errore: ");
-					//System.out.println(in.readObject());
-					//System.out.println("Riprova: ");
-					m.resetFile();
 				} else {
 
 					tableName = m.getFile();
-					m.resetFile();
 					out.writeObject(tableName);
 					answer = (String) in.readObject();
 					
@@ -123,16 +119,10 @@ public class Client extends Thread {
 						m.setErrorMsg((String) in.readObject());
 						m.setCheck(false);
 						m.setWaitManager(false);
-						//System.out.println("Si è verificato un errore: ");
-						//System.out.println(in.readObject());
-						//System.out.println("Riprova: ");
-						m.resetFile();
 					}
 				}
 			} while (!answer.contains("@CORRECT"));
 
-
-			
 			m.setCheck(true);
 			m.setWaitManager(false);
 			System.out.println("--> KNN caricato correttamente");
@@ -152,22 +142,19 @@ public class Client extends Thread {
 					if (!answer.contains("@ENDEXAMPLE")) {
 						// sto leggendo l'esempio
 						String msg = (String) (in.readObject());
-						//System.out.println(msg);
+						
 						pm.setMsg(msg);
 
 						pm.setWaitClient(true);
 						pm.setWaitManager(false);
 						if (answer.equals("@READSTRING")) {
 							
-							//out.writeObject(Keyboard.readString());
-
 							//Attendo che Manager mi dia l'attributo discreto
 							while(pm.getWaitClient()) {
 								sleep(100);
 							}
 							
 							out.writeObject(pm.getTmp());
-							//pm.setWaitClient(true);
 						} else {
 							double x = 0.0;
 							do {
@@ -187,7 +174,7 @@ public class Client extends Thread {
 									pm.setWaitClient(true);
 									pm.setWaitManager(false);
 								}
-								//pm.setWaitClient(true);
+								
 							} while (pm.getWaitClient());
 							out.writeObject(x);
 						}
@@ -200,7 +187,7 @@ public class Client extends Thread {
 				answer = (String) (in.readObject());
 				int k = 0;
 				do {
-					//System.out.print(answer);
+					
 					pm.setMsg(answer);
 					pm.setWaitClient(true);
 					pm.setWaitManager(false);
@@ -223,9 +210,6 @@ public class Client extends Thread {
 				System.out.println("--> Preidizione ottenuta: " + s);
 				pm.showButton();
 				pm.setPrediction(s);
-
-				//System.out.println("Vuoi ripetere la predizione?");
-				//System.out.println("Scrivi Y in caso positivo, altrimenti scrivi qualsiasi altra cosa.");
 				
 				//Aspetto che il Manager scelga di ripetere o meno il predict 
 				pm.setWaitClient(true);
@@ -236,8 +220,6 @@ public class Client extends Thread {
 				
 
 			} while (pm.isSameKnn());
-			//System.out.println("Vuoi ripetere una nuova esecuzione con un nuovo oggetto KNN?");
-			//System.out.println("Scrivi Y in caso positivo, altrimenti scrivi qualsiasi altra cosa.");
 			
 		}
 

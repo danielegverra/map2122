@@ -18,11 +18,10 @@ public class MainController {
 
 	//ATTRIBUTI
 	private int decision = 0;
-	private String file = "NULL";
+	private String file;
 	private Boolean check;
 	private Boolean waitManager;
 	private Boolean waitClient = true;
-	private String msg;
 	private String errorMsg;
 
 	//FXML
@@ -47,9 +46,6 @@ public class MainController {
     @FXML
     private TextField fileNameField;
 
-   
-	//GET E SET
-
 	public FXMLLoader getPopupManager() {
 		return m;
 	}
@@ -62,6 +58,9 @@ public class MainController {
 		return decision;
 	}
 
+	public void resetDecision() {
+		decision = 0;
+	}
 	
 	public void setWaitManager(Boolean wait) {
 		this.waitManager = wait;
@@ -86,34 +85,24 @@ public class MainController {
 		this.errorMsg = errorMsg;
 	}
 
-	//METODI
-
-
-	public void resetFile() {
-		file = "NULL";
-	}
-
+	
 
 	@FXML
 	void decision(ActionEvent event) throws IOException, InterruptedException {
 		if (event.getSource() == fileButton) {
 			decision = 1;
-			getName();
 		} else if (event.getSource() == binaryButton) {
 			decision = 2;
-			getName();
 		} else if (event.getSource() == dbButton) {
 			decision = 3;
-			getName();
 		}
+		getName();
 		waitManager = true;
 		while (waitManager) {
 			Thread.currentThread().sleep(100);
 		}
-		//tipoAttributo.setText(msg);
 		
 		openPopup();
-		
 	}
 
 	private void getName() {
@@ -159,7 +148,5 @@ public class MainController {
         ((ErrorController)fxml.getController()).setSubtitleLable(subtitle);
         stage.show();
     }
-
-	
 
 }
