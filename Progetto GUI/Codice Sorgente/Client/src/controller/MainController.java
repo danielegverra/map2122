@@ -28,13 +28,18 @@ public class MainController {
 	private Boolean waitManager;
 	private Boolean waitClient = true;
 	private String errorMsg;
+	private Client client;
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
 	//FXML
 	
 	@FXML
     private Label errorLabel;
 
-	private FXMLLoader m;
+	private FXMLLoader popupLoader;
 
 	private Stage stage;
 
@@ -51,8 +56,8 @@ public class MainController {
     @FXML
     private TextField fileNameField;
 
-	public FXMLLoader getPopupManager() {
-		return m;
+	public PopupController getPopupController() {
+		return popupLoader.getController();
 	}
 
 	public String getFile() {
@@ -122,8 +127,8 @@ public class MainController {
 
 		if(check) {
 			stage = new Stage();
-			m = new FXMLLoader(getClass().getResource("../fxml/popupPage.fxml"));
-			root = m.load();
+			popupLoader = new FXMLLoader(getClass().getResource("../fxml/popupPage.fxml"));
+			root = popupLoader.load();
 			stage.setScene(new Scene(root));
 			stage.setResizable(false);
 			stage.initModality(Modality.APPLICATION_MODAL);
@@ -132,11 +137,11 @@ public class MainController {
 			waitClient = false;
 			stage.setOnCloseRequest((EventHandler<WindowEvent>) new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
-					System.exit(1);
-					Client c;
 					try {
-						c = new Client("localhost", Integer.valueOf("2025"), MainController.this);
-						c.start();
+						client.close();
+						client = new Client("localhost", Integer.valueOf("2025"), MainController.this);
+						getPopupController().setClient(client);
+						client.start();
 					} catch (IOException | ClassNotFoundException | NumberFormatException e ) {
 						e.printStackTrace();
 					}         			
@@ -144,8 +149,8 @@ public class MainController {
 				}
 			});
 
-			((PopupController)m.getController()).changeMsg();
-			((PopupController)m.getController()).hideButton();
+			((PopupController) popupLoader.getController()).changeMsg();
+			((PopupController) popupLoader.getController()).hideButton();
 			stage.show();
 		} else {
 			System.out.println("--> Errore nell'acqusizione della sorgente KNN");

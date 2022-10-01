@@ -42,6 +42,13 @@ public class Client extends Thread {
 	private ObjectInputStream in = null;
 
 
+	private boolean doClose;
+
+	public void close() {
+		doClose = true;
+	}
+
+
 	/**
 	 * Costruttore di classe che si occupa di inizializzare gli attributi della classe e di
 	 * invocare il metodo talking().
@@ -73,27 +80,21 @@ public class Client extends Thread {
 		
 		try {
 			talking();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		} catch (InterruptedException | ClassNotFoundException | IOException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} finally {
+			try {
+				socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-
-	private int i = 0;
-
 
 	private void talking() throws IOException, ClassNotFoundException, InterruptedException {
 
 		int decision = 0;
 		String answer = "";
-
-		System.out.println("INSERSCI SORGENTE");
 
 		while (true) {
 			do {
@@ -135,7 +136,7 @@ public class Client extends Thread {
 				sleep(100);
 			}
 			control.setWaitClient(true);
-			PopupController popup = control.getPopupManager().getController();
+			PopupController popup = control.getPopupController();
 
 			// predict
 			do {
@@ -155,6 +156,11 @@ public class Client extends Thread {
 							
 							//Attendo che Manager mi dia l'attributo discreto
 							while(popup.getWaitClient()) {
+
+								//per chiudere il thread quando il popup viene chiuso
+								if(doClose) {
+									return;
+								}
 								sleep(100);
 							}
 							
@@ -162,12 +168,14 @@ public class Client extends Thread {
 						} else {
 							double x = 0.0;
 							do {
-
 								//Attendo che Manager mi dia l'attributo continuo
 								while(popup.getWaitClient()) {
+
+									//per chiudere il thread quando il popup viene chiuso
+									if(doClose) {
+										return;
+									}
 									sleep(100);
-									System.out.println(Thread.currentThread() + "" + i);
-									i++;
 								}
 								//Provo ad assegnare il testo a x, se invece il testo è errato
 								//l'eccezione mi resetterà waitClient a true e rientrerà nel ciclo
@@ -197,6 +205,10 @@ public class Client extends Thread {
 					popup.setWaitManager(false);
 					while(popup.getWaitClient()) {
 
+						//per chiudere il thread quando il popup viene chiuso
+						if(doClose) {
+							return;
+						}
 						sleep(100);
 					}
 					try { 
@@ -217,19 +229,17 @@ public class Client extends Thread {
 				popup.setWaitClient(true);
 				popup.setWaitManager(false);
 				while (popup.getWaitClient()) {
+
+					//per chiudere il thread quando il popup viene chiuso
+					if(doClose) {
+						return;
+					}
 					sleep(100);
 				}
 				
 			} while (popup.isSameKnn());
 			
 		}
-
-		/*
-		 * QUESTA PARTE DEL CODICE NON VENIVA RAGGIUNTA MAI CON LA GUI
-		 * QUINDI COSA FARE???
-		 */
-
-		//out.writeObject(0);
 
 	}
 

@@ -39,6 +39,7 @@ public class StartController {
 			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
+			((MainController)loader.getController()).setClient(c);
 			//stage.show();
 			System.out.println("--> Connesione al Server riuscita");
             c.start();
