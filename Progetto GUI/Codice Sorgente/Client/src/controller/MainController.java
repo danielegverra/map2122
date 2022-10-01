@@ -3,7 +3,11 @@ package controller;
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
+
+import client.Client;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class MainController {
@@ -23,13 +28,18 @@ public class MainController {
 	private Boolean waitManager;
 	private Boolean waitClient = true;
 	private String errorMsg;
+	private Client client;
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
 	//FXML
 	
 	@FXML
     private Label errorLabel;
 
-	private FXMLLoader m;
+	private FXMLLoader popupLoader;
 
 	private Stage stage;
 
@@ -46,8 +56,8 @@ public class MainController {
     @FXML
     private TextField fileNameField;
 
-	public FXMLLoader getPopupManager() {
-		return m;
+	public PopupController getPopupController() {
+		return popupLoader.getController();
 	}
 
 	public String getFile() {
@@ -117,17 +127,30 @@ public class MainController {
 
 		if(check) {
 			stage = new Stage();
-			m = new FXMLLoader(getClass().getResource("../fxml/popupPage.fxml"));
-			root = m.load();
+			popupLoader = new FXMLLoader(getClass().getResource("../fxml/popupPage.fxml"));
+			root = popupLoader.load();
 			stage.setScene(new Scene(root));
 			stage.setResizable(false);
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("KNN");
 			stage.setResizable(false);
 			waitClient = false;
-			//stage.initOwner(popupButton.getScene().getWindow());
-			((PopupController)m.getController()).changeMsg();
-			((PopupController)m.getController()).hideButton();
+			stage.setOnCloseRequest((EventHandler<WindowEvent>) new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					try {
+						client.close();
+						client = new Client("localhost", Integer.valueOf("2025"), MainController.this);
+						getPopupController().setClient(client);
+						client.start();
+					} catch (IOException | ClassNotFoundException | NumberFormatException e ) {
+						e.printStackTrace();
+					}         			
+					System.out.println("--> Chiusura Stage in corso");
+				}
+			});
+
+			((PopupController) popupLoader.getController()).changeMsg();
+			((PopupController) popupLoader.getController()).hideButton();
 			stage.show();
 		} else {
 			System.out.println("--> Errore nell'acqusizione della sorgente KNN");

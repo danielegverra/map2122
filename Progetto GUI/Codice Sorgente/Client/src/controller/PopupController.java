@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
+
+import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,6 +54,11 @@ public class PopupController {
     private Boolean waitClient = true;
     private boolean sameKnn;
     private boolean isError;
+    private Client client;
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     //GET E SET
 
@@ -141,13 +148,6 @@ public class PopupController {
     }
 
     @FXML
-    void close(ActionEvent event) {
-
-        ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
-        return;
-    }
-
-    @FXML
     void changeText(ActionEvent event) throws InterruptedException {
 
         captionLabel.setOpacity(1);
@@ -202,7 +202,7 @@ public class PopupController {
 
     @FXML
     void useOtherKnn(ActionEvent event) {
-        this.close(event);
+        ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
         sameKnn = false;
         setWaitClient(false);
     }
@@ -220,4 +220,5 @@ public class PopupController {
         stage.show();
     }
 
+   
 }
