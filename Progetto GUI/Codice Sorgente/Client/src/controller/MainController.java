@@ -3,7 +3,11 @@ package controller;
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
+
+import client.Client;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class MainController {
@@ -125,7 +130,20 @@ public class MainController {
 			stage.setTitle("KNN");
 			stage.setResizable(false);
 			waitClient = false;
-			//stage.initOwner(popupButton.getScene().getWindow());
+			stage.setOnCloseRequest((EventHandler<WindowEvent>) new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					System.exit(1);
+					Client c;
+					try {
+						c = new Client("localhost", Integer.valueOf("2025"), MainController.this);
+						c.start();
+					} catch (IOException | ClassNotFoundException | NumberFormatException e ) {
+						e.printStackTrace();
+					}         			
+					System.out.println("--> Chiusura Stage in corso");
+				}
+			});
+
 			((PopupController)m.getController()).changeMsg();
 			((PopupController)m.getController()).hideButton();
 			stage.show();

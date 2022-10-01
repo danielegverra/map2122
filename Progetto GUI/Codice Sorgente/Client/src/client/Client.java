@@ -85,11 +85,15 @@ public class Client extends Thread {
 		}
 	}
 
+	private int i = 0;
+
 
 	private void talking() throws IOException, ClassNotFoundException, InterruptedException {
 
 		int decision = 0;
 		String answer = "";
+
+		System.out.println("INSERSCI SORGENTE");
 
 		while (true) {
 			do {
@@ -162,6 +166,8 @@ public class Client extends Thread {
 								//Attendo che Manager mi dia l'attributo continuo
 								while(popup.getWaitClient()) {
 									sleep(100);
+									System.out.println(Thread.currentThread() + "" + i);
+									i++;
 								}
 								//Provo ad assegnare il testo a x, se invece il testo è errato
 								//l'eccezione mi resetterà waitClient a true e rientrerà nel ciclo

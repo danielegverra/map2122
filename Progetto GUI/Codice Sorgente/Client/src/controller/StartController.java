@@ -19,6 +19,7 @@ public class StartController {
 	//Attributi
 
     private Client c;
+	
 
 	//FXML
     
@@ -32,6 +33,7 @@ public class StartController {
 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/mainPage.fxml"));
+			System.out.println("Loader--> " + loader + "\nController--> " + loader.getController());
 			Parent root = loader.load();
 			c = new Client("localhost", Integer.valueOf("2025"), loader.getController());
 			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

@@ -26,6 +26,7 @@ public class App extends Application {
         System.out.println("--> Chiusura app in corso...");
         Platform.exit();
         System.exit(0);
+        System.out.println("MOKK A MAMT ACHIUDT");
     }
 
     public static void main(String[] args) {
