@@ -146,7 +146,7 @@ public class MainController {
 					try {
 						client.close();
 						//inserire indirizzo ip e porta dallo start controller
-						client = new Client("localhost", Integer.valueOf("2025"), MainController.this);
+						client = new Client(ipAddress, PORT, MainController.this);
 						getPopupController().setClient(client);
 						client.start();
 					} catch (IOException | ClassNotFoundException | NumberFormatException e ) {
