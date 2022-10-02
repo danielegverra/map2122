@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -22,6 +23,12 @@ public class StartController {
 	
 
 	//FXML
+
+	@FXML
+    private TextField ipAddressTextField;
+
+    @FXML
+    private TextField portTextField;
     
     @FXML
     private JFXButton startButton;
@@ -30,16 +37,18 @@ public class StartController {
 
     @FXML
     void avviaClient(ActionEvent event) throws IOException {
-
+		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/mainPage.fxml"));
-			System.out.println("Loader--> " + loader + "\nController--> " + loader.getController());
+			
 			Parent root = loader.load();
-			c = new Client("localhost", Integer.valueOf("2025"), loader.getController());
+			//bisogna scegliere se farlo connettere di default a localhost
+			c = new Client(ipAddressTextField.getText(), Integer.valueOf(portTextField.getText()), loader.getController());
 			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			((MainController)loader.getController()).setClient(c);
+			((MainController)loader.getController()).setConnection(ipAddressTextField.getText(), Integer.valueOf(portTextField.getText()));
 			//stage.show();
 			System.out.println("--> Connesione al Server riuscita");
             c.start();
