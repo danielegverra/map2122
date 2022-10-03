@@ -113,7 +113,7 @@ public class Client extends Thread {
 				if (answer.contains("@ERROR")) {
 					control.setErrorMsg((String) in.readObject());
 					control.setCheck(false);
-					control.setWaitManager(false);
+					control.setRound("#CONTROLLER");
 				} else {
 
 					tableName = control.getFile();
@@ -123,19 +123,19 @@ public class Client extends Thread {
 					if(answer.contains("@ERROR")) {	
 						control.setErrorMsg((String) in.readObject());
 						control.setCheck(false);
-						control.setWaitManager(false);
+						control.setRound("#CONTROLLER");
 					}
 				}
 			} while (!answer.contains("@CORRECT"));
 
 			control.setCheck(true);
-			control.setWaitManager(false);
+			control.setRound("#CONTROLLER");
 			System.out.println("--> KNN caricato correttamente");
 
-			while(control.getWaitClient()) {
+			while(control.getRound().compareTo("#CONTROLLER") == 0) {
 				sleep(100);
 			}
-			control.setWaitClient(true);
+			control.setRound("#CONTROLLER");
 			PopupController popup = control.getPopupController();
 
 			// predict
@@ -150,12 +150,11 @@ public class Client extends Thread {
 						
 						popup.setMsg(msg);
 
-						popup.setWaitClient(true);
-						popup.setWaitManager(false);
+						popup.setRound("#CONTROLLER");
 						if (answer.equals("@READSTRING")) {
 							
 							//Attendo che Manager mi dia l'attributo discreto
-							while(popup.getWaitClient()) {
+							while(popup.getRound().compareTo("#CONTROLLER") == 0) {
 
 								//per chiudere il thread quando il popup viene chiuso
 								if(doClose) {
@@ -169,7 +168,7 @@ public class Client extends Thread {
 							double x = 0.0;
 							do {
 								//Attendo che Manager mi dia l'attributo continuo
-								while(popup.getWaitClient()) {
+								while(popup.getRound().compareTo("#CONTROLLER") == 0) {
 
 									//per chiudere il thread quando il popup viene chiuso
 									if(doClose) {
@@ -183,11 +182,10 @@ public class Client extends Thread {
 									x = Double.valueOf(popup.getTmp());
 								} catch (NumberFormatException ex) {
 									popup.setErrorPopup();
-									popup.setWaitClient(true);
-									popup.setWaitManager(false);
+									popup.setRound("#CONTROLLER");
 								}
 								
-							} while (popup.getWaitClient());
+							} while (popup.getRound().compareTo("#CONTROLLER") == 0);
 							out.writeObject(x);
 						}
 
@@ -201,9 +199,8 @@ public class Client extends Thread {
 				do {
 					
 					popup.setMsg(answer);
-					popup.setWaitClient(true);
-					popup.setWaitManager(false);
-					while(popup.getWaitClient()) {
+					popup.setRound("#CONTROLLER");
+					while(popup.getRound().compareTo("#CONTROLLER") == 0) {
 
 						//per chiudere il thread quando il popup viene chiuso
 						if(doClose) {
@@ -226,9 +223,8 @@ public class Client extends Thread {
 				popup.setPrediction(s);
 				
 				//Aspetto che il Manager scelga di ripetere o meno il predict 
-				popup.setWaitClient(true);
-				popup.setWaitManager(false);
-				while (popup.getWaitClient()) {
+				popup.setRound("#CONTROLLER");
+				while (popup.getRound().compareTo("#CONTROLLER") == 0) {
 
 					//per chiudere il thread quando il popup viene chiuso
 					if(doClose) {
