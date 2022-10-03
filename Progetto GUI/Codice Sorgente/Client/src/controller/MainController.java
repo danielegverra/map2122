@@ -29,6 +29,8 @@ public class MainController {
 	private Boolean waitClient = true;
 	private String errorMsg;
 	private Client client;
+	private String ipAddress;
+	private Integer PORT;
 
 	public void setClient(Client client) {
 		this.client = client;
@@ -95,6 +97,10 @@ public class MainController {
 		this.errorMsg = errorMsg;
 	}
 
+	public void setConnection(String ipAddress, Integer PORT) {
+		this.ipAddress = ipAddress;
+		this.PORT = PORT;
+	}
 	
 
 	@FXML
@@ -139,7 +145,8 @@ public class MainController {
 				public void handle(WindowEvent we) {
 					try {
 						client.close();
-						client = new Client("localhost", Integer.valueOf("2025"), MainController.this);
+						//inserire indirizzo ip e porta dallo start controller
+						client = new Client(ipAddress, PORT, MainController.this);
 						getPopupController().setClient(client);
 						client.start();
 					} catch (IOException | ClassNotFoundException | NumberFormatException e ) {
