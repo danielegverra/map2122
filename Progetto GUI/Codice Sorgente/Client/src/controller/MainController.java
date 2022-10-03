@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 
 import client.Client;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,8 +24,7 @@ public class MainController {
 	private int decision = 0;
 	private String file;
 	private Boolean check;
-	private Boolean waitManager;
-	private Boolean waitClient = true;
+	private String round; 
 	private String errorMsg;
 	private Client client;
 	private String ipAddress;
@@ -74,24 +72,17 @@ public class MainController {
 		decision = 0;
 	}
 	
-	public void setWaitManager(Boolean wait) {
-		this.waitManager = wait;
+	public void setRound(String round) {
+		this.round = round;
 	}
 
+	public String getRound() {
+		return round;
+	}
 
 	public void setCheck(Boolean check) {
 		this.check = check;
 	}
-
-
-	public Boolean getWaitClient() {
-		return waitClient;
-	}
-
-	public void setWaitClient(Boolean waitClient) {
-		this.waitClient = waitClient;
-	}
-
 
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
@@ -113,11 +104,10 @@ public class MainController {
 			decision = 3;
 		}
 		getName();
-		waitManager = true;
-		while (waitManager) {
-			Thread.currentThread().sleep(100);
+		round = "#CLIENT";
+		while (round.compareTo("#CLIENT") == 0) {
+			Thread.sleep(100);
 		}
-		
 		openPopup();
 	}
 
@@ -128,7 +118,6 @@ public class MainController {
 
 
     void openPopup() throws IOException, InterruptedException {
-		
 		Parent root;
 
 		if(check) {
@@ -140,14 +129,13 @@ public class MainController {
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("KNN");
 			stage.setResizable(false);
-			waitClient = false;
+			round = "#CLIENT";
 			stage.setOnCloseRequest((EventHandler<WindowEvent>) new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					try {
 						client.close();
 						//inserire indirizzo ip e porta dallo start controller
 						client = new Client(ipAddress, PORT, MainController.this);
-						getPopupController().setClient(client);
 						client.start();
 					} catch (IOException | ClassNotFoundException | NumberFormatException e ) {
 						e.printStackTrace();
@@ -155,14 +143,12 @@ public class MainController {
 					System.out.println("--> Chiusura Stage in corso");
 				}
 			});
-
 			((PopupController) popupLoader.getController()).changeMsg();
 			((PopupController) popupLoader.getController()).hideButton();
 			stage.show();
 		} else {
 			System.out.println("--> Errore nell'acqusizione della sorgente KNN");
 			openErrorPopup("Attenzione!", errorMsg);
-			
 		}
 	}
 

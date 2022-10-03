@@ -1,10 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
 import com.jfoenix.controls.JFXButton;
-
-import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,20 +47,18 @@ public class PopupController {
     private String msg;
     private String tmp;
     private String prediction;
-    private Boolean waitManager = true;
-    private Boolean waitClient = true;
+    private String round = "#CLIENT";
     private boolean sameKnn;
     private boolean isError;
-    private Client client;
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
 
     //GET E SET
 
-    public void setWaitManager(Boolean waitManager) {
-        this.waitManager = waitManager;
+    public void setRound(String round) {
+        this.round = round;
+    }
+
+    public String getRound() {
+        return round;
     }
 
     public void setMsg(String msg) {
@@ -82,15 +77,6 @@ public class PopupController {
     public String getTmp() {
         return tmp;
     }
-
-    public Boolean getWaitClient() {
-        return waitClient;
-    }
-
-    public void setWaitClient(Boolean waitClient) {
-        this.waitClient = waitClient;
-    }
-
     
     public void setPrediction(String prediction) {
         this.prediction = prediction;
@@ -113,8 +99,8 @@ public class PopupController {
 
     public void changeMsg() throws InterruptedException {
 
-        while (waitManager) {
-            Thread.currentThread().sleep(300);
+        while (round.compareTo("#CLIENT") == 0) {
+            Thread.sleep(100);
         }
         typeAttributLabel.setText(msg);
     }
@@ -132,10 +118,9 @@ public class PopupController {
             if (tmp.compareTo("") != 0) {
 
                 //Attendo che Client prenda tmp e restiuisca il messaggio
-                waitManager = true;
-                waitClient = false;
-                while (waitManager) {
-                    Thread.currentThread().sleep(100);
+                round = "#CLIENT";
+                while (round.compareTo("#CLIENT") == 0) {
+                    Thread.sleep(100);
                 }
                 if(isError) {
                     isError = false;
@@ -168,7 +153,7 @@ public class PopupController {
         showPredictionButton.setLayoutY(120);
         valueField.setOpacity(0);
         typeAttributLabel.setOpacity(0);
-        setWaitClient(true);
+        round = "#CONTROLLER";
     }
 
     @FXML
@@ -178,10 +163,9 @@ public class PopupController {
         sameKnn = true;
 
         //Aspetto che il Client comunichi al Manager il msg giusto
-        waitManager = true;
-        waitClient = false;
-        while(waitManager) {
-            Thread.currentThread().sleep(100);
+        round = "#CLIENT";
+        while(round.compareTo("#CLIENT") == 0) {
+            Thread.sleep(100);
         }
 
         //Reset delle label per prendere la predizione
@@ -204,7 +188,7 @@ public class PopupController {
     void useOtherKnn(ActionEvent event) {
         ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
         sameKnn = false;
-        setWaitClient(false);
+        round = "#CLIENT";
     }
 
     public void openErrorPopup(String title, String subtitle) throws IOException {
@@ -220,5 +204,4 @@ public class PopupController {
         stage.show();
     }
 
-   
 }
