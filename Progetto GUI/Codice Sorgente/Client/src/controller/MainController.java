@@ -24,7 +24,7 @@ public class MainController {
 	private int decision = 0;
 	private String file;
 	private Boolean check;
-	private String round; //= "#CONTROLLER";
+	private String round; 
 	private String errorMsg;
 	private Client client;
 	private String ipAddress;
@@ -108,7 +108,6 @@ public class MainController {
 		while (round.compareTo("#CLIENT") == 0) {
 			Thread.sleep(100);
 		}
-		
 		openPopup();
 	}
 
@@ -119,7 +118,6 @@ public class MainController {
 
 
     void openPopup() throws IOException, InterruptedException {
-		
 		Parent root;
 
 		if(check) {
@@ -138,7 +136,6 @@ public class MainController {
 						client.close();
 						//inserire indirizzo ip e porta dallo start controller
 						client = new Client(ipAddress, PORT, MainController.this);
-						//getPopupController().setClient(client);
 						client.start();
 					} catch (IOException | ClassNotFoundException | NumberFormatException e ) {
 						e.printStackTrace();
@@ -152,7 +149,6 @@ public class MainController {
 		} else {
 			System.out.println("--> Errore nell'acqusizione della sorgente KNN");
 			openErrorPopup("Attenzione!", errorMsg);
-			
 		}
 	}
 

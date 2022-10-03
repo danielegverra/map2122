@@ -1,10 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
 import com.jfoenix.controls.JFXButton;
-
-import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,11 +50,6 @@ public class PopupController {
     private String round = "#CLIENT";
     private boolean sameKnn;
     private boolean isError;
-    /*private Client client;
-
-    public void setClient(Client client) {
-        this.client = client;
-    }*/
 
     //GET E SET
 
@@ -212,5 +204,4 @@ public class PopupController {
         stage.show();
     }
 
-   
 }

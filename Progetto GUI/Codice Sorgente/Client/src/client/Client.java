@@ -59,13 +59,10 @@ public class Client extends Thread {
 	 * @throws ClassNotFoundException
 	 */
 	public Client(String address, int port, MainController m) throws IOException, ClassNotFoundException {
-
 		this.control = m;
 		socket = new Socket(address, port);
-		//System.out.println(socket + "\n");
 		out = new ObjectOutputStream(socket.getOutputStream());
 		in = new ObjectInputStream(socket.getInputStream());
-
 	}
 
 	/**
@@ -99,7 +96,6 @@ public class Client extends Thread {
 		while (true) {
 			do {
 				String tableName = "";
-
 				
 				while (control.getDecision() == 0) {
 					sleep(100);
@@ -239,7 +235,14 @@ public class Client extends Thread {
 
 	}
 
-	//DOVE VIENE CHIAMATO??????
+	/** 
+	 * DOVE VIENE CHIAMATO??????
+	 * DOVE VIENE CHIAMATO??????
+	 * DOVE VIENE CHIAMATO??????
+	 * DOVE VIENE CHIAMATO??????
+	 * DOVE VIENE CHIAMATO??????
+	 * DOVE VIENE CHIAMATO??????
+	*/
 	void openPopup() throws IOException {
 		Stage stage;
 		Parent root;
@@ -252,5 +255,4 @@ public class Client extends Thread {
 		stage.showAndWait();
 	}
 
-	
 }
