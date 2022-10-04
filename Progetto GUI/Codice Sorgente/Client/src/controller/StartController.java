@@ -39,17 +39,32 @@ public class StartController {
     void avviaClient(ActionEvent event) throws IOException {
 		
 		try {
+			Integer PORT;
+			String ipAddress;
+
+			//assegno il contenuto di ipAddress
+			if (ipAddressTextField.getText().equals("")) {
+				ipAddress = "localhost";
+			} else {
+				ipAddress = ipAddressTextField.getText();
+			}
+
+			//assegno il valore di PORT
+			if (portTextField.getText().equals("")) {
+				PORT = 2025;
+			} else {
+				PORT = Integer.valueOf(portTextField.getText());
+			}
+
+			//connessione e cambio scena
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/mainPage.fxml"));
-			
 			Parent root = loader.load();
-			//bisogna scegliere se farlo connettere di default a localhost
-			c = new Client(ipAddressTextField.getText(), Integer.valueOf(portTextField.getText()), loader.getController());
-			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			c = new Client(ipAddress, PORT, loader.getController());
+			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			((MainController)loader.getController()).setClient(c);
-			((MainController)loader.getController()).setConnection(ipAddressTextField.getText(), Integer.valueOf(portTextField.getText()));
-			//stage.show();
+			((MainController)loader.getController()).setConnection(ipAddress, PORT);
 			System.out.println("--> Connesione al Server riuscita");
             c.start();
 		}  catch (IOException | ClassNotFoundException | NumberFormatException e) {
@@ -61,7 +76,6 @@ public class StartController {
 			stage.setResizable(false);
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("KNN: Popup di errore");
-			//stage.initOwner(popupButton.getScene().getWindow());
 			stage.show();
 
 		} 
