@@ -1,16 +1,12 @@
 package client;
 
 import java.io.IOException;
-
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
 import controller.MainController;
 import controller.PopupController;
-
 import javafx.fxml.FXMLLoader;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
@@ -23,6 +19,8 @@ import javafx.stage.Stage;
 public class Client extends Thread {
 
 	private MainController control;
+	private PopupController popup;
+	private boolean isOpenedPopup;
 	
 	/**
 	 * Oggetto della classe Socket che stabilisce la connessione con il Server.
@@ -65,20 +63,20 @@ public class Client extends Thread {
 		in = new ObjectInputStream(socket.getInputStream());
 	}
 
-	/**
-	 * Metodo che si occupa della comunicazione con il Server.
-	 * Viene richiesta la scelta di una delle tre opzioni di acquisizione del dataset.
-	 *
-	 * @throws IOException
-	 * @throws ClassNotFoundException
-	 */
 
 	public void run() {
 		
 		try {
 			talking();
-		} catch (InterruptedException | ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+		} catch (InterruptedException | ClassNotFoundException | IOException  e) {
+			//capire se devo gestire l'uscita dal popup o dalla mainPage
+			if(isOpenedPopup) {
+				popup.setErrorPopup("#EXIT");
+				popup.setRound("#CONTROLLER");
+			} else {
+				control.setErrorPopup("#EXIT");
+				control.setRound("#CONTROLLER");
+			}
 		} finally {
 			try {
 				socket.close();
@@ -87,6 +85,7 @@ public class Client extends Thread {
 			}
 		}
 	}
+
 
 	private void talking() throws IOException, ClassNotFoundException, InterruptedException {
 
@@ -132,7 +131,11 @@ public class Client extends Thread {
 				sleep(100);
 			}
 			control.setRound("#CONTROLLER");
-			PopupController popup = control.getPopupController();
+			popup = control.getPopupController();
+
+			//segnala che il popup è stato aperto, serve per gestire nel metodo run()
+			//il caso in cui viene sollevata una eccezione a programma in corso
+			isOpenedPopup = true;
 
 			// predict
 			do {
@@ -177,7 +180,7 @@ public class Client extends Thread {
 								try {
 									x = Double.valueOf(popup.getTmp());
 								} catch (NumberFormatException ex) {
-									popup.setErrorPopup();
+									popup.setErrorPopup("#REPEAT");
 									popup.setRound("#CONTROLLER");
 								}
 								
@@ -207,7 +210,7 @@ public class Client extends Thread {
 					try { 
 						k = Integer.valueOf(popup.getTmp());
 					} catch (NumberFormatException ex) {
-						popup.setErrorPopup();
+						popup.setErrorPopup("#REPEAT");
 					}
 
 				} while (k < 1);
