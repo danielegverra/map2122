@@ -217,7 +217,7 @@ public class Client extends Thread {
 				out.writeObject(k);
 	
 				String s = (String)in.readObject();
-				System.out.println("--> Preidizione ottenuta: " + s);
+				System.out.println("--> Predizione ottenuta: " + s);
 				popup.showButton();
 				popup.setPrediction(s);
 				

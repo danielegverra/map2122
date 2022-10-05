@@ -172,7 +172,7 @@ public class PopupController {
     }
 
     @FXML
-    void useSameKnn(ActionEvent event) throws InterruptedException{
+    void useSameKnn(ActionEvent event) throws InterruptedException {
         
         //Setto la variabile che comunica al Client di ripetere la predizione
         sameKnn = true;
@@ -184,6 +184,7 @@ public class PopupController {
         }
 
         //Reset delle label per prendere la predizione
+        valueField.requestFocus();
         sameKnnButton.setLayoutX(435);
         sameKnnButton.setLayoutY(171);
         differentKnnButton.setLayoutX(435);
