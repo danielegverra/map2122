@@ -49,7 +49,12 @@ public class PopupController {
     private String prediction;
     private String round = "#CLIENT";
     private boolean sameKnn;
-    private boolean isError;
+    private String error = "#NONE";
+    private Stage parentStage;
+
+    public void setParentStage(Stage parentStage) {
+        this.parentStage = parentStage;
+    }
 
     //GET E SET
 
@@ -73,7 +78,6 @@ public class PopupController {
         this.typeAttributLabel.setText(tipoAttributo);
     }
 
-    
     public String getTmp() {
         return tmp;
     }
@@ -90,12 +94,11 @@ public class PopupController {
         return sameKnn;
     }
 
-    public void setErrorPopup() {
-        isError = true;
+    public void setErrorPopup(String error) {
+        this.error = error;
     }
 
     //METODI
-    
 
     public void changeMsg() throws InterruptedException {
 
@@ -111,6 +114,7 @@ public class PopupController {
 
         if (event.getCode() == KeyCode.ENTER) {
 
+            //aggiorno il contenuto da inviare al client e svuoto il valueField
             tmp = valueField.getText().trim();
             valueField.clear();
 
@@ -122,9 +126,21 @@ public class PopupController {
                 while (round.compareTo("#CLIENT") == 0) {
                     Thread.sleep(100);
                 }
-                if(isError) {
-                    isError = false;
+
+                //controllo di eventuali errori (differenza tra #EXIT che chiude tutto e #REPEAT che apre solo un popup di errore)
+                if (error.compareTo("#EXIT") == 0) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
+			        Parent root = loader.load();
+                    Scene scene = new Scene(root);
+			        parentStage.setScene(scene);
+                    
+                    ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
+                    System.out.println("--> Ritorno alla schermata iniziale");
+                    openErrorPopup("Errore di Connessione:", "Uscita imminente, ristabilire una nuova connessione.");
+                    //return;
+                } else if (error.compareTo("#REPEAT") == 0) {
                     openErrorPopup("Errore di Immissione:", "Bisogna inserire un valore numerico idoneo.");
+                    error = "#NONE";
                 }
                 changeMsg();
             } 
@@ -134,7 +150,6 @@ public class PopupController {
 
     @FXML
     void changeText(ActionEvent event) throws InterruptedException {
-
         captionLabel.setOpacity(1);
         predictionLabel.setText(prediction);
         predictionLabel.setOpacity(1);
@@ -157,7 +172,7 @@ public class PopupController {
     }
 
     @FXML
-    void useSameKnn(ActionEvent event) throws InterruptedException{
+    void useSameKnn(ActionEvent event) throws InterruptedException {
         
         //Setto la variabile che comunica al Client di ripetere la predizione
         sameKnn = true;
@@ -169,6 +184,7 @@ public class PopupController {
         }
 
         //Reset delle label per prendere la predizione
+        valueField.requestFocus();
         sameKnnButton.setLayoutX(435);
         sameKnnButton.setLayoutY(171);
         differentKnnButton.setLayoutX(435);
