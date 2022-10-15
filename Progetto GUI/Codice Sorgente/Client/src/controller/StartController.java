@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class StartController {
 
@@ -57,14 +59,28 @@ public class StartController {
 			}
 
 			//connessione e cambio scena
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/mainPage.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/RmainPage.fxml"));
 			Parent root = loader.load();
 			c = new Client(ipAddress, PORT, loader.getController());
 			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
+
+			stage.heightProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+					((MainController)loader.getController()).resize(stage.getHeight(), stage.getWidth());
+				}
+			});
+	
+			stage.widthProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+					((MainController)loader.getController()).resize(stage.getHeight(), stage.getWidth());
+				}
+			});
+
 			stage.setScene(scene);
 			((MainController)loader.getController()).setClient(c);
 			((MainController)loader.getController()).setConnection(ipAddress, PORT);
+			
 			System.out.println("--> Connesione al Server riuscita");
             c.start();
 		}  catch (IOException | ClassNotFoundException | NumberFormatException e) {

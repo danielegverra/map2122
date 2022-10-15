@@ -41,6 +41,18 @@ public class MainController {
 	}
 
 	//FXML
+
+
+    @FXML
+    private Label buttonDescLabel;
+
+    @FXML
+    private Label descriptionLabel;
+
+   
+    @FXML
+    private Label titleLabel;
+
 	
 	@FXML
     private Label errorLabel;
@@ -186,5 +198,15 @@ public class MainController {
         ((ErrorController)fxml.getController()).setSubtitleLable(subtitle);
         stage.show();
     }
+
+	void resize(double height, double width) {
+		double size = Math.min(height, width);
+		titleLabel.setStyle("-fx-font-size: " + size/16 + "; -fx-font-weight: bold; -fx-alignment: center; -fx-pref-width: " + width);
+		descriptionLabel.setStyle("-fx-font-size: " + size/20 + "; -fx-alignment: center; -fx-pref-width: " + width);
+		buttonDescLabel.setStyle("-fx-font-size: " + size/20 + "; -fx-alignment: center; -fx-pref-width: " + width);
+		fileButton.setStyle("-fx-font-size: " + size/29 + "; -fx-background-color:  #FFFFFF");
+		binaryButton.setStyle("-fx-font-size: " + size/29 + "; -fx-background-color:  #FFFFFF");
+		dbButton.setStyle("-fx-font-size: " + size/29 + "; -fx-background-color:  #FFFFFF");
+	}
 
 }

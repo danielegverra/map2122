@@ -21,7 +21,7 @@ public class PopupController {
     //FXML
 
     @FXML
-    private Label typeAttributLabel;
+    private Label typeAttributeLabel;
 
     @FXML
     private TextField valueField;
@@ -71,11 +71,11 @@ public class PopupController {
     }
 
     public String getTypeAttributeLabel() {
-        return typeAttributLabel.getText();
+        return typeAttributeLabel.getText();
     }
 
     public void setTypeAttributeLabel(String tipoAttributo) {
-        this.typeAttributLabel.setText(tipoAttributo);
+        this.typeAttributeLabel.setText(tipoAttributo);
     }
 
     public String getTmp() {
@@ -105,7 +105,7 @@ public class PopupController {
         while (round.compareTo("#CLIENT") == 0) {
             Thread.sleep(100);
         }
-        typeAttributLabel.setText(msg);
+        typeAttributeLabel.setText(msg);
     }
 
     
@@ -167,7 +167,7 @@ public class PopupController {
         showPredictionButton.setLayoutX(77);
         showPredictionButton.setLayoutY(120);
         valueField.setOpacity(0);
-        typeAttributLabel.setOpacity(0);
+        typeAttributeLabel.setOpacity(0);
         round = "#CONTROLLER";
     }
 
@@ -193,8 +193,8 @@ public class PopupController {
         showPredictionButton.setLayoutY(94);
         showPredictionButton.setLayoutX(288);
         valueField.setOpacity(1);
-        typeAttributLabel.setText(msg);
-        typeAttributLabel.setOpacity(1);
+        typeAttributeLabel.setText(msg);
+        typeAttributeLabel.setOpacity(1);
         captionLabel.setOpacity(0);
         predictionLabel.setOpacity(0);
 
