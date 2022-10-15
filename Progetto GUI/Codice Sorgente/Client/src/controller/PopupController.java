@@ -18,8 +18,6 @@ import javafx.scene.Scene;
 
 public class PopupController {
 
-    //FXML
-
     @FXML
     private Label typeAttributeLabel;
 
@@ -41,31 +39,66 @@ public class PopupController {
     @FXML
     private JFXButton sameKnnButton;
 
-
-    //ATTRIBUTI
-
+    /**
+     * Stringa che contiene il messaggio ricevuto dal client,
+     * il quale verrà stampato a video, avvalorando typeAttributeLabel.
+     */
     private String msg;
+
     private String tmp;
     private String prediction;
+
+    /**
+     * Stringa che funge da semaforo tra la classe Client e PopupController.
+     * Il suo valore indica quale delle due classi ha la priorità, quindi
+     * in determinati momenti dell'esecuzione del programma la classe
+     * rimanente dovrà aspettare che la classe con priorità abbia terminato
+     * uno specifico task necessario per il corretto funzionamento.
+     */
     private String round = "#CLIENT";
+
+    /**
+     * Booleano che indica se, al termine della predizione, si vuole
+     * o meno effettuare un'altra predizione con lo stesso KNN.
+     */
     private boolean sameKnn;
+
+    /**
+     * Stringa che mantiene informazioni su eventuali errori della schermata.
+     * All'interno del programma questa viene controllata in determinati
+     * momenti per capire se aprire o meno un popup di errore.
+     */
     private String error = "#NONE";
+
     private Stage parentStage;
 
     public void setParentStage(Stage parentStage) {
         this.parentStage = parentStage;
     }
 
-    //GET E SET
-
+    /**
+     * Metodo per settare il valore della variabile round.
+     * 
+     * @param round - Stringa contenente il nuovo valore della variabile round.
+     */
     public void setRound(String round) {
         this.round = round;
     }
 
+    /**
+     * Metodo per restituire il valore della variabile round.
+     * 
+     * @return Stringa che contiene il valore della variabile round.
+     */
     public String getRound() {
         return round;
     }
 
+    /**
+     * Metodo per settare il valore della variabile msg.
+     * 
+     * @param msg - Stringa contenente il nuovo valore della variabile msg.
+     */
     public void setMsg(String msg) {
         this.msg = msg;
     }
@@ -98,7 +131,6 @@ public class PopupController {
         this.error = error;
     }
 
-    //METODI
 
     public void changeMsg() throws InterruptedException {
 

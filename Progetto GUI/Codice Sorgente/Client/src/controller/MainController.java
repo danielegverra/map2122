@@ -21,46 +21,17 @@ import javafx.stage.WindowEvent;
 
 public class MainController {
 
-	//ATTRIBUTI
-	private int decision = 0;
-	private String file;
-	private Boolean check;
-	private String round; 
-	private String errorMsg;
-	private Client client;
-	private String ipAddress;
-	private Integer PORT;
-	private String error = "#NONE";
-
-	public void setErrorPopup (String error) {
-		this.error = error;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
-	//FXML
-
-
-    @FXML
+	@FXML
     private Label buttonDescLabel;
 
     @FXML
     private Label descriptionLabel;
 
-   
     @FXML
     private Label titleLabel;
 
-	
 	@FXML
     private Label errorLabel;
-
-	private FXMLLoader popupLoader;
-
-	private Stage stage;
-
 
 	@FXML
     private JFXButton binaryButton;
@@ -74,6 +45,67 @@ public class MainController {
     @FXML
     private TextField fileNameField;
 
+	/**
+	 * Intero che rappresenta la decisione presa dall'utente riguardo
+	 * l'operazione da seguire.
+	 */
+	private int decision = 0;
+
+	/**
+	 * Stringa contenente il nome del file immesso dall'utente.
+	 */
+	private String file;
+
+	private Boolean check;
+
+	/**
+     * Stringa che funge da semaforo tra la classe Client e MainController.
+     * Il suo valore indica quale delle due classi ha la priorità, quindi
+     * in determinati momenti dell'esecuzione del programma la classe
+     * rimanente dovrà aspettare che la classe con priorità abbia terminato
+     * uno specifico task necessario per il corretto funzionamento.
+     */
+	private String round; 
+
+	/**
+	 * Stringa contenente il messaggio da stampare all'utente 
+	 * in caso di errore.
+	 */
+	private String errorMsg;
+
+	private Client client;
+
+	/**
+	 * Stringa contenente l'indirizzo ip del server su cui collegarsi.
+	 */
+	private String ipAddress;
+
+	/**
+	 * Intero contenente la porta sel server su cui collegarsi.
+	 */
+	private int PORT;
+
+	/**
+     * Stringa che mantiene informazioni su eventuali errori della schermata.
+     * All'interno del programma questa viene controllata in determinati
+     * momenti per capire se aprire o meno un popup di errore.
+     */
+	private String error = "#NONE";
+
+	private FXMLLoader popupLoader;
+
+	private Stage stage;
+
+
+
+	public void setErrorPopup (String error) {
+		this.error = error;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 	public PopupController getPopupController() {
 		return popupLoader.getController();
 	}
@@ -82,18 +114,41 @@ public class MainController {
 		return file;
 	}
 
+	private void getName() {
+		file = fileNameField.getText();
+		fileNameField.clear();
+    }
+
+	/**
+	 * Metodo per restituire il valore dell'attributo decision.
+	 * 
+	 * @return Intero che rappresenta il valore di decision.
+	 */
 	public int getDecision() {
 		return decision;
 	}
 
+	/**
+	 * Metodo per resettare il valore di decision a 0.
+	 */
 	public void resetDecision() {
 		decision = 0;
 	}
 	
+	/**
+     * Metodo per settare il valore della variabile round.
+     * 
+     * @param round - Stringa contenente il nuovo valore della variabile round.
+     */
 	public void setRound(String round) {
 		this.round = round;
 	}
 
+	/**
+     * Metodo per restituire il valore della variabile round.
+     * 
+     * @return Stringa che contiene il valore della variabile round.
+     */
 	public String getRound() {
 		return round;
 	}
@@ -150,11 +205,6 @@ public class MainController {
 			}
 		}
 	}
-
-	private void getName() {
-		file = fileNameField.getText();
-		fileNameField.clear();
-    }
 
     void openPopup(Stage parentStage) throws IOException, InterruptedException {
 		Parent root;

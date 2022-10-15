@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 
 public class ErrorController {
 
-     
     @FXML
     private Label titleLabel;
 

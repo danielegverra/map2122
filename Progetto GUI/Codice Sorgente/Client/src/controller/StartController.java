@@ -19,13 +19,6 @@ import javafx.beans.value.ObservableValue;
 
 public class StartController {
 
-	//Attributi
-
-    private Client c;
-	
-
-	//FXML
-
 	@FXML
     private TextField ipAddressTextField;
 
@@ -35,7 +28,8 @@ public class StartController {
     @FXML
     private JFXButton startButton;
 
-	//METODI
+	private Client c;
+	
 
     @FXML
     void avviaClient(ActionEvent event) throws IOException {
@@ -95,7 +89,6 @@ public class StartController {
 			stage.show();
 
 		} 
-
 		
     }
 }

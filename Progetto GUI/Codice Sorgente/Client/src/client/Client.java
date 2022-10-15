@@ -21,6 +21,7 @@ public class Client extends Thread {
 	private MainController control;
 	private PopupController popup;
 	private boolean isOpenedPopup;
+	private boolean doClose;
 	
 	/**
 	 * Oggetto della classe Socket che stabilisce la connessione con il Server.
@@ -39,9 +40,7 @@ public class Client extends Thread {
 	 */
 	private ObjectInputStream in = null;
 
-
-	private boolean doClose;
-
+	
 	public void close() {
 		doClose = true;
 	}

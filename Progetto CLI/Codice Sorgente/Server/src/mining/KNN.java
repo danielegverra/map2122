@@ -94,7 +94,7 @@ public class KNN implements Serializable {
      * Metodo per il caricamento del KNN da file.
      *
      * @param nomeFile - Stringa contenente il nome del file da cui caricare il KNN.
-     * @return - Restituisce l'istanza della classe KNN contenuta nel file.
+     * @return Istanza di KNN contenuta nel file da caricare.
      * @throws IOException
      * @throws ClassNotFoundException
      */
