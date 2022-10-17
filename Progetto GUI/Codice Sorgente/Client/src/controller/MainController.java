@@ -59,7 +59,7 @@ public class MainController {
 	 */
 	private String file;
 
-	private Boolean check;
+	private Boolean checkPopup;
 
 	/**
      * Stringa che funge da semaforo tra la classe Client e MainController.
@@ -156,8 +156,8 @@ public class MainController {
 		return round;
 	}
 
-	public void setCheck(Boolean check) {
-		this.check = check;
+	public void setCheckPopup(Boolean check) {
+		this.checkPopup = check;
 	}
 
 	public void setErrorMsg(String errorMsg) {
@@ -200,7 +200,7 @@ public class MainController {
 			openErrorPopup("Errore di Connessione:", "Uscita imminente, ristabilire una nuova connessione.");
 		} else {
 			//apro il popup di errore o di previsione a seconda del controllo
-			if (check) {
+			if (checkPopup) {
 				openPopup((Stage)((Node) event.getSource()).getScene().getWindow());
 			} else {
 				System.out.println("--> Errore nell'acqusizione della sorgente KNN");

@@ -22,18 +22,34 @@ import javafx.beans.value.ObservableValue;
  */
 public class StartController {
 
+	/**
+	 * TextField che acquisisce l'indirizzo ip del server
+	 * con cui il Client si deve connettere.
+	 */
 	@FXML
     private TextField ipAddressTextField;
 
+	/**
+	 * TextField che acquisisce la porta del server
+	 * su cui il Client si deve connettere.
+	 */
     @FXML
     private TextField portTextField;
     
+	/**
+	 * Bottone che conferma la scelta dell'indirizzo ip e 
+	 * della porta, iniziando la connessione con il server.
+	 */
     @FXML
-    private JFXButton startButton;
+    private JFXButton startButton;	
 
-	private Client c;
-	
-
+	/**
+	 * Metodo che fa partire la connessione al server identificato dall'ip
+	 * e porta desiderata dall'utente.
+	 * 
+	 * @param event - Evento causato dalla pressione di startButton.
+	 * @throws IOException
+	 */
     @FXML
     void avviaClient(ActionEvent event) throws IOException {
 		
@@ -58,7 +74,7 @@ public class StartController {
 			//connessione e cambio scena
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/RmainPage.fxml"));
 			Parent root = loader.load();
-			c = new Client(ipAddress, PORT, loader.getController());
+			Client client = new Client(ipAddress, PORT, loader.getController());
 			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
 
@@ -75,11 +91,11 @@ public class StartController {
 			});
 
 			stage.setScene(scene);
-			((MainController)loader.getController()).setClient(c);
+			((MainController)loader.getController()).setClient(client);
 			((MainController)loader.getController()).setConnection(ipAddress, PORT);
 			
 			System.out.println("--> Connesione al Server riuscita");
-            c.start();
+            client.start();
 		}  catch (IOException | ClassNotFoundException | NumberFormatException e) {
 			System.out.println("--> Errore di connessione al Server");
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));

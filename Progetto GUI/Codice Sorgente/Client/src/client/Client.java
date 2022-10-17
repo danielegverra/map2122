@@ -6,12 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
 
 /**
  * Classe che si occupa di effettuare la richiesta di predict al server.
@@ -133,7 +127,7 @@ public class Client extends Thread {
 
 				if (answer.contains("@ERROR")) {
 					control.setErrorMsg((String) in.readObject());
-					control.setCheck(false);
+					control.setCheckPopup(false);
 					control.setRound("#CONTROLLER");
 				} else {
 
@@ -143,13 +137,13 @@ public class Client extends Thread {
 					
 					if(answer.contains("@ERROR")) {	
 						control.setErrorMsg((String) in.readObject());
-						control.setCheck(false);
+						control.setCheckPopup(false);
 						control.setRound("#CONTROLLER");
 					}
 				}
 			} while (!answer.contains("@CORRECT"));
 
-			control.setCheck(true);
+			control.setCheckPopup(true);
 			control.setRound("#CONTROLLER");
 			System.out.println("--> KNN caricato correttamente");
 
@@ -268,26 +262,6 @@ public class Client extends Thread {
 	 */
 	public void close() {
 		doClose = true;
-	}
-
-	/** 
-	 * DOVE VIENE CHIAMATO??????
-	 * DOVE VIENE CHIAMATO??????
-	 * DOVE VIENE CHIAMATO??????
-	 * DOVE VIENE CHIAMATO??????
-	 * DOVE VIENE CHIAMATO??????
-	 * DOVE VIENE CHIAMATO??????
-	*/
-	void openPopup() throws IOException {
-		Stage stage;
-		Parent root;
-
-		stage = new Stage();
-		root = FXMLLoader.load(getClass().getResource("popup.fxml"));
-		stage.setScene(new Scene(root));
-		stage.setResizable(false);
-		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.showAndWait();
 	}
 
 }
