@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 
+/**
+ * Classe che si occupa di controllare e gestire lo scene della pagina principale.
+ */
 public class MainController {
 
 	@FXML

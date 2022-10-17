@@ -1,11 +1,11 @@
 package client;
 
+import controller.MainController;
+import controller.PopupController;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import controller.MainController;
-import controller.PopupController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,9 +18,31 @@ import javafx.stage.Stage;
  */
 public class Client extends Thread {
 
+	/**
+	 * Oggetto della classe MainController legato alla schermata principale
+	 * dell'interfaccia.
+	 */
 	private MainController control;
+
+	/**
+	 * Oggetto della classe PopupController legato alla schermata del popup
+	 * di immissione della predizione.
+	 */
 	private PopupController popup;
+
+	/**
+	 * Booleano che segnala se il popup è aperto o meno.
+	 * Esso è necessario per la corretta gestione della chiusura del
+	 * popup o della schermata principale, a seconda del momento in cui
+	 * si presenta un errore.
+	 */
 	private boolean isOpenedPopup;
+
+	/**
+	 * Booleano che segnala quando il Thread ha bisogno di essere chiuso,
+	 * operazione necessaria per non permettere che più thread della classe
+	 * siano aperti se non necessario.
+	 */
 	private boolean doClose;
 	
 	/**
@@ -40,12 +62,6 @@ public class Client extends Thread {
 	 */
 	private ObjectInputStream in = null;
 
-	
-	public void close() {
-		doClose = true;
-	}
-
-
 	/**
 	 * Costruttore di classe che si occupa di inizializzare gli attributi della classe e di
 	 * invocare il metodo talking().
@@ -62,7 +78,11 @@ public class Client extends Thread {
 		in = new ObjectInputStream(socket.getInputStream());
 	}
 
-
+	/**
+	 * Metodo della classe Thread che si occupa di richiamare il metodo 
+	 * principale della classe Client.
+	 */
+	@Override
 	public void run() {
 		
 		try {
@@ -85,7 +105,14 @@ public class Client extends Thread {
 		}
 	}
 
-
+	/**
+	 * Metodo che si occupa della comunicazione con il Server.
+	 * Viene richiesta la scelta di una delle tre opzioni di acquisizione del dataset.
+	 * 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws InterruptedException
+	 */
 	private void talking() throws IOException, ClassNotFoundException, InterruptedException {
 
 		int decision = 0;
@@ -234,7 +261,13 @@ public class Client extends Thread {
 			} while (popup.isSameKnn());
 			
 		}
+	}
 
+	/**
+	 * Metodo che si occupa di far terminare il Thread del Client in caso di predizione interrotta.
+	 */
+	public void close() {
+		doClose = true;
 	}
 
 	/** 

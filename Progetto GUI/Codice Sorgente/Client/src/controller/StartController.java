@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 
@@ -17,6 +16,10 @@ import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
+
+/**
+ * Classe che si occupa di controllare e gestire lo scene della pagina iniziale.
+ */
 public class StartController {
 
 	@FXML

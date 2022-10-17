@@ -3,7 +3,9 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-
+/**
+ * Classe che si occupa di controllare e gestire lo scene del popup di errore.
+ */
 public class ErrorController {
 
     @FXML

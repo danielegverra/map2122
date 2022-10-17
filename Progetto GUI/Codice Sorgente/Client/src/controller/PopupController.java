@@ -16,6 +16,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 
+/**
+ * Classe che si occupa di controllare e gestire lo scene del popup
+ * che.effettua la predizione.
+ */
 public class PopupController {
 
     @FXML
