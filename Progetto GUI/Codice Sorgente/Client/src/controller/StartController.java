@@ -10,7 +10,10 @@ import javafx.scene.Node;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
@@ -42,6 +45,39 @@ public class StartController {
 	 */
     @FXML
     private JFXButton startButton;	
+
+	@FXML
+    private Label titleLabel;	
+
+	@FXML
+    private Label ipLabel;
+
+	@FXML
+    private Label portLabel;
+
+	@FXML
+    private RowConstraints firstRow;
+
+	@FXML
+    private RowConstraints secondRow;
+
+	@FXML
+    private RowConstraints thirdRow;
+
+	@FXML
+    private RowConstraints forthRow;
+
+	@FXML
+    private RowConstraints fifthRow;
+
+	@FXML
+    private ColumnConstraints firstColumn;
+
+	@FXML
+    private ColumnConstraints secondColumn;
+
+	@FXML
+    private ColumnConstraints thirdColumn;
 
 	/**
 	 * Metodo che fa partire la connessione al server identificato dall'ip
@@ -118,4 +154,48 @@ public class StartController {
 		} 
 		
     }
+
+	
+	public void resize(double height, double width) {
+		Double size = Math.min(height, width);
+
+		//controllo non sia NaN poichè alla prima chiamata lo stage non ha ancora 
+		//delle dimensioni, perciò size risulterà NaN
+		if(!Double.isNaN(size)) {
+			firstColumn.setPrefWidth(width/4);
+			secondColumn.setPrefWidth(width/2);
+			thirdColumn.setPrefWidth(width/4);
+			
+			firstRow.setPrefHeight(height/3);
+			secondRow.setPrefHeight(height/6);
+			thirdRow.setPrefHeight(height/8);
+			forthRow.setPrefHeight(height/6);
+			fifthRow.setPrefHeight(height/6);
+
+			titleLabel.setStyle("-fx-font-size: " + size/15 + "; -fx-font-weight: bold; -fx-alignment: center");
+			titleLabel.setPrefWidth(width/2);
+			titleLabel.setPrefHeight(height/3);
+
+			ipLabel.setStyle("-fx-font-size: " + size/20 + "; -fx-alignment: center");
+			ipLabel.setPrefWidth(width/4);
+			ipLabel.setPrefHeight(height/7);
+
+			portLabel.setStyle("-fx-font-size: " + size/20 + "; -fx-alignment: center");
+			portLabel.setPrefWidth(width/4);
+			portLabel.setPrefHeight(height/7);
+
+			startButton.setStyle("-fx-font-size: " + size/33 + "; -fx-background-color: #263238");
+			startButton.setPrefHeight(height/11);
+			startButton.setPrefWidth(width/6);
+
+			ipAddressTextField.setStyle("-fx-font-size: " + size/33 + "; -fx-alignment: center");
+			ipAddressTextField.setPrefHeight(height/16);
+			ipAddressTextField.setPrefWidth(width/3);
+
+			portTextField.setStyle("-fx-font-size: " + size/33 + "; -fx-alignment: center");
+			portTextField.setPrefHeight(height/16);
+			portTextField.setPrefWidth(width/3);
+		}
+	}
+
 }
