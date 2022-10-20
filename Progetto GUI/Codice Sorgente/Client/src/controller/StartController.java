@@ -72,7 +72,7 @@ public class StartController {
 			}
 
 			//connessione e cambio scena
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/newmainPage.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/mainPage.fxml"));
 			Parent root = loader.load();
 			Client client = new Client(ipAddress, PORT, loader.getController());
 			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();

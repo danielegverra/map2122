@@ -314,15 +314,15 @@ public class MainController {
 
 		fileButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
 		fileButton.setPrefHeight(height/10);
-		fileButton.setPrefWidth(width/4);
+		fileButton.setPrefWidth(width/5);
 
 		binaryButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
 		binaryButton.setPrefHeight(height/10);
-		binaryButton.setPrefWidth(width/4);
+		binaryButton.setPrefWidth(width/5);
 
 		dbButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
 		dbButton.setPrefHeight(height/10);
-		dbButton.setPrefWidth(width/4);
+		dbButton.setPrefWidth(width/5);
 		
 		fileNameField.setPrefHeight(height/10);
 		fileNameField.setPrefWidth(width/3);
