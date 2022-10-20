@@ -14,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -43,10 +45,34 @@ public class MainController {
     private JFXButton dbButton;
 
     @FXML
-    private JFXButton fileButton;;
+    private JFXButton fileButton;
 
     @FXML
     private TextField fileNameField;
+
+	@FXML
+    private ColumnConstraints firstColumn;
+
+    @FXML
+    private ColumnConstraints secondColumn;
+
+    @FXML
+    private ColumnConstraints thirdColumn;
+
+	@FXML
+    private RowConstraints firstRow;
+
+	@FXML
+    private RowConstraints secondRow;
+
+	@FXML
+    private RowConstraints thirdRow;
+
+	@FXML
+    private RowConstraints forthRow;
+
+	@FXML
+    private RowConstraints fifthRow;
 
 	/**
 	 * Intero che rappresenta la decisione presa dall'utente riguardo
@@ -252,14 +278,54 @@ public class MainController {
         stage.show();
     }
 
+	/**
+	 * Metodo che viene impiegato per proporzionare le dimensioni delle
+	 * componenti della schermata in base alle dimensioni della schermata stessa
+	 * e viene richiamato ogni volta che le suddette dimensioni vengono modificate.
+	 * 
+	 * @param height - Double che rappresenta l'altezza della schermata.
+	 * @param width - Double che rappresenta la larghezza della schermata.
+	 * 
+	 */
 	void resize(double height, double width) {
 		double size = Math.min(height, width);
-		titleLabel.setStyle("-fx-font-size: " + size/16 + "; -fx-font-weight: bold; -fx-alignment: center; -fx-pref-width: " + width);
-		descriptionLabel.setStyle("-fx-font-size: " + size/20 + "; -fx-alignment: center; -fx-pref-width: " + width);
-		buttonDescLabel.setStyle("-fx-font-size: " + size/20 + "; -fx-alignment: center; -fx-pref-width: " + width);
-		fileButton.setStyle("-fx-font-size: " + size/29 + "; -fx-background-color:  #FFFFFF");
-		binaryButton.setStyle("-fx-font-size: " + size/29 + "; -fx-background-color:  #FFFFFF");
-		dbButton.setStyle("-fx-font-size: " + size/29 + "; -fx-background-color:  #FFFFFF");
+
+		firstColumn.setPrefWidth(width/4);
+		secondColumn.setPrefWidth(width/2);
+		thirdColumn.setPrefWidth(width/4);
+		
+		firstRow.setPrefHeight(height/3);
+		secondRow.setPrefHeight(height/6);
+		thirdRow.setPrefHeight(height/6);
+		forthRow.setPrefHeight(height/6);
+		fifthRow.setPrefHeight(height/6);
+
+		titleLabel.setStyle("-fx-font-size: " + size/15 + "; -fx-font-weight: bold; -fx-alignment: center");
+		titleLabel.setPrefWidth(width/2);
+		titleLabel.setPrefHeight(height/3);
+		
+		descriptionLabel.setStyle("-fx-font-size: " + size/25 + "; -fx-alignment: center");
+		descriptionLabel.setPrefWidth(width/2);
+		descriptionLabel.setPrefHeight(height/6);
+		
+		buttonDescLabel.setStyle("-fx-font-size: " + size/25 + "; -fx-alignment: center");
+		buttonDescLabel.setPrefWidth(width/2);
+		buttonDescLabel.setPrefHeight(height/6);
+
+		fileButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
+		fileButton.setPrefHeight(height/10);
+		fileButton.setPrefWidth(width/4);
+
+		binaryButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
+		binaryButton.setPrefHeight(height/10);
+		binaryButton.setPrefWidth(width/4);
+
+		dbButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
+		dbButton.setPrefHeight(height/10);
+		dbButton.setPrefWidth(width/4);
+		
+		fileNameField.setPrefHeight(height/10);
+		fileNameField.setPrefWidth(width/3);
 	}
 
 }

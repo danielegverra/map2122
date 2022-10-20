@@ -1,65 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #263238;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #263238;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="controller.MainController">
+  <columnConstraints>
+      <ColumnConstraints fx:id="firstColumn" hgrow="SOMETIMES" minWidth="0.0" prefWidth="150.0" />
+    <ColumnConstraints fx:id="secondColumn" hgrow="SOMETIMES" minWidth="0.0" prefWidth="300.0" />
+    <ColumnConstraints fx:id="thirdColumn" hgrow="SOMETIMES" minWidth="0.0" prefWidth="150.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints fx:id="firstRow" minHeight="0.0" prefHeight="133.0" vgrow="SOMETIMES" />
+    <RowConstraints fx:id="secondRow" minHeight="0.0" prefHeight="66.0" vgrow="SOMETIMES" />
+    <RowConstraints fx:id="thirdRow" minHeight="0.0" prefHeight="66.0" vgrow="SOMETIMES" />
+      <RowConstraints fx:id="forthRow" minHeight="0.0" prefHeight="66.0" vgrow="SOMETIMES" />
+      <RowConstraints fx:id="fifthRow" minHeight="0.0" prefHeight="66.0" vgrow="SOMETIMES" />
+  </rowConstraints>
    <children>
-      <MenuBar stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <Pane layoutX="11.0" layoutY="27.0" prefHeight="72.0" prefWidth="375.0" AnchorPane.bottomAnchor="301.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="27.0">
-         <children>
-            <Label layoutX="13.0" layoutY="18.0" text="ALGORITMO DI MINING KNN" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="14.0" layoutY="93.0" minHeight="93.0" minWidth="434.0" prefHeight="93.0" prefWidth="434.0" AnchorPane.bottomAnchor="213.4" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="151.60000000000002" AnchorPane.topAnchor="93.0">
-         <children>
-            <Label layoutX="14.0" layoutY="2.0" text="Inserisci il nome del file da caricare:" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="fileNameField" layoutX="14.0" layoutY="41.0" prefHeight="26.0" prefWidth="175.0" promptText="Digita il nome" />
-         </children>
-      </Pane>
-      <Label layoutX="27.0" layoutY="187.0" style="-fx-opacity: 1;" text="Clicca il bottone corrispondente alla sorgente del file:" textFill="WHITE">
+      <Label fx:id="descriptionLabel" prefHeight="65.0" prefWidth="309.0" style="-fx-alignment: center;" text="Inserisci il nome del file da caricare:" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Label>
+      <TextField fx:id="fileNameField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="Digita il nome" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <Label fx:id="buttonDescLabel" prefHeight="65.0" prefWidth="300.0" style="-fx-alignment: center;" text="Clicca il bottone corrispondente alla sorgente:" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <JFXButton fx:id="fileButton" buttonType="RAISED" layoutX="27.0" layoutY="235.0" onAction="#decision" prefHeight="58.0" prefWidth="127.0" style="-fx-background-color: #FFFFFF;" text="File">
+      <JFXButton fx:id="fileButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#decision" prefHeight="44.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-alignment: center;" text="File" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
          <font>
-            <Font size="19.0" />
+            <Font size="16.0" />
          </font>
          <effect>
             <DropShadow>
@@ -69,9 +55,9 @@
             </DropShadow>
          </effect>
       </JFXButton>
-      <JFXButton fx:id="dbButton" buttonType="RAISED" layoutX="376.0" layoutY="235.0" onAction="#decision" prefHeight="58.0" prefWidth="127.0" style="-fx-background-color: #FFFFFF;" text="Database">
+      <JFXButton fx:id="binaryButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#decision" prefHeight="44.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-alignment: center;" text="File Binario" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
          <font>
-            <Font size="19.0" />
+            <Font size="16.0" />
          </font>
          <effect>
             <DropShadow>
@@ -81,9 +67,9 @@
             </DropShadow>
          </effect>
       </JFXButton>
-      <JFXButton fx:id="binaryButton" buttonType="RAISED" layoutX="201.0" layoutY="235.0" onAction="#decision" prefHeight="58.0" prefWidth="127.0" style="-fx-background-color: #FFFFFF;" text="File Binario">
+      <JFXButton fx:id="dbButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#decision" prefHeight="44.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-alignment: center;" text="Database" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
          <font>
-            <Font size="19.0" />
+            <Font size="16.0" />
          </font>
          <effect>
             <DropShadow>
@@ -93,5 +79,10 @@
             </DropShadow>
          </effect>
       </JFXButton>
+      <Label fx:id="titleLabel" prefHeight="133.0" prefWidth="300.0" style="-fx-font-weight: bold; -fx-alignment: center;" text=" SOFTWARE DI MINING KNN" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
    </children>
-</AnchorPane>
+</GridPane>

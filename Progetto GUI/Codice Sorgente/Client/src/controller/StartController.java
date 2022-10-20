@@ -72,12 +72,13 @@ public class StartController {
 			}
 
 			//connessione e cambio scena
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/RmainPage.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/newmainPage.fxml"));
 			Parent root = loader.load();
 			Client client = new Client(ipAddress, PORT, loader.getController());
 			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
 
+			//definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
 			stage.heightProperty().addListener(new ChangeListener<Number>() {
 				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
 					((MainController)loader.getController()).resize(stage.getHeight(), stage.getWidth());
@@ -90,10 +91,17 @@ public class StartController {
 				}
 			});
 
+			//ridimensione delle componenti della scena prima del set
+			((MainController)loader.getController()).resize(stage.getHeight(), stage.getWidth());
+
+			//set della scena
 			stage.setScene(scene);
+
+			//set delle componenti del controller
 			((MainController)loader.getController()).setClient(client);
 			((MainController)loader.getController()).setConnection(ipAddress, PORT);
 			
+			//start thread
 			System.out.println("--> Connesione al Server riuscita");
             client.start();
 		}  catch (IOException | ClassNotFoundException | NumberFormatException e) {
