@@ -174,7 +174,6 @@ public class Client extends Thread {
 							
 							//Attendo che Manager mi dia l'attributo discreto
 							while(popup.getRound().compareTo("#CONTROLLER") == 0) {
-
 								//per chiudere il thread quando il popup viene chiuso
 								if(doClose) {
 									return;
@@ -188,7 +187,6 @@ public class Client extends Thread {
 							do {
 								//Attendo che Manager mi dia l'attributo continuo
 								while(popup.getRound().compareTo("#CONTROLLER") == 0) {
-
 									//per chiudere il thread quando il popup viene chiuso
 									if(doClose) {
 										return;

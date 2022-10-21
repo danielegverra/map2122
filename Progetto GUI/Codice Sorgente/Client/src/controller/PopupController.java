@@ -2,6 +2,9 @@ package controller;
 
 import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -135,6 +138,13 @@ public class PopupController {
         this.error = error;
     }
 
+    public String getErrorPopup() {
+        return error;
+    }
+
+    public Stage getParentStage() {
+        return parentStage;
+    }
 
     public void changeMsg() throws InterruptedException {
 
@@ -165,15 +175,8 @@ public class PopupController {
 
                 //controllo di eventuali errori (differenza tra #EXIT che chiude tutto e #REPEAT che apre solo un popup di errore)
                 if (error.compareTo("#EXIT") == 0) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
-			        Parent root = loader.load();
-                    Scene scene = new Scene(root);
-			        parentStage.setScene(scene);
-                    
-                    ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
-                    System.out.println("--> Ritorno alla schermata iniziale");
-                    openErrorPopup("Errore di Connessione:", "Uscita imminente, ristabilire una nuova connessione.");
-                    //return;
+                    //gestione dell'errore
+                    handleSocketError((Stage)((Node) event.getSource()).getScene().getWindow());
                 } else if (error.compareTo("#REPEAT") == 0) {
                     openErrorPopup("Errore di Immissione:", "Bisogna inserire un valore numerico idoneo.");
                     error = "#NONE";
@@ -254,6 +257,35 @@ public class PopupController {
         ((ErrorController)fxml.getController()).setTitleLabel(title);
         ((ErrorController)fxml.getController()).setSubtitleLable(subtitle);
         stage.show();
+    }
+
+    public void handleSocketError(Stage popupStage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/newStartPage.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        StartController newController = (StartController)loader.getController();
+
+        //definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
+        parentStage.heightProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+                newController.resize(parentStage.getHeight(), parentStage.getWidth());
+            }
+        });
+
+        parentStage.widthProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+                newController.resize(parentStage.getHeight(), parentStage.getWidth());
+            }
+        });
+
+        //ridimensione delle componenti della scena prima del set
+        newController.resize(parentStage.getHeight(), parentStage.getWidth());
+
+        parentStage.setScene(scene);
+        
+        popupStage.close();
+        System.out.println("--> Ritorno alla schermata iniziale");
+        openErrorPopup("Errore di Connessione:", "Uscita imminente, ristabilire una nuova connessione.");
     }
 
 }

@@ -15,26 +15,28 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/newStartPage.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
+            Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
-            primaryStage.setTitle("KNN");
+            StartController newController = (StartController)fxmlLoader.getController();
+
             //definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
 			primaryStage.heightProperty().addListener(new ChangeListener<Number>() {
 				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
-					((StartController)fxmlLoader.getController()).resize(primaryStage.getHeight(), primaryStage.getWidth());
+					newController.resize(primaryStage.getHeight(), primaryStage.getWidth());
 				}
 			});
 	
 			primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
 				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
-					((StartController)fxmlLoader.getController()).resize(primaryStage.getHeight(), primaryStage.getWidth());
+					newController.resize(primaryStage.getHeight(), primaryStage.getWidth());
 				}
 			});
 
             //ridimensione delle componenti della scena prima del set
-            ((StartController)fxmlLoader.getController()).resize(primaryStage.getHeight(), primaryStage.getWidth());
+            newController.resize(primaryStage.getHeight(), primaryStage.getWidth());
 
             //set della scena e show
+            primaryStage.setTitle("KNN");
             primaryStage.setScene(scene);            
             primaryStage.getIcons().add(new Image(App.class.getResourceAsStream("/fxml/1Icon.jpg")));
             primaryStage.show();

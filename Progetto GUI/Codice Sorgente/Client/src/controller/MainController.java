@@ -1,10 +1,12 @@
 package controller;
 
 import java.io.IOException;
+import javafx.beans.value.ChangeListener;
 
 import com.jfoenix.controls.JFXButton;
 
 import client.Client;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -217,10 +219,29 @@ public class MainController {
 
 		//in caso di errore viene aperto il popup e ristabilita la schermata iniziale
 		if(error.compareTo("#EXIT") == 0) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/newStartPage.fxml"));
 			Parent root = loader.load();
+			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
-			((Stage)((Node)event.getSource()).getScene().getWindow()).setScene(scene);
+			StartController newController = (StartController)loader.getController();
+
+			//definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
+			stage.heightProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+					newController.resize(stage.getHeight(), stage.getWidth());
+				}
+			});
+	
+			stage.widthProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+					newController.resize(stage.getHeight(), stage.getWidth());
+				}
+			});
+
+            //ridimensione delle componenti della scena prima del set
+            newController.resize(stage.getHeight(), stage.getWidth());
+
+			stage.setScene(scene);
 			
 			System.out.println("--> Ritorno alla schermata iniziale");
 			openErrorPopup("Errore di Connessione:", "Uscita imminente, ristabilire una nuova connessione.");
@@ -246,15 +267,25 @@ public class MainController {
 		stage.setTitle("KNN");
 		stage.setResizable(false);
 		round = "#CLIENT";
+
+		PopupController popupController = (PopupController)popupLoader.getController();
+
 		stage.setOnCloseRequest((EventHandler<WindowEvent>) new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
 				try {
+					//in maniera tale da chiudere il thread client e aprirne un altro identico da zero
 					client.close();
 					//inserire indirizzo ip e porta dallo start controller
 					client = new Client(ipAddress, PORT, MainController.this);
 					client.start();
 				} catch (IOException | ClassNotFoundException | NumberFormatException e ) {
-					e.printStackTrace();
+					//gestisco l'eccezione data dalla connessione al server
+					System.out.println(e.getMessage());
+					try {
+						popupController.handleSocketError(stage);
+					} catch (IOException exc) {
+						exc.printStackTrace();
+					}
 				}         			
 				System.out.println("--> Chiusura Stage in corso");
 			}
@@ -324,6 +355,7 @@ public class MainController {
 		dbButton.setPrefHeight(height/10);
 		dbButton.setPrefWidth(width/5);
 		
+		fileNameField.setStyle("-fx-font-size: " + size/25 + "; -fx-alignment: center");
 		fileNameField.setPrefHeight(height/10);
 		fileNameField.setPrefWidth(width/3);
 	}
