@@ -260,17 +260,16 @@ public class MainController {
     void openPopup(Stage parentStage) throws IOException, InterruptedException {
 		Parent root;
 		stage = new Stage();
-		popupLoader = new FXMLLoader(getClass().getResource("../fxml/popupPage.fxml"));
+		popupLoader = new FXMLLoader(getClass().getResource("../fxml/newpopupPage.fxml"));
 		root = popupLoader.load();
 		stage.setScene(new Scene(root));
-		stage.setResizable(false);
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.setTitle("KNN: Prediction");
 		stage.getIcons().add(new Image(MainController.class.getResourceAsStream("/fxml/1Icon.jpg")));
-		stage.setResizable(false);
-		round = "#CLIENT";
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////FAI IL RESIZE
 
-		PopupController popupController = (PopupController)popupLoader.getController();
+		round = "#CLIENT";
 
 		stage.setOnCloseRequest((EventHandler<WindowEvent>) new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
@@ -284,7 +283,7 @@ public class MainController {
 					//gestisco l'eccezione data dalla connessione al server
 					System.out.println(e.getMessage());
 					try {
-						popupController.handleSocketError(stage);
+						getPopupController().handleSocketError(stage);
 					} catch (IOException exc) {
 						exc.printStackTrace();
 					}
@@ -292,9 +291,8 @@ public class MainController {
 				System.out.println("--> Chiusura Stage in corso");
 			}
 		});
-		((PopupController) popupLoader.getController()).changeMsg();
-		((PopupController) popupLoader.getController()).setParentStage(parentStage);
-		((PopupController) popupLoader.getController()).hideButton();
+		getPopupController().changeMsg();
+		getPopupController().setParentStage(parentStage);
 		stage.show();
 	}
 

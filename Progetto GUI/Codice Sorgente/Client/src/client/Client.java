@@ -2,6 +2,8 @@ package client;
 
 import controller.MainController;
 import controller.PopupController;
+import controller.ShowPredictionController;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -23,6 +25,8 @@ public class Client extends Thread {
 	 * di immissione della predizione.
 	 */
 	private PopupController popup;
+
+	private ShowPredictionController prediction;
 
 	/**
 	 * Booleano che segnala se il popup è aperto o meno.
@@ -168,7 +172,6 @@ public class Client extends Thread {
 						String msg = (String) (in.readObject());
 						
 						popup.setMsg(msg);
-
 						popup.setRound("#CONTROLLER");
 						if (answer.equals("@READSTRING")) {
 							
@@ -236,12 +239,24 @@ public class Client extends Thread {
 	
 				String s = (String)in.readObject();
 				System.out.println("--> Predizione ottenuta: " + s);
-				popup.showButton();
 				popup.setPrediction(s);
+				popup.setShowPrediction(true);
+
+				popup.setRound("#CONTROLLER");
+				while(popup.getRound().compareTo("#CONTROLLER") == 0) {
+
+					//per chiudere il thread quando il popup viene chiuso
+					if(doClose) {
+						return;
+					}
+					sleep(100);
+				}
+
+				prediction = popup.getShowPredictionController();
 				
 				//Aspetto che il Manager scelga di ripetere o meno il predict 
-				popup.setRound("#CONTROLLER");
-				while (popup.getRound().compareTo("#CONTROLLER") == 0) {
+				prediction.setRound("#CONTROLLER");
+				while (prediction.getRound().compareTo("#CONTROLLER") == 0) {
 
 					//per chiudere il thread quando il popup viene chiuso
 					if(doClose) {
@@ -250,7 +265,7 @@ public class Client extends Thread {
 					sleep(100);
 				}
 				
-			} while (popup.isSameKnn());
+			} while (prediction.isSameKnn());
 			
 		}
 	}

@@ -1,11 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import com.jfoenix.controls.JFXButton;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -31,21 +29,6 @@ public class PopupController {
     @FXML
     private TextField valueField;
 
-    @FXML
-    private Label captionLabel;
-
-    @FXML
-    private JFXButton showPredictionButton;
-
-    @FXML
-    private Label predictionLabel;
-
-    @FXML
-    private JFXButton differentKnnButton;
-
-    @FXML
-    private JFXButton sameKnnButton;
-
     /**
      * Stringa che contiene il messaggio ricevuto dal client,
      * il quale verrà stampato a video, avvalorando typeAttributeLabel.
@@ -54,6 +37,7 @@ public class PopupController {
 
     private String tmp;
     private String prediction;
+    private boolean doShowPrediction = false;
 
     /**
      * Stringa che funge da semaforo tra la classe Client e PopupController.
@@ -65,12 +49,6 @@ public class PopupController {
     private String round = "#CLIENT";
 
     /**
-     * Booleano che indica se, al termine della predizione, si vuole
-     * o meno effettuare un'altra predizione con lo stesso KNN.
-     */
-    private boolean sameKnn;
-
-    /**
      * Stringa che mantiene informazioni su eventuali errori della schermata.
      * All'interno del programma questa viene controllata in determinati
      * momenti per capire se aprire o meno un popup di errore.
@@ -78,6 +56,12 @@ public class PopupController {
     private String error = "#NONE";
 
     private Stage parentStage;
+
+    private FXMLLoader showPredictionLoader;
+
+    public ShowPredictionController getShowPredictionController() {
+        return showPredictionLoader.getController();
+    }
 
     public void setParentStage(Stage parentStage) {
         this.parentStage = parentStage;
@@ -126,14 +110,6 @@ public class PopupController {
         this.prediction = prediction;
     }    
 
-    public void hideButton() {
-        showPredictionButton.setOpacity(0);
-    }
-    
-    public boolean isSameKnn() {
-        return sameKnn;
-    }
-
     public void setErrorPopup(String error) {
         this.error = error;
     }
@@ -144,6 +120,10 @@ public class PopupController {
 
     public Stage getParentStage() {
         return parentStage;
+    }
+
+    public void setShowPrediction(boolean value) {
+        doShowPrediction = value;
     }
 
     public void changeMsg() throws InterruptedException {
@@ -181,70 +161,33 @@ public class PopupController {
                     openErrorPopup("Errore di Immissione:", "Bisogna inserire un valore numerico idoneo.");
                     error = "#NONE";
                 }
-                changeMsg();
+
+                //se ho terminato cambio scena, altrimenti cambio solo l'etichetta della label
+                if(doShowPrediction) {
+                    doShowPrediction = false;
+                    showPrediction();
+                } else {
+                    changeMsg();
+                }
+                
             } 
             //se tmp è vuota non faccio nulla
         }
     }
-
-    @FXML
-    void changeText(ActionEvent event) throws InterruptedException {
-        captionLabel.setOpacity(1);
-        predictionLabel.setText(prediction);
-        predictionLabel.setOpacity(1);
-        showPredictionButton.setOpacity(0);
-        sameKnnButton.setLayoutX(14);
-        sameKnnButton.setLayoutY(206);
-        differentKnnButton.setLayoutX(198);
-        differentKnnButton.setLayoutY(206);
-    }
-
     
-    public void showButton() {
-
-        showPredictionButton.setOpacity(1);
-        showPredictionButton.setLayoutX(77);
-        showPredictionButton.setLayoutY(120);
-        valueField.setOpacity(0);
-        typeAttributeLabel.setOpacity(0);
-        round = "#CONTROLLER";
-    }
-
-    @FXML
-    void useSameKnn(ActionEvent event) throws InterruptedException {
+    private void showPrediction() throws IOException {
+        showPredictionLoader = new FXMLLoader(getClass().getResource("../fxml/newshowPredictionPage.fxml"));
+        Parent root = showPredictionLoader.load();
+        Stage stage = (Stage)valueField.getScene().getWindow();
+        Scene scene = new Scene(root);
+        getShowPredictionController().setPrediction(prediction);
+        getShowPredictionController().setPopupController(this);
+        getShowPredictionController().setParentScene(valueField.getScene());
+        stage.setScene(scene);
         
-        //Setto la variabile che comunica al Client di ripetere la predizione
-        sameKnn = true;
-
-        //Aspetto che il Client comunichi al Manager il msg giusto
-        round = "#CLIENT";
-        while(round.compareTo("#CLIENT") == 0) {
-            Thread.sleep(100);
-        }
-
-        //Reset delle label per prendere la predizione
-        valueField.requestFocus();
-        sameKnnButton.setLayoutX(435);
-        sameKnnButton.setLayoutY(171);
-        differentKnnButton.setLayoutX(435);
-        differentKnnButton.setLayoutY(250);
-        showPredictionButton.setOpacity(0);
-        showPredictionButton.setLayoutY(94);
-        showPredictionButton.setLayoutX(288);
-        valueField.setOpacity(1);
-        typeAttributeLabel.setText(msg);
-        typeAttributeLabel.setOpacity(1);
-        captionLabel.setOpacity(0);
-        predictionLabel.setOpacity(0);
-
-    }
-
-    @FXML
-    void useOtherKnn(ActionEvent event) {
-        ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
-        sameKnn = false;
         round = "#CLIENT";
     }
+
 
     public void openErrorPopup(String title, String subtitle) throws IOException {
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
