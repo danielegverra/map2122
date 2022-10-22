@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Modality;
@@ -264,7 +265,8 @@ public class MainController {
 		stage.setScene(new Scene(root));
 		stage.setResizable(false);
 		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.setTitle("KNN");
+		stage.setTitle("KNN: Prediction");
+		stage.getIcons().add(new Image(MainController.class.getResourceAsStream("/fxml/1Icon.jpg")));
 		stage.setResizable(false);
 		round = "#CLIENT";
 
@@ -303,7 +305,8 @@ public class MainController {
         stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
-		stage.setTitle("KNN: Popup di errore");
+		stage.setTitle("KNN: Error Popup");
+		stage.getIcons().add(new Image(MainController.class.getResourceAsStream("/fxml/1Icon.jpg")));
         ((ErrorController)fxml.getController()).setTitleLabel(title);
         ((ErrorController)fxml.getController()).setSubtitleLable(subtitle);
         stage.show();
