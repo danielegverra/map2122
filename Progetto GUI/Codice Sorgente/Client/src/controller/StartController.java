@@ -113,29 +113,30 @@ public class StartController {
 			Client client = new Client(ipAddress, PORT, loader.getController());
 			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
+			MainController newController = (MainController)loader.getController();
 
 			//definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
 			stage.heightProperty().addListener(new ChangeListener<Number>() {
 				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
-					((MainController)loader.getController()).resize(stage.getHeight(), stage.getWidth());
+					newController.resize(stage.getHeight(), stage.getWidth());
 				}
 			});
 	
 			stage.widthProperty().addListener(new ChangeListener<Number>() {
 				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
-					((MainController)loader.getController()).resize(stage.getHeight(), stage.getWidth());
+					newController.resize(stage.getHeight(), stage.getWidth());
 				}
 			});
 
 			//ridimensione delle componenti della scena prima del set
-			((MainController)loader.getController()).resize(stage.getHeight(), stage.getWidth());
+			newController.resize(stage.getHeight(), stage.getWidth());
 
 			//set della scena
 			stage.setScene(scene);
 
 			//set delle componenti del controller
-			((MainController)loader.getController()).setClient(client);
-			((MainController)loader.getController()).setConnection(ipAddress, PORT);
+			newController.setClient(client);
+			newController.setConnection(ipAddress, PORT);
 			
 			//start thread
 			System.out.println("--> Connesione al Server riuscita");

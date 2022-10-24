@@ -1,18 +1,27 @@
 package controller;
 
 import java.io.IOException;
-
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 public class ShowPredictionController {
+
+    @FXML
+    private RowConstraints firstRow;
+
+    @FXML
+    private RowConstraints secondRow;
+
+    @FXML
+    private RowConstraints thirdRow;
 
     @FXML
     private Label captionLabel;
@@ -108,8 +117,51 @@ public class ShowPredictionController {
 
         //cambia la scena ripristinando il popup di predizione
         Stage currentStage = (Stage)captionLabel.getScene().getWindow();
+
+        //ridimensione delle componenti della scena prima del set
+		popupController.resize(currentStage.getHeight(), currentStage.getWidth());
+
+        //definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
+		currentStage.heightProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+				popupController.resize(currentStage.getHeight(), currentStage.getWidth());
+			}
+		});
+
+		currentStage.widthProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+				popupController.resize(currentStage.getHeight(), currentStage.getWidth());
+			}
+		});
+
+        //set dello scene
         currentStage.setScene(parentScene);
         
+    }
+
+    public void resize(double height, double width) {
+        Double size = Math.min(height, width);
+        
+        firstRow.setPrefHeight((height/22)*6);
+        secondRow.setPrefHeight((height/22)*6);
+        thirdRow.setPrefHeight((height/22)*10);
+
+        captionLabel.setStyle("-fx-font-size: " + size/13 + "; -fx-alignment: center");
+        captionLabel.setPrefWidth(width);
+        captionLabel.setPrefHeight((height/22)*6);
+
+        predictionLabel.setStyle("-fx-font-size: " + size/11 + "; -fx-alignment: center");
+        predictionLabel.setPrefWidth(width);
+        predictionLabel.setPrefHeight((height/22)*6);
+
+        sameKnnButton.setStyle("-fx-font-size: " + size/21 + "; -fx-background-color: #FFFFFF");
+        sameKnnButton.setPrefHeight((height/22)*6);
+        sameKnnButton.setPrefWidth((width/2)-30);
+
+        differentKnnButton.setStyle("-fx-font-size: " + size/21 + "; -fx-background-color: #FFFFFF");
+        differentKnnButton.setPrefHeight((height/22)*6);
+        differentKnnButton.setPrefWidth((width/2)-30);
+
     }
 
 }

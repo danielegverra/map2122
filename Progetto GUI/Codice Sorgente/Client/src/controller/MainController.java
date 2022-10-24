@@ -267,10 +267,10 @@ public class MainController {
 		stage.setTitle("KNN: Prediction");
 		stage.getIcons().add(new Image(MainController.class.getResourceAsStream("/fxml/1Icon.jpg")));
 		
-		//////////////////////////////////////////////////////////////////////////////////////////////////////FAI IL RESIZE
-
+		//variazione del valore della variabile semaforo
 		round = "#CLIENT";
 
+		//definiamo l'operazione da compiere in caso di chiusura della schermata
 		stage.setOnCloseRequest((EventHandler<WindowEvent>) new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
 				try {
@@ -291,6 +291,26 @@ public class MainController {
 				System.out.println("--> Chiusura Stage in corso");
 			}
 		});
+
+		PopupController newController = (PopupController)popupLoader.getController();
+
+		//definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
+		stage.heightProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+				newController.resize(stage.getHeight(), stage.getWidth());
+			}
+		});
+
+		stage.widthProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+				newController.resize(stage.getHeight(), stage.getWidth());
+			}
+		});
+
+		//ridimensione delle componenti della scena prima del set
+		newController.resize(stage.getHeight(), stage.getWidth());
+
+		//set della scena
 		getPopupController().changeMsg();
 		getPopupController().setParentStage(parentStage);
 		stage.show();

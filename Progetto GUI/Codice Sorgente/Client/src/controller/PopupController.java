@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Node;
@@ -28,6 +29,12 @@ public class PopupController {
 
     @FXML
     private TextField valueField;
+
+    @FXML
+    private RowConstraints firstRow;
+
+    @FXML
+    private RowConstraints secondRow;
 
     /**
      * Stringa che contiene il messaggio ricevuto dal client,
@@ -183,6 +190,24 @@ public class PopupController {
         getShowPredictionController().setPrediction(prediction);
         getShowPredictionController().setPopupController(this);
         getShowPredictionController().setParentScene(valueField.getScene());
+        ShowPredictionController newController = (ShowPredictionController)showPredictionLoader.getController();
+
+        //definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
+        stage.heightProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+                newController.resize(stage.getHeight(), stage.getWidth());
+            }
+        });
+
+        stage.widthProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+                newController.resize(stage.getHeight(), stage.getWidth());
+            }
+        });
+
+        //ridimensione delle componenti della scena prima del set
+        newController.resize(stage.getHeight(), stage.getWidth());
+
         stage.setScene(scene);
         
         round = "#CLIENT";
@@ -229,6 +254,27 @@ public class PopupController {
         popupStage.close();
         System.out.println("--> Ritorno alla schermata iniziale");
         openErrorPopup("Errore di Connessione:", "Uscita imminente, ristabilire una nuova connessione.");
+    }
+
+    public void resize(double height, double width) {
+		Double size = Math.min(height, width);
+
+		//controllo non sia NaN poichè alla prima chiamata lo stage non ha ancora 
+		//delle dimensioni, perciò size risulterà NaN
+		if(!Double.isNaN(size)) {
+			
+			firstRow.setPrefHeight(height/2);
+			secondRow.setPrefHeight(height/2);
+
+            typeAttributeLabel.setStyle("-fx-font-size: " + size/11 + "; -fx-alignment: center");
+            typeAttributeLabel.setPrefHeight(height/2);
+            typeAttributeLabel.setPrefWidth(width);
+
+            valueField.setStyle("-fx-font-size: " + size/19 + "; -fx-alignment: center");
+            valueField.setPrefHeight((height/22)*4);
+            valueField.setPrefWidth((width/7)*5);
+					
+		}
     }
 
 }
