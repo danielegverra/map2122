@@ -176,7 +176,7 @@ public class PopupController {
     }
     
     private void showPrediction() throws IOException {
-        showPredictionLoader = new FXMLLoader(getClass().getResource("../fxml/newshowPredictionPage.fxml"));
+        showPredictionLoader = new FXMLLoader(getClass().getResource("../fxml/showPredictionPage.fxml"));
         Parent root = showPredictionLoader.load();
         Stage stage = (Stage)valueField.getScene().getWindow();
         Scene scene = new Scene(root);
@@ -203,7 +203,7 @@ public class PopupController {
     }
 
     public void handleSocketError(Stage popupStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/newStartPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         StartController newController = (StartController)loader.getController();

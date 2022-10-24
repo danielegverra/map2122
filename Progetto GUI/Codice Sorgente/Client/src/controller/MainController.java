@@ -220,7 +220,7 @@ public class MainController {
 
 		//in caso di errore viene aperto il popup e ristabilita la schermata iniziale
 		if(error.compareTo("#EXIT") == 0) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/newStartPage.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
 			Parent root = loader.load();
 			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
@@ -260,7 +260,7 @@ public class MainController {
     void openPopup(Stage parentStage) throws IOException, InterruptedException {
 		Parent root;
 		stage = new Stage();
-		popupLoader = new FXMLLoader(getClass().getResource("../fxml/newpopupPage.fxml"));
+		popupLoader = new FXMLLoader(getClass().getResource("../fxml/popupPage.fxml"));
 		root = popupLoader.load();
 		stage.setScene(new Scene(root));
 		stage.initModality(Modality.APPLICATION_MODAL);
