@@ -1,10 +1,12 @@
 package controller;
 
 import java.io.IOException;
+import javafx.beans.value.ChangeListener;
 
 import com.jfoenix.controls.JFXButton;
 
 import client.Client;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,23 +16,119 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 
+/**
+ * Classe che si occupa di controllare e gestire lo scene della pagina principale.
+ */
 public class MainController {
 
-	//ATTRIBUTI
+	@FXML
+    private Label buttonDescLabel;
+
+    @FXML
+    private Label descriptionLabel;
+
+    @FXML
+    private Label titleLabel;
+
+	@FXML
+    private Label errorLabel;
+
+	@FXML
+    private JFXButton binaryButton;
+
+    @FXML
+    private JFXButton dbButton;
+
+    @FXML
+    private JFXButton fileButton;
+
+    @FXML
+    private TextField fileNameField;
+
+	@FXML
+    private ColumnConstraints firstColumn;
+
+    @FXML
+    private ColumnConstraints secondColumn;
+
+    @FXML
+    private ColumnConstraints thirdColumn;
+
+	@FXML
+    private RowConstraints firstRow;
+
+	@FXML
+    private RowConstraints secondRow;
+
+	@FXML
+    private RowConstraints thirdRow;
+
+	@FXML
+    private RowConstraints forthRow;
+
+	@FXML
+    private RowConstraints fifthRow;
+
+	/**
+	 * Intero che rappresenta la decisione presa dall'utente riguardo
+	 * l'operazione da seguire.
+	 */
 	private int decision = 0;
+
+	/**
+	 * Stringa contenente il nome del file immesso dall'utente.
+	 */
 	private String file;
-	private Boolean check;
+
+	private Boolean checkPopup;
+
+	/**
+     * Stringa che funge da semaforo tra la classe Client e MainController.
+     * Il suo valore indica quale delle due classi ha la priorità, quindi
+     * in determinati momenti dell'esecuzione del programma la classe
+     * rimanente dovrà aspettare che la classe con priorità abbia terminato
+     * uno specifico task necessario per il corretto funzionamento.
+     */
 	private String round; 
+
+	/**
+	 * Stringa contenente il messaggio da stampare all'utente 
+	 * in caso di errore.
+	 */
 	private String errorMsg;
+
 	private Client client;
+
+	/**
+	 * Stringa contenente l'indirizzo ip del server su cui collegarsi.
+	 */
 	private String ipAddress;
-	private Integer PORT;
+
+	/**
+	 * Intero contenente la porta sel server su cui collegarsi.
+	 */
+	private int PORT;
+
+	/**
+     * Stringa che mantiene informazioni su eventuali errori della schermata.
+     * All'interno del programma questa viene controllata in determinati
+     * momenti per capire se aprire o meno un popup di errore.
+     */
 	private String error = "#NONE";
+
+	private FXMLLoader popupLoader;
+
+	private Stage stage;
+
+
 
 	public void setErrorPopup (String error) {
 		this.error = error;
@@ -40,28 +138,6 @@ public class MainController {
 		this.client = client;
 	}
 
-	//FXML
-	
-	@FXML
-    private Label errorLabel;
-
-	private FXMLLoader popupLoader;
-
-	private Stage stage;
-
-
-	@FXML
-    private JFXButton binaryButton;
-
-    @FXML
-    private JFXButton dbButton;
-
-    @FXML
-    private JFXButton fileButton;;
-
-    @FXML
-    private TextField fileNameField;
-
 	public PopupController getPopupController() {
 		return popupLoader.getController();
 	}
@@ -70,24 +146,47 @@ public class MainController {
 		return file;
 	}
 
+	private void getName() {
+		file = fileNameField.getText();
+		fileNameField.clear();
+    }
+
+	/**
+	 * Metodo per restituire il valore dell'attributo decision.
+	 * 
+	 * @return Intero che rappresenta il valore di decision.
+	 */
 	public int getDecision() {
 		return decision;
 	}
 
+	/**
+	 * Metodo per resettare il valore di decision a 0.
+	 */
 	public void resetDecision() {
 		decision = 0;
 	}
 	
+	/**
+     * Metodo per settare il valore della variabile round.
+     * 
+     * @param round - Stringa contenente il nuovo valore della variabile round.
+     */
 	public void setRound(String round) {
 		this.round = round;
 	}
 
+	/**
+     * Metodo per restituire il valore della variabile round.
+     * 
+     * @return Stringa che contiene il valore della variabile round.
+     */
 	public String getRound() {
 		return round;
 	}
 
-	public void setCheck(Boolean check) {
-		this.check = check;
+	public void setCheckPopup(Boolean check) {
+		this.checkPopup = check;
 	}
 
 	public void setErrorMsg(String errorMsg) {
@@ -123,14 +222,33 @@ public class MainController {
 		if(error.compareTo("#EXIT") == 0) {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
 			Parent root = loader.load();
+			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
-			((Stage)((Node)event.getSource()).getScene().getWindow()).setScene(scene);
+			StartController newController = (StartController)loader.getController();
+
+			//definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
+			stage.heightProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+					newController.resize(stage.getHeight(), stage.getWidth());
+				}
+			});
+	
+			stage.widthProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+					newController.resize(stage.getHeight(), stage.getWidth());
+				}
+			});
+
+            //ridimensione delle componenti della scena prima del set
+            newController.resize(stage.getHeight(), stage.getWidth());
+
+			stage.setScene(scene);
 			
 			System.out.println("--> Ritorno alla schermata iniziale");
 			openErrorPopup("Errore di Connessione:", "Uscita imminente, ristabilire una nuova connessione.");
 		} else {
 			//apro il popup di errore o di previsione a seconda del controllo
-			if (check) {
+			if (checkPopup) {
 				openPopup((Stage)((Node) event.getSource()).getScene().getWindow());
 			} else {
 				System.out.println("--> Errore nell'acqusizione della sorgente KNN");
@@ -139,38 +257,62 @@ public class MainController {
 		}
 	}
 
-	private void getName() {
-		file = fileNameField.getText();
-		fileNameField.clear();
-    }
-
     void openPopup(Stage parentStage) throws IOException, InterruptedException {
 		Parent root;
 		stage = new Stage();
 		popupLoader = new FXMLLoader(getClass().getResource("../fxml/popupPage.fxml"));
 		root = popupLoader.load();
 		stage.setScene(new Scene(root));
-		stage.setResizable(false);
 		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.setTitle("KNN");
-		stage.setResizable(false);
+		stage.setTitle("KNN: Prediction");
+		stage.getIcons().add(new Image(MainController.class.getResourceAsStream("/fxml/1Icon.jpg")));
+		
+		//variazione del valore della variabile semaforo
 		round = "#CLIENT";
+
+		//definiamo l'operazione da compiere in caso di chiusura della schermata
 		stage.setOnCloseRequest((EventHandler<WindowEvent>) new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
 				try {
+					//in maniera tale da chiudere il thread client e aprirne un altro identico da zero
 					client.close();
 					//inserire indirizzo ip e porta dallo start controller
 					client = new Client(ipAddress, PORT, MainController.this);
 					client.start();
 				} catch (IOException | ClassNotFoundException | NumberFormatException e ) {
-					e.printStackTrace();
+					//gestisco l'eccezione data dalla connessione al server
+					System.out.println(e.getMessage());
+					try {
+						getPopupController().handleSocketError(stage);
+					} catch (IOException exc) {
+						exc.printStackTrace();
+					}
 				}         			
 				System.out.println("--> Chiusura Stage in corso");
 			}
 		});
-		((PopupController) popupLoader.getController()).changeMsg();
-		((PopupController) popupLoader.getController()).setParentStage(parentStage);
-		((PopupController) popupLoader.getController()).hideButton();
+
+		PopupController newController = (PopupController)popupLoader.getController();
+
+		//definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
+		stage.heightProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+				newController.resize(stage.getHeight(), stage.getWidth());
+			}
+		});
+
+		stage.widthProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+				newController.resize(stage.getHeight(), stage.getWidth());
+			}
+		});
+
+		//ridimensione delle componenti della scena prima del set
+		newController.resize(stage.getHeight(), stage.getWidth());
+
+		//set della scena
+		getPopupController().changeMsg();
+		getPopupController().setParentStage(parentStage);
 		stage.show();
 	}
 
@@ -181,10 +323,62 @@ public class MainController {
         stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
-		stage.setTitle("KNN: Popup di errore");
+		stage.setTitle("KNN: Error Popup");
+		stage.getIcons().add(new Image(MainController.class.getResourceAsStream("/fxml/1Icon.jpg")));
         ((ErrorController)fxml.getController()).setTitleLabel(title);
         ((ErrorController)fxml.getController()).setSubtitleLable(subtitle);
         stage.show();
     }
+
+	/**
+	 * Metodo che viene impiegato per proporzionare le dimensioni delle
+	 * componenti della schermata in base alle dimensioni della schermata stessa
+	 * e viene richiamato ogni volta che le suddette dimensioni vengono modificate.
+	 * 
+	 * @param height - Double che rappresenta l'altezza della schermata.
+	 * @param width - Double che rappresenta la larghezza della schermata.
+	 * 
+	 */
+	void resize(double height, double width) {
+		double size = Math.min(height, width);
+
+		firstColumn.setPrefWidth(width/4);
+		secondColumn.setPrefWidth(width/2);
+		thirdColumn.setPrefWidth(width/4);
+		
+		firstRow.setPrefHeight(height/3);
+		secondRow.setPrefHeight(height/6);
+		thirdRow.setPrefHeight(height/6);
+		forthRow.setPrefHeight(height/6);
+		fifthRow.setPrefHeight(height/6);
+
+		titleLabel.setStyle("-fx-font-size: " + size/15 + "; -fx-font-weight: bold; -fx-alignment: center");
+		titleLabel.setPrefWidth(width/2);
+		titleLabel.setPrefHeight(height/3);
+		
+		descriptionLabel.setStyle("-fx-font-size: " + size/25 + "; -fx-alignment: center");
+		descriptionLabel.setPrefWidth(width/2);
+		descriptionLabel.setPrefHeight(height/6);
+		
+		buttonDescLabel.setStyle("-fx-font-size: " + size/25 + "; -fx-alignment: center");
+		buttonDescLabel.setPrefWidth(width/2);
+		buttonDescLabel.setPrefHeight(height/6);
+
+		fileButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
+		fileButton.setPrefHeight(height/10);
+		fileButton.setPrefWidth(width/5);
+
+		binaryButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
+		binaryButton.setPrefHeight(height/10);
+		binaryButton.setPrefWidth(width/5);
+
+		dbButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
+		dbButton.setPrefHeight(height/10);
+		dbButton.setPrefWidth(width/5);
+		
+		fileNameField.setStyle("-fx-font-size: " + size/25 + "; -fx-alignment: center");
+		fileNameField.setPrefHeight(height/10);
+		fileNameField.setPrefWidth(width/3);
+	}
 
 }
