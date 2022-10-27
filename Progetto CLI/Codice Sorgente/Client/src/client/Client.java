@@ -166,7 +166,7 @@ public class Client {
 		} catch (UnknownHostException e) {
 			System.out.println(e.toString());
 			return;
-		}
+		} 
 
 		Client c;
 		try {
