@@ -2,9 +2,7 @@ package controller;
 
 import java.io.IOException;
 import javafx.beans.value.ChangeListener;
-
 import com.jfoenix.controls.JFXButton;
-
 import client.Client;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -23,57 +21,100 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-
 /**
  * Classe che si occupa di controllare e gestire lo scene della pagina principale.
  */
 public class MainController {
 
-	@FXML
-    private Label buttonDescLabel;
-
-    @FXML
-    private Label descriptionLabel;
-
+	/**
+	 * Label che contiene il titolo della schermata.
+	 */
     @FXML
     private Label titleLabel;
 
+	/**
+	 * Label che indica all'utente di selezionare una scelta per l'acquisizione
+	 * del dataset.
+	 */
 	@FXML
-    private Label errorLabel;
+    private Label buttonDescLabel;
 
+	/**
+	 * Label che indica all'utente di immettere il nome di un file da caricare.
+	 */
+    @FXML
+    private Label descriptionLabel;
+
+	/**
+	 * Bottone che rappresenta la scelta del caricamento da file binario.
+	 */
 	@FXML
     private JFXButton binaryButton;
 
+	/**
+	 * Bottone che rappresenta la scelta del caricamento da database.
+	 */
     @FXML
     private JFXButton dbButton;
 
+	/**
+	 * Bottone che rappresenta la scelta del caricamento da file testuale.
+	 */
     @FXML
     private JFXButton fileButton;
 
+	/**
+	 * TextField che si occupa di acquisire il nome del file o della tabella
+	 * da cui caricare il dataset.
+	 */
     @FXML
     private TextField fileNameField;
 
+	/**
+	 * Prima colonna della schermata.
+	 */
 	@FXML
     private ColumnConstraints firstColumn;
 
+	/**
+	 * Seconda colonna della schermata.
+	 */
     @FXML
     private ColumnConstraints secondColumn;
 
+	/**
+	 * Terza colonna della schermata.
+	 */
     @FXML
     private ColumnConstraints thirdColumn;
 
+	/**
+	 * Prima riga della schermata.
+	 */
 	@FXML
     private RowConstraints firstRow;
 
+	/**
+	 * Seconda riga della schermata.
+	 */
 	@FXML
     private RowConstraints secondRow;
 
+	/**
+	 * Terza riga della schermata.
+	 */
 	@FXML
     private RowConstraints thirdRow;
 
+	/**
+	 * Quarta riga della schermata.
+	 */
 	@FXML
     private RowConstraints forthRow;
 
+	/**
+	 * Quinta riga della schermata.
+	 */
 	@FXML
     private RowConstraints fifthRow;
 
@@ -88,6 +129,10 @@ public class MainController {
 	 */
 	private String file;
 
+	/**
+	 * Booleano che segnala la correttezza delle condizioni che permettono
+	 * al popup di aprirsi dopo la scelta della acquisizione del dataset.
+	 */
 	private Boolean checkPopup;
 
 	/**
@@ -105,6 +150,12 @@ public class MainController {
 	 */
 	private String errorMsg;
 
+	/**
+	 * Istanza del Client legata al popup aperto. Viene memorizzata per
+	 * garantire la corretta chiusura del thread in caso di chiusura 
+	 * forzata del popup. In quel caso viene aperta da zero una nuova istanza
+	 * del client.
+	 */
 	private Client client;
 
 	/**
@@ -124,6 +175,7 @@ public class MainController {
      */
 	private String error = "#NONE";
 
+	
 	private FXMLLoader popupLoader;
 
 	private Stage stage;
