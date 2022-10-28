@@ -175,29 +175,52 @@ public class MainController {
      */
 	private String error = "#NONE";
 
-	
+	/**
+	 * FXMLLoader della pagina popup aperta.
+	 */
 	private FXMLLoader popupLoader;
 
-	private Stage stage;
-
-
-
+	/**
+	 * Metodo per il set della variabile error.
+	 * 
+	 * @param error - Nuovo valore della variabile error
+	 */
 	public void setErrorPopup (String error) {
 		this.error = error;
 	}
 
+	/**
+	 * Metodo per il set della variabile client.
+	 * 
+	 * @param client - Nuova istanza di Client da assegnare alla variabile
+	 */
 	public void setClient(Client client) {
 		this.client = client;
 	}
 
+	/**
+	 * Metodo che restituisce l'istanza di PopupController legata al popup 
+	 * aperto.
+	 * 
+	 * @return PopupController legato al popup aperto
+	 */
 	public PopupController getPopupController() {
 		return popupLoader.getController();
 	}
 
+	/**
+	 * Metodo che restituisce il valore della variabile file.
+	 * 
+	 * @return Stringa che rappresenta il valore di file.
+	 */
 	public String getFile() {
 		return file;
 	}
 
+	/**
+	 * Metodo che memorizza il contenuto della textField nella variabile
+	 * file e svuota la stessa textField.
+	 */
 	private void getName() {
 		file = fileNameField.getText();
 		fileNameField.clear();
@@ -237,20 +260,47 @@ public class MainController {
 		return round;
 	}
 
+	/**
+	 * Metodo che setta il contenuto della variabile checkPopup.
+	 * 
+	 * @param check - Boolean che rappresenta il nuovo valore da assegnare a checkPopup
+	 */
 	public void setCheckPopup(Boolean check) {
 		this.checkPopup = check;
 	}
 
+	/**
+	 * Metodo che setta il contenuto della variabile errorMsg.
+	 * 
+	 * @param errorMsg - Stringa da assegnare a errorMsg
+	 */
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
 	}
 
+	/**
+	 * Metodo che setta i valori dell'ip e della porta su cui si è
+	 * connessi, per consentire, in caso di reset del client dovuto alla 
+	 * chiusura del popup, di aprire un nuovo thread da zero.
+	 * 
+	 * @param ipAddress - Stringa contenente l'ip da memorizzare
+	 * @param PORT - Intero contenente la porta da memorizzare
+	 */
 	public void setConnection(String ipAddress, Integer PORT) {
 		this.ipAddress = ipAddress;
 		this.PORT = PORT;
 	}
 	
-
+	/**
+	 * Metodo richiamato nel momento in cui si preme uno dei tre pulsanti
+	 * relativi al metodo con cui caricare il dataset. Si occupa del gestire
+	 * la richiesta dell'utente, aprendo il popup oppure restituendo 
+	 * un messaggio di errore a seconda dell'evenienza.
+	 * 
+	 * @param event - ActionEvent che causa la chiamata del metodo
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	@FXML
 	void decision(ActionEvent event) throws IOException, InterruptedException {
 
@@ -309,9 +359,17 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * Metodo che consiste nell'apertura del popup di acquisizione della 
+	 * predizione.
+	 * 
+	 * @param parentStage - Stage del programma main a cui è legato il popup
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
     void openPopup(Stage parentStage) throws IOException, InterruptedException {
 		Parent root;
-		stage = new Stage();
+		Stage stage = new Stage();
 		popupLoader = new FXMLLoader(getClass().getResource("../fxml/popupPage.fxml"));
 		root = popupLoader.load();
 		stage.setScene(new Scene(root));
@@ -368,6 +426,13 @@ public class MainController {
 		stage.show();
 	}
 
+	/**
+	 * Metodo che consiste nell'apertura del popup di errore.
+	 * 
+	 * @param title - Titolo da assegnare al popup
+	 * @param subtitle - Sottotitolo da assegnare al popup
+	 * @throws IOException
+	 */
 	public void openErrorPopup(String title, String subtitle) throws IOException {
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
         Stage stage = new Stage();
