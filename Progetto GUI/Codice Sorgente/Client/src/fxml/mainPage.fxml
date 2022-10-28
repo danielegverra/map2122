@@ -11,7 +11,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #263238;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="controller.MainController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #263238;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
   <columnConstraints>
       <ColumnConstraints fx:id="firstColumn" hgrow="SOMETIMES" minWidth="0.0" prefWidth="150.0" />
     <ColumnConstraints fx:id="secondColumn" hgrow="SOMETIMES" minWidth="0.0" prefWidth="300.0" />
@@ -25,7 +25,7 @@
       <RowConstraints fx:id="fifthRow" minHeight="0.0" prefHeight="66.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label fx:id="descriptionLabel" prefHeight="65.0" prefWidth="309.0" style="-fx-alignment: center;" text="Inserisci il nome del file da caricare:" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <Label fx:id="descriptionLabel" prefHeight="65.0" prefWidth="309.0" style="-fx-alignment: center;" text="Inserisci il nome del file / tabella da caricare:" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
