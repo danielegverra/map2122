@@ -24,14 +24,30 @@ import javafx.scene.Scene;
  */
 public class PopupController {
 
+    /**
+     * Label che descrive il tipo di attributo da inserire.
+     */
+
     @FXML
     private Label typeAttributeLabel;
+
+    /**
+     * TextField in cui inserire l'attributo richiesto.
+     */
 
     @FXML
     private TextField valueField;
 
+    /**
+     * Prima riga della schermata.
+     */
+
     @FXML
     private RowConstraints firstRow;
+
+    /**
+     * Seconda riga della schermata.
+     */
 
     @FXML
     private RowConstraints secondRow;
@@ -42,8 +58,22 @@ public class PopupController {
      */
     private String msg;
 
+    /**
+     * Stringa che contiene il valore inserito dall'utente.
+     */
+
     private String tmp;
+
+    /**
+     * Stringa che contiene la predizione ottenuta dal Server.
+     */
     private String prediction;
+
+    /**
+     * Booleano che indica se mostrare o meno la scenta
+     * contenente il valore della predizione.
+     */
+
     private boolean doShowPrediction = false;
 
     /**
@@ -62,13 +92,31 @@ public class PopupController {
      */
     private String error = "#NONE";
 
+    /**
+     * DA FARE
+     */
+
     private Stage parentStage;
 
+    /**
+     * DA FARE
+     */
+
     private FXMLLoader showPredictionLoader;
+
+    /**
+     * Metodo per ottenere il controller dell'attributo showPredictionLoader.
+     * @return - controller dell'FXMLLoader
+     */
 
     public ShowPredictionController getShowPredictionController() {
         return showPredictionLoader.getController();
     }
+
+    /**
+     * Metodo per settare il parentStage della schermata.
+     * @param parentStage - indica lo stage da settare
+     */
 
     public void setParentStage(Stage parentStage) {
         this.parentStage = parentStage;
@@ -101,37 +149,83 @@ public class PopupController {
         this.msg = msg;
     }
 
+    /**
+     * Metodo per ottenere il testo della label contenente
+     * il tipo di attributo da inserire. 
+     * @return una stringa contenente il tipo di attributo
+     */
+
     public String getTypeAttributeLabel() {
         return typeAttributeLabel.getText();
     }
+
+    /**
+     * Metodo per settare il testo della label contenente
+     * il tipo di attributo da inserire. 
+     */
 
     public void setTypeAttributeLabel(String tipoAttributo) {
         this.typeAttributeLabel.setText(tipoAttributo);
     }
 
+    /**
+     * Metodo per ottenere l'attributo getTmp
+     * @return l'attributo tmp
+     */
     public String getTmp() {
         return tmp;
     }
     
+    /**
+     * Metodo per settare il valore della predizione.
+     * @param prediction - è la stringa contenente il valore
+     * della predizione.
+     */
     public void setPrediction(String prediction) {
         this.prediction = prediction;
-    }    
+    } 
+    
+    /**
+     * Metodo per settare la stringa di errore del Popup.
+     * @param error - è la stringa contente l'errore da settare.
+     */
 
     public void setErrorPopup(String error) {
         this.error = error;
     }
 
+    /**
+     * Metodo per ottenere la stringa di errore del Popup.
+     * @return l'attributo error.
+     */
+
     public String getErrorPopup() {
         return error;
     }
 
+
+    /**
+     * Metodo per ottenere l'attributo parentStage.
+     * @return l'attributo parentStage.
+     */
     public Stage getParentStage() {
         return parentStage;
     }
 
+    /**
+     * Metodo per settare il valore dell'attributo doShowPrediction.
+     * @param value - è il booleano contenente il valore da settare.
+     */
+
     public void setShowPrediction(boolean value) {
         doShowPrediction = value;
     }
+
+    /**
+     * Metodo per cambiare la label relativa al tipo di 
+     * attributo che l'utente deve inserire.
+     * @throws InterruptedException
+     */
 
     public void changeMsg() throws InterruptedException {
 
@@ -142,6 +236,13 @@ public class PopupController {
     }
 
     
+    /**
+     * Metodo che serve ad aggiornare la schermata non appena 
+     * l'utente inserisce un attributo e digita invia
+     * @param event - è il trigger per azionare il metodo 
+     * @throws InterruptedException
+     * @throws IOException
+     */
     @FXML
     void nextValue(KeyEvent event) throws InterruptedException, IOException {
 
@@ -182,6 +283,12 @@ public class PopupController {
         }
     }
     
+
+    /**
+     * Metodo che cambia la schermata per mostrare la predizione
+     * ottenuta dal Server.
+     * @throws IOException
+     */
     private void showPrediction() throws IOException {
         showPredictionLoader = new FXMLLoader(getClass().getResource("../fxml/showPredictionPage.fxml"));
         Parent root = showPredictionLoader.load();
@@ -213,6 +320,13 @@ public class PopupController {
         round = "#CLIENT";
     }
 
+    /**
+     * Metodo che apre un popup di errore qualora dovessero
+     * verificarsi degli oerrori durante l'inserimento di valori.
+     * @param title - è il titolo di errore da settare nel Popup.
+     * @param subtitle - è la descrizione dell'errore da settare nel Popup.
+     * @throws IOException
+     */
 
     public void openErrorPopup(String title, String subtitle) throws IOException {
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
@@ -227,6 +341,13 @@ public class PopupController {
         stage.show();
     }
 
+    /**
+     * Metodo che serve a gestire l'errore derivante dal caso
+     * in cui il Client dovesse interrompere la comunicazione col Server,
+     * aprendo un Popup di errore e tornando alla schermata principale.
+     * @param popupStage - è lo stage relativo al Popup aperto
+     * @throws IOException
+     */
     public void handleSocketError(Stage popupStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
         Parent root = loader.load();
@@ -256,6 +377,13 @@ public class PopupController {
         openErrorPopup("Errore di Connessione:", "Uscita imminente, ristabilire una nuova connessione.");
     }
 
+    /**
+	 * Metodo che gestisce il ridimensionamento della finestra
+	 * ogni qualvolta l'utente allarga o ingrandsice il software
+	 * @param height indica l'altezza corrente della finestra
+	 * @param width indica la larghezza corrente della finestra
+	 */
+	
     public void resize(double height, double width) {
 		Double size = Math.min(height, width);
 

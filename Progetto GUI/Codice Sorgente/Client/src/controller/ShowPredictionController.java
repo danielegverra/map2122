@@ -14,26 +14,63 @@ import javafx.scene.Scene;
 
 public class ShowPredictionController {
 
+    /**
+	 * Prima riga della schermata.
+	 */
+
     @FXML
     private RowConstraints firstRow;
+
+    /**
+	 * Seconda riga della schermata.
+	 */
 
     @FXML
     private RowConstraints secondRow;
 
+    /**
+	 * Terza riga della schermata.
+	 */
+
     @FXML
     private RowConstraints thirdRow;
+
+
+    /**
+     * Label che descrive la tipologia della schermata.
+     */
 
     @FXML
     private Label captionLabel;
 
+    /**
+     * Button per ripetere la predizione con diverso
+     * Training Set.
+     */
+
     @FXML
     private JFXButton differentKnnButton;
+
+    /**
+     * Label contenente la predizione calcolata
+     * dal Server.
+     */
 
     @FXML
     private Label predictionLabel;
 
+    /**
+     * Bottone per ripetere la predizione con lo stesso
+     * Training Set.
+     */
+
     @FXML
     private JFXButton sameKnnButton;
+
+    /**
+     * Oggetto di tipo PopupController necessario per ...
+     * FINIRE
+     */
 
     PopupController popupController;
 
@@ -44,9 +81,18 @@ public class ShowPredictionController {
      */
     Scene parentScene;
 
+    /**
+     * Metodo per settare il valore della variabile parentScene
+     * @param parentScene - variabile parentScene da assegnare.
+     */
     public void setParentScene(Scene parentScene) {
         this.parentScene = parentScene;
     }
+
+    /**
+     * Metodo per settare il valore della variabile popupController.
+     * @param popupController - variabile del popupController da assegnare
+     */
 
     public void setPopupController(PopupController popupController) {
         this.popupController = popupController;
@@ -67,6 +113,11 @@ public class ShowPredictionController {
      */
     private String round = "#CLIENT";
 
+    
+    /**
+     * Metodo per ottenere il valore della variabile isSameKnn.
+     */
+    
     public boolean isSameKnn() {
         return sameKnn;
     }
@@ -89,10 +140,21 @@ public class ShowPredictionController {
         return round;
     }
 
+    /**
+     * Metodo per settare il valore della variabile prediction
+     * @param prediction - variabile contenente il valore della predizione da settare
+     */
+
     public void setPrediction(String prediction) {
         predictionLabel.setText(prediction);
     }
 
+    /**
+     * Metodo per cambiare la scena nel caso in cui l'utente volesse
+     * ripetere la predizione con un KNN differente.
+     * @param event - è il trigger necessario a cambiare scena 
+     * azionato da un bottone
+     */
 
     @FXML
     void useOtherKnn(ActionEvent event) {
@@ -100,6 +162,13 @@ public class ShowPredictionController {
         sameKnn = false;
         round = "#CLIENT";
     }
+
+    /**
+     * Metodo per cambiare la scena nel caso in cui l'utente volesse
+     * ripetere la predizione con lo stesso KNN.
+     * @param event - è il trigger necessario a cambiare scena 
+     * azionato da un bottone
+     */
 
     @FXML
     void useSameKnn(ActionEvent event) throws InterruptedException, IOException {
@@ -138,6 +207,14 @@ public class ShowPredictionController {
         currentStage.setScene(parentScene);
         
     }
+
+    /**
+	 * Metodo che gestisce il ridimensionamento della finestra
+	 * ogni qualvolta l'utente allarga o ingrandsice il software
+	 * @param height indica l'altezza corrente della finestra
+	 * @param width indica la larghezza corrente della finestra
+	 */
+	
 
     public void resize(double height, double width) {
         Double size = Math.min(height, width);
