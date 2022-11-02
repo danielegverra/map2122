@@ -26,6 +26,10 @@ public class Client extends Thread {
 	 */
 	private PopupController popup;
 
+	/**
+	 * Oggetto della classe ShowPredictionController legato alla schermata del popup
+	 * di visualizzazione del risultato della predizione.
+	 */
 	private ShowPredictionController prediction;
 
 	/**

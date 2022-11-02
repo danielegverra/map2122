@@ -46,35 +46,82 @@ public class StartController {
     @FXML
     private JFXButton startButton;	
 
+	/**
+	 * Label che contiene il titolo principale
+	 * della schermata
+	 */
+
 	@FXML
     private Label titleLabel;	
+
+	/**
+	 * Label che contiene la descrizione della 
+	 * TextField adiacente
+	 */
 
 	@FXML
     private Label ipLabel;
 
+	/**
+	 * Label che contiene la descrizione della 
+	 * TextField adiacente
+	 */
+
 	@FXML
     private Label portLabel;
+
+	/**
+	 * Prima riga della schermata
+	 */
 
 	@FXML
     private RowConstraints firstRow;
 
+	/**
+	 * Seconda riga della schermata
+	 */
+
 	@FXML
     private RowConstraints secondRow;
+
+	/**
+	 * Terza riga della schermata
+	 */
 
 	@FXML
     private RowConstraints thirdRow;
 
+	/**
+	 * Quarta riga della schermata
+	 */
+
 	@FXML
     private RowConstraints forthRow;
+
+	/**
+	 * Quinta riga della schermata
+	 */
 
 	@FXML
     private RowConstraints fifthRow;
 
+	/**
+	 * Prima colonne della schermata
+	 */
+
 	@FXML
     private ColumnConstraints firstColumn;
 
+	/**
+	 * Seconda colonne della schermata
+	 */
+
 	@FXML
     private ColumnConstraints secondColumn;
+
+	/**
+	 * Terza colonne della schermata
+	 */
 
 	@FXML
     private ColumnConstraints thirdColumn;
@@ -156,6 +203,12 @@ public class StartController {
 		
     }
 
+	/**
+	 * Metodo che gestisce il ridimensionamento della finestra
+	 * ogni qualvolta l'utente allarga o ingrandsice il software
+	 * @param height indica l'altezza corrente della finestra
+	 * @param width indica la larghezza corrente della finestra
+	 */
 	
 	public void resize(double height, double width) {
 		Double size = Math.min(height, width);
