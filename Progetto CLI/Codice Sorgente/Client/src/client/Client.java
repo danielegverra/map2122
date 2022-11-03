@@ -71,7 +71,13 @@ public class Client {
 				System.out.println("Carica KNN da file : [1]");
 				System.out.println("Carica KNN da binary file : [2]");
 				System.out.println("Carica KNN da database : [3] \n");
-				decision = Keyboard.readInt();
+
+				do {
+					decision = Keyboard.readInt();
+					if(decision < 1 || decision > 3) {
+						System.out.println("\nIl valore immesso deve essere 1,2 oppure 3, inserisci un numero valido.\n");
+					}
+				} while (decision < 1 || decision > 3);
 
 				out.writeObject(decision);
 				answer = (String) in.readObject();
@@ -173,7 +179,7 @@ public class Client {
 			c = new Client(args[0], Integer.valueOf(args[1]));
 		}  catch (IOException | ClassNotFoundException | NumberFormatException e) {
 			System.out.println("Errore di connessione al Server...");
-			System.out.println("Premi un tasto qualsiasi per chiudere il programma...");
+			System.out.println("Premi invio per chiudere il programma...");
           	new java.util.Scanner(System.in).nextLine();
 			return;
 		} 
