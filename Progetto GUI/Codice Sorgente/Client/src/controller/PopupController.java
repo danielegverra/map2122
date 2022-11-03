@@ -22,6 +22,7 @@ import javafx.scene.Scene;
  * Classe che si occupa di controllare e gestire lo scene del popup
  * che.effettua la predizione.
  */
+
 public class PopupController {
 
     /**
@@ -56,6 +57,7 @@ public class PopupController {
      * Stringa che contiene il messaggio ricevuto dal client,
      * il quale verrà stampato a video, avvalorando typeAttributeLabel.
      */
+    
     private String msg;
 
     /**
@@ -67,6 +69,7 @@ public class PopupController {
     /**
      * Stringa che contiene la predizione ottenuta dal Server.
      */
+
     private String prediction;
 
     /**
@@ -83,6 +86,7 @@ public class PopupController {
      * rimanente dovrà aspettare che la classe con priorità abbia terminato
      * uno specifico task necessario per il corretto funzionamento.
      */
+
     private String round = "#CLIENT";
 
     /**
@@ -90,23 +94,27 @@ public class PopupController {
      * All'interno del programma questa viene controllata in determinati
      * momenti per capire se aprire o meno un popup di errore.
      */
+
     private String error = "#NONE";
 
     /**
-     * DA FARE
+     * Stage principale che ha aperto il popup, necessario in caso di errore
+     * di chiusura della socket per ripristinare la pagina iniziale del programma.
      */
 
     private Stage parentStage;
 
     /**
-     * DA FARE
+     * FXMLLoader relativo allo ShowPredictionController da caricare.
      */
 
     private FXMLLoader showPredictionLoader;
 
     /**
-     * Metodo per ottenere il controller dell'attributo showPredictionLoader.
-     * @return - controller dell'FXMLLoader
+     * Metodo per ottenere il controller dell'attributo showPredictionLoader, necessario al client
+     * per comunicare con quest'ultimo.
+     * 
+     * @return Controller dell'FXMLLoader
      */
 
     public ShowPredictionController getShowPredictionController() {
@@ -115,6 +123,7 @@ public class PopupController {
 
     /**
      * Metodo per settare il parentStage della schermata.
+     * 
      * @param parentStage - indica lo stage da settare
      */
 
@@ -152,7 +161,8 @@ public class PopupController {
     /**
      * Metodo per ottenere il testo della label contenente
      * il tipo di attributo da inserire. 
-     * @return una stringa contenente il tipo di attributo
+     * 
+     * @return Stringa contenente il tipo di attributo.
      */
 
     public String getTypeAttributeLabel() {
@@ -170,7 +180,8 @@ public class PopupController {
 
     /**
      * Metodo per ottenere l'attributo getTmp
-     * @return l'attributo tmp
+     * 
+     * @return Stringa che contiene il valore di tmp.
      */
     public String getTmp() {
         return tmp;
@@ -178,7 +189,8 @@ public class PopupController {
     
     /**
      * Metodo per settare il valore della predizione.
-     * @param prediction - è la stringa contenente il valore
+     * 
+     * @param prediction - Stringa contenente il valore
      * della predizione.
      */
     public void setPrediction(String prediction) {
@@ -187,7 +199,7 @@ public class PopupController {
     
     /**
      * Metodo per settare la stringa di errore del Popup.
-     * @param error - è la stringa contente l'errore da settare.
+     * @param error - Stringa contente l'errore da settare.
      */
 
     public void setErrorPopup(String error) {
@@ -196,7 +208,8 @@ public class PopupController {
 
     /**
      * Metodo per ottenere la stringa di errore del Popup.
-     * @return l'attributo error.
+     * 
+     * @return Stringa contenente il valore di error.
      */
 
     public String getErrorPopup() {
@@ -206,7 +219,8 @@ public class PopupController {
 
     /**
      * Metodo per ottenere l'attributo parentStage.
-     * @return l'attributo parentStage.
+     * 
+     * @return Stage corrispondente a parentStage.
      */
     public Stage getParentStage() {
         return parentStage;
@@ -214,7 +228,8 @@ public class PopupController {
 
     /**
      * Metodo per settare il valore dell'attributo doShowPrediction.
-     * @param value - è il booleano contenente il valore da settare.
+     * 
+     * @param value - Booleano contenente il valore da settare.
      */
 
     public void setShowPrediction(boolean value) {
@@ -224,6 +239,7 @@ public class PopupController {
     /**
      * Metodo per cambiare la label relativa al tipo di 
      * attributo che l'utente deve inserire.
+     * 
      * @throws InterruptedException
      */
 
@@ -239,7 +255,8 @@ public class PopupController {
     /**
      * Metodo che serve ad aggiornare la schermata non appena 
      * l'utente inserisce un attributo e digita invia
-     * @param event - è il trigger per azionare il metodo 
+     * 
+     * @param event - Trigger per azionare il metodo 
      * @throws InterruptedException
      * @throws IOException
      */
@@ -287,8 +304,10 @@ public class PopupController {
     /**
      * Metodo che cambia la schermata per mostrare la predizione
      * ottenuta dal Server.
+     * 
      * @throws IOException
      */
+
     private void showPrediction() throws IOException {
         showPredictionLoader = new FXMLLoader(getClass().getResource("../fxml/showPredictionPage.fxml"));
         Parent root = showPredictionLoader.load();
@@ -323,6 +342,7 @@ public class PopupController {
     /**
      * Metodo che apre un popup di errore qualora dovessero
      * verificarsi degli oerrori durante l'inserimento di valori.
+     * 
      * @param title - è il titolo di errore da settare nel Popup.
      * @param subtitle - è la descrizione dell'errore da settare nel Popup.
      * @throws IOException
@@ -345,6 +365,7 @@ public class PopupController {
      * Metodo che serve a gestire l'errore derivante dal caso
      * in cui il Client dovesse interrompere la comunicazione col Server,
      * aprendo un Popup di errore e tornando alla schermata principale.
+     * 
      * @param popupStage - è lo stage relativo al Popup aperto
      * @throws IOException
      */
@@ -380,8 +401,9 @@ public class PopupController {
     /**
 	 * Metodo che gestisce il ridimensionamento della finestra
 	 * ogni qualvolta l'utente allarga o ingrandsice il software
-	 * @param height indica l'altezza corrente della finestra
-	 * @param width indica la larghezza corrente della finestra
+     * 
+	 * @param height - indica l'altezza corrente della finestra
+	 * @param width - indica la larghezza corrente della finestra
 	 */
 	
     public void resize(double height, double width) {

@@ -12,6 +12,11 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 
+/**
+ * Classe che si occupa di controllare e gestire lo scene del popup
+ * che rivela la predizione.
+ */
+
 public class ShowPredictionController {
 
     /**
@@ -68,8 +73,8 @@ public class ShowPredictionController {
     private JFXButton sameKnnButton;
 
     /**
-     * Oggetto di tipo PopupController necessario per ...
-     * FINIRE
+     * Oggetto di tipo PopupController necessario per ripristinare 
+     * la scena precedente in caso di nuova predizione con lo stesso dataset.
      */
 
     PopupController popupController;
@@ -79,19 +84,23 @@ public class ShowPredictionController {
      * in caso di nuova predizione col medesimo KNN, la possibilità di 
      * rigenerare la schermata.
      */
+
     Scene parentScene;
 
     /**
      * Metodo per settare il valore della variabile parentScene
-     * @param parentScene - variabile parentScene da assegnare.
+     * 
+     * @param parentScene - Variabile parentScene da assegnare.
      */
+
     public void setParentScene(Scene parentScene) {
         this.parentScene = parentScene;
     }
 
     /**
      * Metodo per settare il valore della variabile popupController.
-     * @param popupController - variabile del popupController da assegnare
+     * 
+     * @param popupController - Variabile del popupController da assegnare.
      */
 
     public void setPopupController(PopupController popupController) {
@@ -102,6 +111,7 @@ public class ShowPredictionController {
      * Booleano che indica se, al termine della predizione, si vuole
      * o meno effettuare un'altra predizione con lo stesso KNN.
      */
+
     private boolean sameKnn;
 
     /**
@@ -111,6 +121,7 @@ public class ShowPredictionController {
      * rimanente dovrà aspettare che la classe con priorità abbia terminato
      * uno specifico task necessario per il corretto funzionamento.
      */
+
     private String round = "#CLIENT";
 
     
@@ -127,6 +138,7 @@ public class ShowPredictionController {
      * 
      * @param round - Stringa contenente il nuovo valore della variabile round.
      */
+
     public void setRound(String round) {
         this.round = round;
     }
@@ -136,13 +148,15 @@ public class ShowPredictionController {
      * 
      * @return Stringa che contiene il valore della variabile round.
      */
+
     public String getRound() {
         return round;
     }
 
     /**
      * Metodo per settare il valore della variabile prediction
-     * @param prediction - variabile contenente il valore della predizione da settare
+     * 
+     * @param prediction - Variabile contenente il valore della predizione da settare
      */
 
     public void setPrediction(String prediction) {
@@ -152,7 +166,8 @@ public class ShowPredictionController {
     /**
      * Metodo per cambiare la scena nel caso in cui l'utente volesse
      * ripetere la predizione con un KNN differente.
-     * @param event - è il trigger necessario a cambiare scena 
+     * 
+     * @param event - E' il trigger necessario a cambiare scena 
      * azionato da un bottone
      */
 
@@ -166,7 +181,8 @@ public class ShowPredictionController {
     /**
      * Metodo per cambiare la scena nel caso in cui l'utente volesse
      * ripetere la predizione con lo stesso KNN.
-     * @param event - è il trigger necessario a cambiare scena 
+     * 
+     * @param event - E' il trigger necessario a cambiare scena 
      * azionato da un bottone
      */
 
@@ -211,11 +227,11 @@ public class ShowPredictionController {
     /**
 	 * Metodo che gestisce il ridimensionamento della finestra
 	 * ogni qualvolta l'utente allarga o ingrandsice il software
-	 * @param height indica l'altezza corrente della finestra
-	 * @param width indica la larghezza corrente della finestra
+     * 
+	 * @param height - Indica l'altezza corrente della finestra
+	 * @param width - Indica la larghezza corrente della finestra
 	 */
 	
-
     public void resize(double height, double width) {
         Double size = Math.min(height, width);
         

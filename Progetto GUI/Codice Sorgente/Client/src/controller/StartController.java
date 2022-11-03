@@ -23,12 +23,14 @@ import javafx.beans.value.ObservableValue;
 /**
  * Classe che si occupa di controllare e gestire lo scene della pagina iniziale.
  */
+
 public class StartController {
 
 	/**
 	 * TextField che acquisisce l'indirizzo ip del server
 	 * con cui il Client si deve connettere.
 	 */
+
 	@FXML
     private TextField ipAddressTextField;
 
@@ -36,6 +38,7 @@ public class StartController {
 	 * TextField che acquisisce la porta del server
 	 * su cui il Client si deve connettere.
 	 */
+
     @FXML
     private TextField portTextField;
     
@@ -43,6 +46,7 @@ public class StartController {
 	 * Bottone che conferma la scelta dell'indirizzo ip e 
 	 * della porta, iniziando la connessione con il server.
 	 */
+
     @FXML
     private JFXButton startButton;	
 
@@ -133,6 +137,7 @@ public class StartController {
 	 * @param event - Evento causato dalla pressione di startButton.
 	 * @throws IOException
 	 */
+
     @FXML
     void avviaClient(ActionEvent event) throws IOException {
 		
@@ -205,9 +210,10 @@ public class StartController {
 
 	/**
 	 * Metodo che gestisce il ridimensionamento della finestra
-	 * ogni qualvolta l'utente allarga o ingrandsice il software
-	 * @param height indica l'altezza corrente della finestra
-	 * @param width indica la larghezza corrente della finestra
+	 * ogni qualvolta l'utente allarga o ingrandsice il software.
+	 * 
+	 * @param height - indica l'altezza corrente della finestra
+	 * @param width - indica la larghezza corrente della finestra
 	 */
 	
 	public void resize(double height, double width) {
