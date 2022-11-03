@@ -126,7 +126,8 @@ public class ShowPredictionController {
 
     
     /**
-     * Metodo per ottenere il valore della variabile isSameKnn.
+     * Metodo per ottenere il valore della variabile sameKnn.
+     * @return Boolean che rappresenta il valore di sameKnn.
      */
     
     public boolean isSameKnn() {

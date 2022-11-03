@@ -8,16 +8,13 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import database.DbAccess;
 import database.InsufficientColumnNumberException;
 import database.TableData;
 import database.TableSchema;
 import database.Column;
-
 import example.Example;
 import example.ExampleSizeException;
-
 import java.util.LinkedList;
 import java.util.Iterator;
 import utility.Keyboard;
@@ -51,7 +48,6 @@ public class Data implements Serializable {
 	 * Attributo Continuo che rappresenta il target.
 	 */
 	private ContinuousAttribute classAttribute;
-
 
 	/**
 	 * Costruttore di Data per acquisire il dataset da file testuale.

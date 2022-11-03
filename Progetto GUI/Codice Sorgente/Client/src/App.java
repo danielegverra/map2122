@@ -9,8 +9,14 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import controller.StartController;
 
+/**
+ * Classe che si occupa di far partire l'applicazione.
+ */
 public class App extends Application {
 
+    /**
+     * Metodo di partenza dell'applicazione, richiamato all'avvio.
+     */
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -46,6 +52,9 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Metodo richiamato alla chiusura dell'applicazione.
+     */
     @Override
     public void stop() throws Exception {
         System.out.println("--> Chiusura app in corso...");
@@ -53,6 +62,11 @@ public class App extends Application {
         System.exit(0);
     }
 
+    /**
+     * Main della classe App, che fa partire l'applicazione grafica.
+     * 
+     * @param args - I parametri del main.
+     */
     public static void main(String[] args) {
         launch(args);    
     }

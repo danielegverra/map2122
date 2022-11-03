@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
-
 import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,7 +51,7 @@ public class StartController {
 
 	/**
 	 * Label che contiene il titolo principale
-	 * della schermata
+	 * della schermata.
 	 */
 
 	@FXML
@@ -60,7 +59,7 @@ public class StartController {
 
 	/**
 	 * Label che contiene la descrizione della 
-	 * TextField adiacente
+	 * TextField adiacente.
 	 */
 
 	@FXML
@@ -68,63 +67,63 @@ public class StartController {
 
 	/**
 	 * Label che contiene la descrizione della 
-	 * TextField adiacente
+	 * TextField adiacente.
 	 */
 
 	@FXML
     private Label portLabel;
 
 	/**
-	 * Prima riga della schermata
+	 * Prima riga della schermata.
 	 */
 
 	@FXML
     private RowConstraints firstRow;
 
 	/**
-	 * Seconda riga della schermata
+	 * Seconda riga della schermata.
 	 */
 
 	@FXML
     private RowConstraints secondRow;
 
 	/**
-	 * Terza riga della schermata
+	 * Terza riga della schermata.
 	 */
 
 	@FXML
     private RowConstraints thirdRow;
 
 	/**
-	 * Quarta riga della schermata
+	 * Quarta riga della schermata.
 	 */
 
 	@FXML
     private RowConstraints forthRow;
 
 	/**
-	 * Quinta riga della schermata
+	 * Quinta riga della schermata.
 	 */
 
 	@FXML
     private RowConstraints fifthRow;
 
 	/**
-	 * Prima colonne della schermata
+	 * Prima colonne della schermata.
 	 */
 
 	@FXML
     private ColumnConstraints firstColumn;
 
 	/**
-	 * Seconda colonne della schermata
+	 * Seconda colonne della schermata.
 	 */
 
 	@FXML
     private ColumnConstraints secondColumn;
 
 	/**
-	 * Terza colonne della schermata
+	 * Terza colonne della schermata.
 	 */
 
 	@FXML

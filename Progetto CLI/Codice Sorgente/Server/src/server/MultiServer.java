@@ -55,7 +55,7 @@ public class MultiServer {
     /**
      * Main per l'avvio del Server.
      *
-     * @param args
+     * @param args - I parametri del main.
      */
     public static void main(String[] args) {
 

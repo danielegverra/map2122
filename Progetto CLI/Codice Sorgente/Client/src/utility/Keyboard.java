@@ -29,7 +29,7 @@ public class Keyboard {
 
 	/**
 	 * Metodo che resetta il numero di errori a zero.
-	 * @param count
+	 * @param count - Intero che indica la conta degli errori.
 	 */
 	public static void resetErrorCount(int count) {
 		errorCount = 0;
@@ -38,6 +38,7 @@ public class Keyboard {
 	/**
 	 * Metodo che restituisce un valore booleano che indica
 	 * se gli errori di input sono attualmente stampati sullo standard output.
+	 * 
 	 * @return Booleano che è posto a true se gli errori sono
 	 * stampati sullo standard output
 	 */
@@ -49,7 +50,7 @@ public class Keyboard {
 	/**
 	 * Imposta un valore booleano che indica se devono esserci errori di input
 	 * stampati sul output standard.
-	 * @param flag Booleano di riferimento per gli errori di input
+	 * @param flag - Booleano di riferimento per gli errori di input
 	 */
 	public static void setPrintErrors(boolean flag) {
 		printErrors = flag;
@@ -58,7 +59,7 @@ public class Keyboard {
 	/**
 	 * Metodo che incrementa il counter di errori e stampa
 	 * il messaggio di errore relativo.
-	 * @param str Stringa che rappresenta l'errore
+	 * @param str - Stringa che rappresenta l'errore
 	 */
 	private static void error(String str) {
 		errorCount++;
@@ -97,7 +98,7 @@ public class Keyboard {
 
 	/**
 	 * Metodo che ottiene il prossimo token di input, che potrebbe essere già letto.
-	 * @param skip Booleano che indica se il token è gia stato letto
+	 * @param skip - Booleano che indica se il token è gia stato letto
 	 * @return Stringa contente il token letto
 	 */
 	private static String getNextToken(boolean skip) {
@@ -117,7 +118,7 @@ public class Keyboard {
 	/**
 	 * Metodo che ottiene il token successivo dall'input, che
 	 * potrebbe provenire dalla linea corrente o seguente.
-	 * @param skip Booleano che determina se saltare o meno il token
+	 * @param skip - Booleano che determina se saltare o meno il token
 	 * @return Stringa contenente il token letto.
 	 */
 	private static String getNextInputToken(boolean skip) {
