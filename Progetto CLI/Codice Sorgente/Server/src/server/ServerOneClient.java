@@ -114,7 +114,6 @@ class ServerOneClient extends Thread {
                         tableName = (String) in.readObject();
                         System.out.println(tableName);
                         knn = new KNN(new Data(db, tableName));
-                        System.out.println(knn);
                         try {
                             knn.salva("../../../File/" + tableName + "DB.dmp");
                         } catch (IOException exc) {
