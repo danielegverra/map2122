@@ -185,7 +185,7 @@ public class MainController {
 	 * 
 	 * @param error - Nuovo valore della variabile error
 	 */
-	public void setErrorPopup (String error) {
+	public void setErrorPopup(String error) {
 		this.error = error;
 	}
 
@@ -194,7 +194,7 @@ public class MainController {
 	 * 
 	 * @param client - Nuova istanza di Client da assegnare alla variabile
 	 */
-	public void setClient(Client client) {
+	void setClient(Client client) {
 		this.client = client;
 	}
 
@@ -286,7 +286,7 @@ public class MainController {
 	 * @param ipAddress - Stringa contenente l'ip da memorizzare
 	 * @param PORT - Intero contenente la porta da memorizzare
 	 */
-	public void setConnection(String ipAddress, Integer PORT) {
+	void setConnection(String ipAddress, Integer PORT) {
 		this.ipAddress = ipAddress;
 		this.PORT = PORT;
 	}
@@ -302,7 +302,7 @@ public class MainController {
 	 * @throws InterruptedException
 	 */
 	@FXML
-	void decision(ActionEvent event) throws IOException, InterruptedException {
+	private void decision(ActionEvent event) throws IOException, InterruptedException {
 
 		//gestione di decision
 		if (event.getSource() == fileButton) {
@@ -367,7 +367,7 @@ public class MainController {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-    void openPopup(Stage parentStage) throws IOException, InterruptedException {
+    private void openPopup(Stage parentStage) throws IOException, InterruptedException {
 		Parent root;
 		Stage stage = new Stage();
 		popupLoader = new FXMLLoader(getClass().getResource("../fxml/popupPage.fxml"));
@@ -433,7 +433,7 @@ public class MainController {
 	 * @param subtitle - Sottotitolo da assegnare al popup
 	 * @throws IOException
 	 */
-	public void openErrorPopup(String title, String subtitle) throws IOException {
+	private void openErrorPopup(String title, String subtitle) throws IOException {
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
         Stage stage = new Stage();
         Parent root = fxml.load();

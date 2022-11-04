@@ -25,7 +25,7 @@ public class ErrorController {
      * 
      * @param titleLabel - Nuovo contenuto della titleLabel
      */
-    public void setTitleLabel(String titleLabel) {
+    void setTitleLabel(String titleLabel) {
         this.titleLabel.setText(titleLabel);
     }
 
@@ -34,7 +34,7 @@ public class ErrorController {
      * 
      * @param subtitleLabel - Nuovo contenuto della subtitleLabel
      */
-    public void setSubtitleLable(String subtitleLable) {
+    void setSubtitleLable(String subtitleLable) {
         this.subtitleLable.setText(subtitleLable);
     }
 

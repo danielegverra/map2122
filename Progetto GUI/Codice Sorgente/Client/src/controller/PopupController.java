@@ -126,7 +126,7 @@ public class PopupController {
      * @param parentStage - indica lo stage da settare
      */
 
-    public void setParentStage(Stage parentStage) {
+    void setParentStage(Stage parentStage) {
         this.parentStage = parentStage;
     }
 
@@ -158,27 +158,7 @@ public class PopupController {
     }
 
     /**
-     * Metodo per ottenere il testo della label contenente
-     * il tipo di attributo da inserire. 
-     * 
-     * @return Stringa contenente il tipo di attributo.
-     */
-
-    public String getTypeAttributeLabel() {
-        return typeAttributeLabel.getText();
-    }
-
-    /**
-     * Metodo per settare il testo della label contenente
-     * il tipo di attributo da inserire. 
-     */
-
-    public void setTypeAttributeLabel(String tipoAttributo) {
-        this.typeAttributeLabel.setText(tipoAttributo);
-    }
-
-    /**
-     * Metodo per ottenere l'attributo getTmp
+     * Metodo per ottenere l'attributo tmp
      * 
      * @return Stringa che contiene il valore di tmp.
      */
@@ -206,26 +186,6 @@ public class PopupController {
     }
 
     /**
-     * Metodo per ottenere la stringa di errore del Popup.
-     * 
-     * @return Stringa contenente il valore di error.
-     */
-
-    public String getErrorPopup() {
-        return error;
-    }
-
-
-    /**
-     * Metodo per ottenere l'attributo parentStage.
-     * 
-     * @return Stage corrispondente a parentStage.
-     */
-    public Stage getParentStage() {
-        return parentStage;
-    }
-
-    /**
      * Metodo per settare il valore dell'attributo doShowPrediction.
      * 
      * @param value - Booleano contenente il valore da settare.
@@ -242,7 +202,7 @@ public class PopupController {
      * @throws InterruptedException
      */
 
-    public void changeMsg() throws InterruptedException {
+    void changeMsg() throws InterruptedException {
 
         while (round.compareTo("#CLIENT") == 0) {
             Thread.sleep(100);
@@ -260,7 +220,7 @@ public class PopupController {
      * @throws IOException
      */
     @FXML
-    void nextValue(KeyEvent event) throws InterruptedException, IOException {
+    private void nextValue(KeyEvent event) throws InterruptedException, IOException {
 
         if (event.getCode() == KeyCode.ENTER) {
 
@@ -347,7 +307,7 @@ public class PopupController {
      * @throws IOException
      */
 
-    public void openErrorPopup(String title, String subtitle) throws IOException {
+    private void openErrorPopup(String title, String subtitle) throws IOException {
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
         Stage stage = new Stage();
         Parent root = fxml.load();
@@ -368,7 +328,7 @@ public class PopupController {
      * @param popupStage - è lo stage relativo al Popup aperto
      * @throws IOException
      */
-    public void handleSocketError(Stage popupStage) throws IOException {
+    void handleSocketError(Stage popupStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -405,7 +365,7 @@ public class PopupController {
 	 * @param width - indica la larghezza corrente della finestra
 	 */
 	
-    public void resize(double height, double width) {
+    void resize(double height, double width) {
 		Double size = Math.min(height, width);
 
 		//controllo non sia NaN poichè alla prima chiamata lo stage non ha ancora 

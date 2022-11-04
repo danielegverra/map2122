@@ -77,7 +77,7 @@ public class ShowPredictionController {
      * la scena precedente in caso di nuova predizione con lo stesso dataset.
      */
 
-    PopupController popupController;
+    private PopupController popupController;
 
     /**
      * Scene del Popup generatore della predizione, conservato per consentire,
@@ -85,7 +85,7 @@ public class ShowPredictionController {
      * rigenerare la schermata.
      */
 
-    Scene parentScene;
+    private Scene parentScene;
 
     /**
      * Metodo per settare il valore della variabile parentScene
@@ -93,7 +93,7 @@ public class ShowPredictionController {
      * @param parentScene - Variabile parentScene da assegnare.
      */
 
-    public void setParentScene(Scene parentScene) {
+    void setParentScene(Scene parentScene) {
         this.parentScene = parentScene;
     }
 
@@ -103,7 +103,7 @@ public class ShowPredictionController {
      * @param popupController - Variabile del popupController da assegnare.
      */
 
-    public void setPopupController(PopupController popupController) {
+    void setPopupController(PopupController popupController) {
         this.popupController = popupController;
     }
 
@@ -124,7 +124,6 @@ public class ShowPredictionController {
 
     private String round = "#CLIENT";
 
-    
     /**
      * Metodo per ottenere il valore della variabile sameKnn.
      * @return Boolean che rappresenta il valore di sameKnn.
@@ -160,7 +159,7 @@ public class ShowPredictionController {
      * @param prediction - Variabile contenente il valore della predizione da settare
      */
 
-    public void setPrediction(String prediction) {
+    void setPrediction(String prediction) {
         predictionLabel.setText(prediction);
     }
 
@@ -173,7 +172,7 @@ public class ShowPredictionController {
      */
 
     @FXML
-    void useOtherKnn(ActionEvent event) {
+    private void useOtherKnn(ActionEvent event) {
         ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
         sameKnn = false;
         round = "#CLIENT";
@@ -188,7 +187,7 @@ public class ShowPredictionController {
      */
 
     @FXML
-    void useSameKnn(ActionEvent event) throws InterruptedException, IOException {
+    private void useSameKnn(ActionEvent event) throws InterruptedException, IOException {
         //Setto la variabile che comunica al Client di ripetere la predizione
         sameKnn = true;
 
@@ -233,7 +232,7 @@ public class ShowPredictionController {
 	 * @param width - Indica la larghezza corrente della finestra
 	 */
 	
-    public void resize(double height, double width) {
+    void resize(double height, double width) {
         Double size = Math.min(height, width);
         
         firstRow.setPrefHeight((height/22)*6);
