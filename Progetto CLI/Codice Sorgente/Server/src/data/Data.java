@@ -445,7 +445,7 @@ public class Data implements Serializable {
 	}
 
 	/**
-	 * Algoritmo quicksort per l'ordinamento di data usando come relazione d'ordine totale "<=" definita su key.
+	 * Algoritmo quicksort per l'ordinamento di data usando come relazione d'ordine totale il minore uguale definita su key.
 	 *
  	 * @param key - LinkedList di Double che indica le distanze.
 	 * @param inf - Estremo inferiore dell'intervallo da ordinare.

@@ -138,7 +138,7 @@ public class StartController {
 	 */
 
     @FXML
-    void avviaClient(ActionEvent event) throws IOException {
+    private void avviaClient(ActionEvent event) throws IOException {
 		
 		try {
 			Integer PORT;

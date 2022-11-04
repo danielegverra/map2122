@@ -36,7 +36,7 @@ class ServerOneClient extends Thread {
     /**
      * Costruttore di ServerOneClient che inizializza gli attributi socket, in e out e avvia il thread.
      *
-     * @param s
+     * @param s - Socket che ServerOneClient utilizza per la connessione con il Client.
      * @throws IOException
      */
     ServerOneClient(Socket s) throws IOException {
@@ -114,7 +114,6 @@ class ServerOneClient extends Thread {
                         tableName = (String) in.readObject();
                         System.out.println(tableName);
                         knn = new KNN(new Data(db, tableName));
-                        System.out.println(knn);
                         try {
                             knn.salva("../../../File/" + tableName + "DB.dmp");
                         } catch (IOException exc) {

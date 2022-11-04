@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Classe per gestione degli input da.
+ * Classe per gestione degli input da tastiera.
  */
 
 public class Keyboard {
