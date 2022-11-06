@@ -163,7 +163,7 @@ public class StartController {
 			Parent root = loader.load();
 			Client client = new Client(ipAddress, PORT, loader.getController());
 			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-			Scene scene = new Scene(root);
+			Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
 			MainController newController = (MainController)loader.getController();
 
 			//definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
