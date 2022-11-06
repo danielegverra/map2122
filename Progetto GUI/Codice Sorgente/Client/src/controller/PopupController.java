@@ -158,7 +158,7 @@ public class PopupController {
     }
 
     /**
-     * Metodo per ottenere l'attributo tmp
+     * Metodo per ottenere l'attributo tmp.
      * 
      * @return Stringa che contiene il valore di tmp.
      */
@@ -183,6 +183,15 @@ public class PopupController {
 
     public void setErrorPopup(String error) {
         this.error = error;
+    }
+
+    /**
+     * Metodo per ottenere l'attributo error.
+     * 
+     * @return Stringa che contiene il valore di error.
+     */
+    String getErrorPopup() {
+        return error;
     }
 
     /**

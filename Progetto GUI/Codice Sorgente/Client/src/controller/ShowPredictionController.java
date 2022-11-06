@@ -169,13 +169,17 @@ public class ShowPredictionController {
      * 
      * @param event - E' il trigger necessario a cambiare scena 
      * azionato da un bottone
+     * @throws InterruptedException
+     * @throws IOException
      */
 
     @FXML
-    private void useOtherKnn(ActionEvent event) {
-        ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
+    private void useOtherKnn(ActionEvent event) throws InterruptedException, IOException {
+        //Setto la variabile che comunica al Client di non ripetere la predizione
         sameKnn = false;
         round = "#CLIENT";
+        ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
+        
     }
 
     /**
@@ -197,31 +201,34 @@ public class ShowPredictionController {
             Thread.sleep(100);
         }
 
-        //aggiorna i messaggi segnalati dal popup di predizione
-        popupController.changeMsg();
+        if (popupController.getErrorPopup().compareTo("#EXIT") != 0) {
+            //aggiorna i messaggi segnalati dal popup di predizione
+            popupController.changeMsg();
 
-        //cambia la scena ripristinando il popup di predizione
-        Stage currentStage = (Stage)captionLabel.getScene().getWindow();
+            //cambia la scena ripristinando il popup di predizione
+            Stage currentStage = (Stage)captionLabel.getScene().getWindow();
 
-        //ridimensione delle componenti della scena prima del set
-		popupController.resize(currentStage.getHeight(), currentStage.getWidth());
+            //ridimensione delle componenti della scena prima del set
+            popupController.resize(currentStage.getHeight(), currentStage.getWidth());
 
-        //definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
-		currentStage.heightProperty().addListener(new ChangeListener<Number>() {
-			public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
-				popupController.resize(currentStage.getHeight(), currentStage.getWidth());
-			}
-		});
+            //definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
+            currentStage.heightProperty().addListener(new ChangeListener<Number>() {
+                public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+                    popupController.resize(currentStage.getHeight(), currentStage.getWidth());
+                }
+            });
 
-		currentStage.widthProperty().addListener(new ChangeListener<Number>() {
-			public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
-				popupController.resize(currentStage.getHeight(), currentStage.getWidth());
-			}
-		});
+            currentStage.widthProperty().addListener(new ChangeListener<Number>() {
+                public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+                    popupController.resize(currentStage.getHeight(), currentStage.getWidth());
+                }
+            });
 
-        //set dello scene
-        currentStage.setScene(parentScene);
-        
+            //set dello scene
+            currentStage.setScene(parentScene);
+        } else {
+            popupController.handleSocketError((Stage)((Node) event.getSource()).getScene().getWindow());
+        }
     }
 
     /**

@@ -314,6 +314,11 @@ public class MainController {
 		}
 		getName();
 
+		//in caso di errore viene aperto il popup e ristabilita la schermata iniziale
+		if(error.compareTo("#EXIT") == 0) {
+			handleSocketError((Stage)((Node) event.getSource()).getScene().getWindow());
+		}
+
 		//attendo il turno del controller
 		round = "#CLIENT";
 		while (round.compareTo("#CLIENT") == 0) {
@@ -322,32 +327,7 @@ public class MainController {
 
 		//in caso di errore viene aperto il popup e ristabilita la schermata iniziale
 		if(error.compareTo("#EXIT") == 0) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
-			Parent root = loader.load();
-			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-			Scene scene = new Scene(root);
-			StartController newController = (StartController)loader.getController();
-
-			//definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
-			stage.heightProperty().addListener(new ChangeListener<Number>() {
-				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
-					newController.resize(stage.getHeight(), stage.getWidth());
-				}
-			});
-	
-			stage.widthProperty().addListener(new ChangeListener<Number>() {
-				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
-					newController.resize(stage.getHeight(), stage.getWidth());
-				}
-			});
-
-            //ridimensione delle componenti della scena prima del set
-            newController.resize(stage.getHeight(), stage.getWidth());
-
-			stage.setScene(scene);
-			
-			System.out.println("--> Ritorno alla schermata iniziale");
-			openErrorPopup("Errore di Connessione:", "Uscita imminente, ristabilire una nuova connessione.");
+			handleSocketError((Stage)((Node) event.getSource()).getScene().getWindow());
 		} else {
 			//apro il popup di errore o di previsione a seconda del controllo
 			if (checkPopup) {
@@ -446,6 +426,42 @@ public class MainController {
         ((ErrorController)fxml.getController()).setSubtitleLable(subtitle);
         stage.show();
     }
+
+	/**
+	 * Metodo che serve a gestire l'errore derivante dal caso
+     * in cui il Client dovesse interrompere la comunicazione col Server,
+     * aprendo un Popup di errore e tornando alla schermata principale.
+	 * 
+	 * @param mainStage - Stage relativo alla mainPage.
+	 * @throws IOException
+	 */
+	private void handleSocketError(Stage mainStage) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
+		Parent root = loader.load();
+		Scene scene = new Scene(root);
+		StartController newController = (StartController)loader.getController();
+
+		//definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
+		mainStage.heightProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+				newController.resize(mainStage.getHeight(), mainStage.getWidth());
+			}
+		});
+
+		mainStage.widthProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
+				newController.resize(mainStage.getHeight(), mainStage.getWidth());
+			}
+		});
+
+		//ridimensione delle componenti della scena prima del set
+		newController.resize(mainStage.getHeight(), mainStage.getWidth());
+
+		mainStage.setScene(scene);
+		
+		System.out.println("--> Ritorno alla schermata iniziale");
+		openErrorPopup("Errore di Connessione:", "Uscita imminente, ristabilire una nuova connessione.");
+	}
 
 	/**
 	 * Metodo che viene impiegato per proporzionare le dimensioni delle

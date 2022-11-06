@@ -88,7 +88,7 @@ public class Client extends Thread {
 		
 		try {
 			talking();
-		} catch (InterruptedException | ClassNotFoundException | IOException  e) {
+		} catch (InterruptedException | ClassNotFoundException | IOException e) {
 			//capire se devo gestire l'uscita dal popup o dalla mainPage
 			if(isOpenedPopup) {
 				popup.setErrorPopup("#EXIT");
@@ -120,6 +120,7 @@ public class Client extends Thread {
 		String answer = "";
 
 		while (true) {
+			isOpenedPopup = false;
 			do {
 				String tableName = "";
 				
