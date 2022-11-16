@@ -277,7 +277,7 @@ public class PopupController {
      */
 
     private void showPrediction() throws IOException {
-        showPredictionLoader = new FXMLLoader(getClass().getResource("../fxml/showPredictionPage.fxml"));
+        showPredictionLoader = new FXMLLoader(getClass().getResource("/fxml/showPredictionPage.fxml"));
         Parent root = showPredictionLoader.load();
         Stage stage = (Stage)valueField.getScene().getWindow();
         Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
@@ -317,7 +317,7 @@ public class PopupController {
      */
 
     private void openErrorPopup(String title, String subtitle) throws IOException {
-        FXMLLoader fxml = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/errorPage.fxml"));
         Stage stage = new Stage();
         Parent root = fxml.load();
         stage.setScene(new Scene(root));
@@ -338,7 +338,7 @@ public class PopupController {
      * @throws IOException
      */
     void handleSocketError(Stage popupStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/startPage.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root, parentStage.getWidth(), parentStage.getHeight());
         StartController newController = (StartController)loader.getController();

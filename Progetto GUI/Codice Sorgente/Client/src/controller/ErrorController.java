@@ -32,6 +32,7 @@ public class ErrorController {
     /**
      * Metodo che setta il contenuto della subtitleLabel.
      * 
+     * 
      * @param subtitleLabel - Nuovo contenuto della subtitleLabel
      */
     void setSubtitleLable(String subtitleLable) {

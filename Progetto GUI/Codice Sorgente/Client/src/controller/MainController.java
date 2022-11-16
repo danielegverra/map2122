@@ -350,7 +350,7 @@ public class MainController {
     private void openPopup(Stage parentStage) throws IOException, InterruptedException {
 		Parent root;
 		Stage stage = new Stage();
-		popupLoader = new FXMLLoader(getClass().getResource("../fxml/popupPage.fxml"));
+		popupLoader = new FXMLLoader(getClass().getResource("/fxml/popupPage.fxml"));
 		root = popupLoader.load();
 		stage.setScene(new Scene(root));
 		stage.initModality(Modality.APPLICATION_MODAL);
@@ -414,7 +414,7 @@ public class MainController {
 	 * @throws IOException
 	 */
 	private void openErrorPopup(String title, String subtitle) throws IOException {
-        FXMLLoader fxml = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/errorPage.fxml"));
         Stage stage = new Stage();
         Parent root = fxml.load();
         stage.setScene(new Scene(root));
@@ -436,7 +436,7 @@ public class MainController {
 	 * @throws IOException
 	 */
 	private void handleSocketError(Stage mainStage) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/startPage.fxml"));
 		Parent root = loader.load();
 		Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight());
 		StartController newController = (StartController)loader.getController();
