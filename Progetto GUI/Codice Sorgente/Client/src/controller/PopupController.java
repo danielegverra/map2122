@@ -280,7 +280,7 @@ public class PopupController {
         showPredictionLoader = new FXMLLoader(getClass().getResource("../fxml/showPredictionPage.fxml"));
         Parent root = showPredictionLoader.load();
         Stage stage = (Stage)valueField.getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
         getShowPredictionController().setPrediction(prediction);
         getShowPredictionController().setPopupController(this);
         getShowPredictionController().setParentScene(valueField.getScene());
@@ -340,7 +340,7 @@ public class PopupController {
     void handleSocketError(Stage popupStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, parentStage.getWidth(), parentStage.getHeight());
         StartController newController = (StartController)loader.getController();
 
         //definiamo le operazioni da compiere quando una dimensione della schermata viene modificata

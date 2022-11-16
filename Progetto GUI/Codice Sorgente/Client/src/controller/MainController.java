@@ -438,7 +438,7 @@ public class MainController {
 	private void handleSocketError(Stage mainStage) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/startPage.fxml"));
 		Parent root = loader.load();
-		Scene scene = new Scene(root);
+		Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight());
 		StartController newController = (StartController)loader.getController();
 
 		//definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
