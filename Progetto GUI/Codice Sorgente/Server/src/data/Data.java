@@ -116,7 +116,7 @@ public class Data implements Serializable {
 			}
 
 			//controllo che non ci siano meno example
-			if (iAttribute < getNumberOfExplanatoryAttributes()) {
+			if (iAttribute < size) {
 				sc.close();
 				throw new TrainingDataException("\nAttributi mancanti.");
 			}
