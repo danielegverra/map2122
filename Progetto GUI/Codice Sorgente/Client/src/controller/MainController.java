@@ -489,23 +489,23 @@ public class MainController {
 		titleLabel.setPrefWidth(width/2);
 		titleLabel.setPrefHeight(height/3);
 		
-		descriptionLabel.setStyle("-fx-font-size: " + size/25 + "; -fx-alignment: center");
+		descriptionLabel.setStyle("-fx-font-size: " + size/30 + "; -fx-alignment: center");
 		descriptionLabel.setPrefWidth(width/2);
 		descriptionLabel.setPrefHeight(height/6);
 		
-		buttonDescLabel.setStyle("-fx-font-size: " + size/25 + "; -fx-alignment: center");
+		buttonDescLabel.setStyle("-fx-font-size: " + size/30 + "; -fx-alignment: center");
 		buttonDescLabel.setPrefWidth(width/2);
 		buttonDescLabel.setPrefHeight(height/6);
 
-		fileButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
+		fileButton.setStyle("-fx-font-size: " + size/35 + "; -fx-background-color: #FFFFFF");
 		fileButton.setPrefHeight(height/10);
 		fileButton.setPrefWidth(width/5);
 
-		binaryButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
+		binaryButton.setStyle("-fx-font-size: " + size/35 + "; -fx-background-color: #FFFFFF");
 		binaryButton.setPrefHeight(height/10);
 		binaryButton.setPrefWidth(width/5);
 
-		dbButton.setStyle("-fx-font-size: " + size/25 + "; -fx-background-color: #FFFFFF");
+		dbButton.setStyle("-fx-font-size: " + size/35 + "; -fx-background-color: #FFFFFF");
 		dbButton.setPrefHeight(height/10);
 		dbButton.setPrefWidth(width/5);
 		
