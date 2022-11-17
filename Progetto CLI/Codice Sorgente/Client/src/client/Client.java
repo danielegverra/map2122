@@ -165,6 +165,7 @@ public class Client {
 	 * @param args - I parametri devono essere l'indirizzo IP e la porta del Server.
 	 */
 	public static void main(String[] args) {
+	
 
 		InetAddress addr;
 		try {

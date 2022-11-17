@@ -45,7 +45,7 @@
       </Label>
       <JFXButton fx:id="fileButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#decision" prefHeight="44.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-alignment: center;" text="File" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
          <font>
-            <Font size="16.0" />
+            <Font size="14.0" />
          </font>
          <effect>
             <DropShadow>
@@ -55,9 +55,9 @@
             </DropShadow>
          </effect>
       </JFXButton>
-      <JFXButton fx:id="binaryButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#decision" prefHeight="44.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-alignment: center;" text="File Binario" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
+      <JFXButton fx:id="binaryButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#decision" prefHeight="44.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-alignment: center;" text="File Binario" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
          <font>
-            <Font size="16.0" />
+            <Font size="14.0" />
          </font>
          <effect>
             <DropShadow>
@@ -67,9 +67,9 @@
             </DropShadow>
          </effect>
       </JFXButton>
-      <JFXButton fx:id="dbButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#decision" prefHeight="44.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-alignment: center;" text="Database" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
+      <JFXButton fx:id="dbButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#decision" prefHeight="44.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-alignment: center;" text="Database" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
          <font>
-            <Font size="16.0" />
+            <Font size="14.0" />
          </font>
          <effect>
             <DropShadow>

@@ -46,6 +46,7 @@ public class App extends Application {
             primaryStage.setScene(scene);            
             primaryStage.getIcons().add(new Image(App.class.getResourceAsStream("/fxml/1Icon.jpg")));
             primaryStage.show();
+            
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());

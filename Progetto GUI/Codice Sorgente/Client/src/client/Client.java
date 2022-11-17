@@ -69,6 +69,7 @@ public class Client extends Thread {
 	 *
 	 * @param address - Stringa che contiene l'indirizzo IP del Server.
 	 * @param port - Intero che indica la porta su cui è in ascolto il Server.
+	 * @param m - MainController della schermata legata al Client.
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */

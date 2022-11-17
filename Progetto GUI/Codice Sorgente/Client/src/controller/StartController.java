@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+
 import com.jfoenix.controls.JFXButton;
+
 import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -139,6 +141,8 @@ public class StartController {
 
     @FXML
     private void avviaClient(ActionEvent event) throws IOException {
+
+		
 		
 		try {
 			Integer PORT;
@@ -159,14 +163,16 @@ public class StartController {
 			}
 
 			//connessione e cambio scena
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/mainPage.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/mainPage.fxml"));
 			Parent root = loader.load();
+			
 			Client client = new Client(ipAddress, PORT, loader.getController());
 			Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
 			MainController newController = (MainController)loader.getController();
 
 			//definiamo le operazioni da compiere quando una dimensione della schermata viene modificata
+			
 			stage.heightProperty().addListener(new ChangeListener<Number>() {
 				public void changed(ObservableValue<? extends Number> value, Number number, Number t1) {
 					newController.resize(stage.getHeight(), stage.getWidth());
@@ -194,7 +200,7 @@ public class StartController {
             client.start();
 		}  catch (IOException | ClassNotFoundException | NumberFormatException e) {
 			System.out.println("--> Errore di connessione al Server");
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/errorPage.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/errorPage.fxml"));
 			Stage stage = new Stage();
 			Parent root = loader.load();
 			stage.setScene(new Scene(root));
@@ -204,7 +210,7 @@ public class StartController {
 			stage.show();
 
 		} 
-		
+			
     }
 
 	/**
