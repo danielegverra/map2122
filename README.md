@@ -14,6 +14,12 @@ Il calcolo della distanza k si differenzia in base alla natura dell’attributo:
 
 È necessario applicare un processo di scalatura per non avere risultati falsati in caso due valori siano troppo distanti numericamente tra loro.
 
+# Estensione: Progetto GUI
+
+Il gruppo ha scelto come estensione del progetto la realizzazione dell'interfaccia grafica per l'utilizzo del software utilizzando le librerie JavaFX e JFoenix. 
+
+Inoltre è stato impiegato il software SceneBuilder per la progettazione e realizzazione delle singole schermate.
+
 # Organizzazione delle cartelle
 
 La root directory del progetto è organizzata nel seguente modo:
