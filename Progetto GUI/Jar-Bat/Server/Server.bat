@@ -1,2 +1,2 @@
 @ECHO OFF
-java --enable-preview -jar Server.jar
+java --enable-preview -jar Server.jar 
